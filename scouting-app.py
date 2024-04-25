@@ -1,6 +1,8 @@
 from flask import Flask, render_template
+from livereload import Server
 
 app = Flask(__name__)
+app.debug = True
 
 @app.route("/")
 def home():
@@ -17,3 +19,7 @@ def login():
 @app.route("/register")
 def registration():
     return render_template("registration.html")
+
+server = Server(app.wsgi_app)
+server.watch("templates/*.*")
+server.serve(port=5000)
