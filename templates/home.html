@@ -5,10 +5,41 @@
 </head>
 <body>
 
-<h1>My First Heading</h1>
-<p>My first paragraph.</p>
+<a href="home" style="padding: 10px 20px; background-color: #007bff; color: #fff; text-decoration: none; border-radius: 5px;">EliteScouting</a>
+<p>Tournament Info</p>
 
-<input type="text">
+<button>Current Rankings</button>
+<br>
+<button>Completed Matches</button>
+<br>
+<button>All Team Metrics</button>
+
+<p>Team Info</p>
+<form>
+    <select id="dropdown" onchange="toggleButton(this.value)">
+        <option value="">Team #</option>
+        <option value="testTeam1">Test Team 1</option>
+        <option value="testTeam2">Test Team 2</option>
+      </select>
+      
+      <a href="anotherpage.html" id="button" class="button" style="display: none;">Stats</a>
+      
+      <script>
+        function toggleButton(value) {
+          const button = document.getElementById('button');
+          button.style.display = (value !== '') ? 'inline-block' : 'none';
+          button.style.pointerEvents = (value !== '') ? 'auto' : 'none';
+        }
+      </script>
+      
+      <a href="scoutingdash" style="padding: 10px 20px; background-color: #007bff; color: #fff; text-decoration: none; border-radius: 5px;">Upcoming Matches</a>
+
+<p>"Your Username"</p>
+<a href="scoutingdash" style="padding: 10px 20px; background-color: #007bff; color: #fff; text-decoration: none; border-radius: 5px;">Scouting Dashboard</a>
+<a href="drivedash" style="padding: 10px 20px; background-color: #007bff; color: #fff; text-decoration: none; border-radius: 5px;">Drive Team Dashboard</a>
+<a href="manage" style="padding: 10px 20px; background-color: #007bff; color: #fff; text-decoration: none; border-radius: 5px;">Team Management</a>
+
+
 
 </body>
 </html>

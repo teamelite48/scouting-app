@@ -5,6 +5,10 @@ app = Flask(__name__)
 app.debug = True
 
 @app.route("/")
+def base():
+    return render_template("base.html")
+
+@app.route("/home")
 def home():
     return render_template("home.html")
 
@@ -19,6 +23,19 @@ def login():
 @app.route("/register")
 def registration():
     return render_template("registration.html")
+
+@app.route("/manage")
+def management():
+    return render_template("manage.html")
+
+@app.route("/scoutingdash")
+def scoutingdashboard():
+    return render_template("scouting_dash.html")
+
+@app.route("/drivedash")
+def drivedashboard():
+    return render_template("drive_dash.html")
+
 
 server = Server(app.wsgi_app)
 server.watch("templates/*.*")

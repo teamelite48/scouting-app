@@ -5,7 +5,7 @@
 </head>
 <body>
 
-<h1>Test Stuff Lulz</h1>
+<a href="home" style="padding: 10px 20px; background-color: #007bff; color: #fff; text-decoration: none; border-radius: 5px;">EliteScouting</a>
 
 <label for="cars">More Testing:</label>
 
@@ -32,24 +32,6 @@
       alert("Button was clicked!"); 
     }); 
   </script> 
-
-<select id="dropdown" onchange="toggleButton()">
-  <option value="">Select an option</option>
-  <option value="option1">Option 1</option>
-  <option value="option2">Option 2</option>
-</select>
-
-<a href="anotherpage.html" id="button" class="button">Go to Another Webpage</a>
-
-<script>
-  function toggleButton() {
-    const dropdown = document.getElementById('dropdown');
-    const button = document.getElementById('button');
-    
-    button.disabled = (dropdown.value === 'option2');
-  }
-</script>
-
 
 </body>
 </html>
