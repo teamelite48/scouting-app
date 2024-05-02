@@ -23,5 +23,12 @@
         <button>Submit</button>
   </form>
 
+  <p>Previously saved data:</p>
+  <ul>
+    {% for key, value in user_data.items() %}
+      <li>{{ key }}: {{ value }}</li>
+    {% endfor %}
+  </ul>
+
 </body>
 </html>
