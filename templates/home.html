@@ -22,7 +22,7 @@
         <option value="testTeam2">Test Team 2</option>
       </select>
       
-      <a href="anotherpage.html" id="button" class="button" style="display: none;">Stats</a>
+      <a href="anotherpage.html" id="button" class="button" style="padding: 10px 20px; background-color: #007bff; color: #fff; text-decoration: none; border-radius: 5px;">Stats</a>
       
       <script>
         function toggleButton(value) {
@@ -39,7 +39,12 @@
 <a href="drivedash" style="padding: 10px 20px; background-color: #007bff; color: #fff; text-decoration: none; border-radius: 5px;">Drive Team Dashboard</a>
 <a href="manage" style="padding: 10px 20px; background-color: #007bff; color: #fff; text-decoration: none; border-radius: 5px;">Team Management</a>
 
-
+<p>Previously saved data:</p>
+<ul>
+  {% for key, value in user_data.items() %}
+    <li>{{ key }}: {{ value }}</li>
+  {% endfor %}
+</ul>
 
 </body>
 </html>
