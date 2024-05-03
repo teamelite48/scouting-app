@@ -19,6 +19,8 @@
 1. Start server: `flask --app scouting-app run --debug`
 1. Open URL: `localhost:5000`
 
+1. Full windows command: `py -3 -m venv .venv; .venv\Scripts\activate; flask --app scouting-app run --debug`
+
 ## Cleanup
 
 1. Stop server: `CTRL+C`
