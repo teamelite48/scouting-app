@@ -55,8 +55,6 @@ def list_forms():
 def new_form():
     return render_template("match_form.html")
 
-
-
 @app.route("/form", methods=["POST"])
 def save_form():
     
