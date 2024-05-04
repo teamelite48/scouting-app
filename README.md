@@ -16,7 +16,7 @@
 
 1. Install dependencies: `pip install -r requirements.txt`
 
-1. Start server: `flask --app scouting-app run --debug`
+1. Start server: `pymon scouting-app.py -p "*.html" -p "*.css" -p "*.js"`
 1. Open URL: `localhost:5000`
 
 ## Cleanup

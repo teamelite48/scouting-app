@@ -1,50 +1,44 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/livereload-js/3.1.0/livereload.min.js" integrity="sha512-D7Umi+FssAEJdeb9Os1EotGt2RAjxYAtQxfAXF/Pkg6GyHo72gn53qIbsclABgvZvWqlNzvDEAnQ/NfPh4oJiA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-</head>
-<body>
+{% extends "base.html" %}
 
-<a href="home" style="padding: 10px 20px; background-color: #007bff; color: #fff; text-decoration: none; border-radius: 5px;">EliteScouting</a>
-<p>Tournament Info</p>
+{% block content %}
+  <a href="home" style="padding: 10px 20px; background-color: #007bff; color: #fff; text-decoration: none; border-radius: 5px;">EliteScouting</a>
+  <p>Tournament Info</p>
 
-<button>Current Rankings</button>
-<br>
-<button>Completed Matches</button>
-<br>
-<button>All Team Metrics</button>
+  <button>Current Rankings</button>
+  <br>
+  <button>Completed Matches</button>
+  <br>
+  <button>All Team Metrics</button>
 
-<p>Team Info</p>
-<form>
-    <select id="dropdown" onchange="toggleButton(this.value)">
-        <option value="">Team #</option>
-        <option value="testTeam1">Test Team 1</option>
-        <option value="testTeam2">Test Team 2</option>
-      </select>
-      
-      <a href="anotherpage.html" id="button" class="button" style="padding: 10px 20px; background-color: #007bff; color: #fff; text-decoration: none; border-radius: 5px;">Stats</a>
-      
-      <script>
-        function toggleButton(value) {
-          const button = document.getElementById('button');
-          button.style.display = (value !== '') ? 'inline-block' : 'none';
-          button.style.pointerEvents = (value !== '') ? 'auto' : 'none';
-        }
-      </script>
-      
-      <a href="scoutingdash" style="padding: 10px 20px; background-color: #007bff; color: #fff; text-decoration: none; border-radius: 5px;">Upcoming Matches</a>
+  <p>Team Info</p>
+  <form>
+      <select id="dropdown" onchange="toggleButton(this.value)">
+          <option value="">Team #</option>
+          <option value="testTeam1">Test Team 1</option>
+          <option value="testTeam2">Test Team 2</option>
+        </select>
+        
+        <a href="anotherpage.html" id="button" class="button" style="padding: 10px 20px; background-color: #007bff; color: #fff; text-decoration: none; border-radius: 5px;">Stats</a>
+        
+        <script>
+          function toggleButton(value) {
+            const button = document.getElementById('button');
+            button.style.display = (value !== '') ? 'inline-block' : 'none';
+            button.style.pointerEvents = (value !== '') ? 'auto' : 'none';
+          }
+        </script>
+        
+        <a href="scoutingdash" style="padding: 10px 20px; background-color: #007bff; color: #fff; text-decoration: none; border-radius: 5px;">Upcoming Matches</a>
 
-<p>"Your Username"</p>
-<a href="scoutingdash" style="padding: 10px 20px; background-color: #007bff; color: #fff; text-decoration: none; border-radius: 5px;">Scouting Dashboard</a>
-<a href="drivedash" style="padding: 10px 20px; background-color: #007bff; color: #fff; text-decoration: none; border-radius: 5px;">Drive Team Dashboard</a>
-<a href="manage" style="padding: 10px 20px; background-color: #007bff; color: #fff; text-decoration: none; border-radius: 5px;">Team Management</a>
+  <p>"Your Username"</p>
+  <a href="scoutingdash" style="padding: 10px 20px; background-color: #007bff; color: #fff; text-decoration: none; border-radius: 5px;">Scouting Dashboard</a>
+  <a href="drivedash" style="padding: 10px 20px; background-color: #007bff; color: #fff; text-decoration: none; border-radius: 5px;">Drive Team Dashboard</a>
+  <a href="manage" style="padding: 10px 20px; background-color: #007bff; color: #fff; text-decoration: none; border-radius: 5px;">Team Management</a>
 
-<p>Previously saved data:</p>
-<ul>
-  {% for key, value in user_data.items() %}
-    <li>{{ key }}: {{ value }}</li>
-  {% endfor %}
-</ul>
-
-</body>
-</html>
+  <p>Previously saved data:</p>
+  <ul>
+    {% for key, value in user_data.items() %}
+      <li>{{ key }}: {{ value }}</li>
+    {% endfor %}
+  </ul>
+{% endblock %}

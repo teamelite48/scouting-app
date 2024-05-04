@@ -1,14 +1,13 @@
-from flask import Flask, render_template
-from livereload import Server
-
-app = Flask(__name__)
-app.debug = True
-
+from flask import Flask, render_template, request
+from flask_socketio import SocketIO, emit
 import pickle
 import os
-from flask import Flask, render_template, request
+
 app = Flask(__name__)
 app.debug = True
+
+socketio = SocketIO(app)
+
 user_data_file = "user_data.pickle"  # File to store user data
 
 def load_user_data():
@@ -29,7 +28,7 @@ def save_user_data(data):
     pickle.dump(data, f)
 user_data = load_user_data()  # Load data on startup
 
-@app.route("/home")
+@app.route("/")
 def home():
   return render_template("home.html", user_data=user_data)
 
@@ -41,12 +40,6 @@ def testhub():
     user_data.update(new_data)  # Update user data with new input
     save_user_data(user_data)  # Save updated data
   return render_template("testing.html", user_data=user_data)
-
-
-@app.route("/")
-def base():
-    return render_template("base.html")
-
 
 @app.route("/login")
 def login():
@@ -68,6 +61,8 @@ def scoutingdashboard():
 def drivedashboard():
     return render_template("drive_dash.html")
 
-server = Server(app.wsgi_app)
-server.watch("templates/*.*")
-server.serve(port=5000)
+@socketio.on('live reload')
+def handle_live_reload(message):
+    print(message)
+
+socketio.run(app)
