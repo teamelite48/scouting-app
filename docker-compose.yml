@@ -1,0 +1,10 @@
+services:
+
+  app:
+    image: python:3.12
+    ports:
+      - 5000:5000
+    volumes:
+      - ./:/app
+    working_dir: /app
+    entrypoint: ["bash", "-c", "pip install -r requirements.txt && watchmedo auto-restart --pattern='*.py;*.html;*.css;*.js' --recursive python3 scouting-app.py"]

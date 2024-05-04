@@ -2,24 +2,17 @@
 
 ## Requirements
 
-- Python 3.12.3
+One of the following:
+- [Docker Desktop](https://www.docker.com)
+- [Docker Engine](https://docs.docker.com/engine/install/)
+
 
 ## Getting Started 🚀
 
-1. Create environemnt:
-    - MacOS/Linux: `python3 -m venv .venv`
-    - Windows: `py -3 -m venv .venv`
-    
-1. Activate environment:
-    - MacOS/Linux: `. .venv/bin/activate`
-    - Windows: `.venv\Scripts\activate`
-
-1. Install dependencies: `pip install -r requirements.txt`
-
-1. Start server: `pymon scouting-app.py -p "*.html" -p "*.css" -p "*.js"`
-1. Open URL: `localhost:5000`
+1. Run `docker compose up` from project directory
+1. Open: [localhost:5000](http://localhost:5000)
 
 ## Cleanup
 
 1. Stop server: `CTRL+C`
-1. Deactivate environment: `deactivate`
+1. Stop contianers: `docker compose down`

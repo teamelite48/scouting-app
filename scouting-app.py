@@ -1,7 +1,9 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect
 from flask_socketio import SocketIO, emit
 import pickle
 import os
+from datetime import datetime
+import sys
 
 app = Flask(__name__)
 app.debug = True
@@ -9,6 +11,7 @@ app.debug = True
 socketio = SocketIO(app)
 
 user_data_file = "user_data.pickle"  # File to store user data
+forms = []
 
 def load_user_data():
   """Loads user data from pickle file if it exists, otherwise returns an empty dictionary."""
@@ -61,8 +64,32 @@ def scoutingdashboard():
 def drivedashboard():
     return render_template("drive_dash.html")
 
+@app.route("/form/list")
+def list_forms():
+    return render_template("form_list.html", submissions=forms)
+
+@app.route("/form", methods=['GET'])
+def new_form():
+    return render_template("match_form.html")
+
+@app.route("/form", methods=["POST"])
+def save_form():
+
+    forms.append(request.form)
+
+    print()
+    print(str(forms))
+    print()
+
+    return redirect("/form/list")
+
 @socketio.on('live reload')
 def handle_live_reload(message):
-    print(message)
+    log(message)
 
-socketio.run(app)
+def log(message):
+    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    print(timestamp + ": " + message)
+    sys.stdout.flush()
+
+socketio.run(app, host="0.0.0.0", allow_unsafe_werkzeug=True, use_reloader=False)
