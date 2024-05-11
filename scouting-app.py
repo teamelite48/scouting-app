@@ -65,4 +65,4 @@ def drivedashboard():
 def handle_live_reload(message):
     print(message)
 
-socketio.run(app)
+socketio.run(app, host="0.0.0.0", allow_unsafe_werkzeug=True)

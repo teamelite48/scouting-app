@@ -1,17 +1,13 @@
 services:
+
   devcontainer:
     image: python:3.12
-    working_dir: /app
     ports:
       - 5000:5000
-    # build:
-    #   dockerfile: ./Dockerfile
     volumes:
       - ../:/app
-    # network_mode: service:db
-    # command: sleep infinity
-    command: "pip install -r requirements.txt && pymon scouting-app.py"
-    # restart: unless-stopped
+    working_dir: /app
+    entrypoint: ["bash", "-c", "pip install -r requirements.txt && python3 scouting-app.py"]
 
 #   db:
 #     image: postgres:latest
