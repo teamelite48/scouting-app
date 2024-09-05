@@ -1,11 +1,101 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <h1>Add Scouter</h1>
+  <h1>Match Form</h1>
 
   <form method="POST">
-    <label for="scoutname">Name:</label><br>
-    <input type="text" id="scoutname" name="scoutname"><br>
+
+    <!-- <div class="mb-1">
+      <label for="exampleInputEmail1" class="form-label">Email address</label>
+      <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+      <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+    </div>
+    
+    <div class="mb-3">
+      <label for="exampleInputPassword1" class="form-label">Password</label>
+      <input type="password" class="form-control" id="exampleInputPassword1">
+    </div>
+    
+    <div class="mb-3 form-check">
+      <input type="checkbox" class="form-check-input" id="exampleCheck1">
+      <label class="form-check-label" for="exampleCheck1">Check me out</label>
+    </div> -->
+    <hr>
+    <h5>Pre-Match Info</h5>
+
+    <div class="mb-3">
+      <label for="scoutname" class="form-label">Scouter Name</label>
+      <input type="text" id="scoutname" name="scoutname" class="form-control">
+    </div>
+
+    <div class="mb-3">
+      <label for="startpos" class="form-label">Starting Position</label>
+      <select id="startpos" class="form-select" aria-label="What is their starting position">
+        <option value="1" selected>Not There</option>
+        <option value="2">Source</option>
+        <option value="3">Middle of Speaker</option>
+        <option value="4">Amp Side</option>
+      </select>
+    </div>
+
+    <hr>
+    <h5>Autonomous</h5>
+
+    <div class="mb-3">
+      <label for="leavestartingpos" class="form-label">Did they leave the starting zone?</label>
+      <select id="leavestartingpos" class="form-select" aria-label="Did they leave the starting zone?">
+        <option value="1" selected>No</option>
+        <option value="2">Yes</option>
+        <option value="3">Attempted</option>
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label for="midlinecollect" class="form-label">Collected note from mid-line?</label>
+      <select id="midlinecollect" class="form-select" aria-label="Did they collect a note from the mid-line?">
+        <option value="1" selected>No</option>
+        <option value="2" >Yes</option>
+        <option value="3">Attempted</option>
+        <option value="4">Ready for Teleop</option>
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label for="midlinetime" class="form-label">How much time was on the clock when they reached a center note?</label>
+      <input type="range" class="form-range" min="0" max="15" step="1" id="midlinetime" value="0" oninput="updateMidLineTime(this.value)">
+      <div id="midlinetimevalue" class="text-center">0 seconds</div>
+    </div>
+    
+
+    
+
+    <!-- Midline Collect?: Select
+    How much time on the clock when they reached midline: Time slider
+    Notes scored x4: counter
+
+    Did they pick up from source?: Checkbox
+    What is their intake?: Select
+    Did they drive under stage?: Select
+    Was coopertition made?: Checkbox
+    Notes scored x4: Counter
+
+    Time on clock start/stop hanging: Time slider
+
+    Trap scores: Counter
+    Stage status: Select
+
+    General note stuff
+
+    Other comments: Text -->
+
+  
+
     <button>Submit</button>
   </form>
+
+  <script>
+    function updateMidLineTime(val) {
+      document.getElementById("midlinetimevalue").innerText = val + " seconds"
+    }
+  </script>
 {% endblock %}
