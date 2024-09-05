@@ -24,7 +24,7 @@ def load_user_data():
       return {}
   else:
     return {}
-  
+
 def save_user_data(data):
   """Saves user data to pickle file."""
   with open(user_data_file, "wb") as f:
@@ -68,11 +68,11 @@ def drivedashboard():
 def list_forms():
     return render_template("form_list.html", submissions=forms)
 
-@app.route("/form", methods=['GET'])
+@app.route("/match", methods=['GET'])
 def new_form():
-    return render_template("match_form.html")
+    return render_template("match.html")
 
-@app.route("/form", methods=["POST"])
+@app.route("/match", methods=["POST"])
 def save_form():
 
     forms.append(request.form)
