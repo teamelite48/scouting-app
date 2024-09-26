@@ -65,15 +65,18 @@
       <input type="range" class="form-range" min="0" max="15" step="1" id="midlinetime" value="0" oninput="updateMidLineTime(this.value)">
       <div id="midlinetimevalue" class="text-center">0 seconds</div>
     </div>
-    
-    <div class="d-grid gap-2 col-6 mx-auto">
-      <button class="btn btn-primary">Submit</button>
+
+    <div class="input-group mb-3">
+      <button class="btn btn-outline-secondary" type="button" onclick="decreaseValue('autoScore')">-</button>
+      <input value="0" type="text" id="autoScore" readonly class="form-control" placeholder="" aria-label="Example text with two button addons">
+      <button class="btn btn-outline-secondary" type="button" onclick="increaseValue('autoScore')" >+</button>
     </div>
 
+    <div class="d-grid gap-2 col-6 mx-auto"></div>
+      <button class="btn btn-primary" type="button">Submit</button>
+    </div>
 
-    <!-- Notes scored x4: counter
-
-    Did they pick up from source?: Checkbox
+    <!-- Did they pick up from source?: Checkbox
     What is their intake?: Select
     Did they drive under stage?: Select
     Was coopertition made?: Checkbox
@@ -89,9 +92,25 @@
     Other comments: Text -->
   </form>
 
+ <!-- Slider Script -->
   <script>
     function updateMidLineTime(val) {
       document.getElementById("midlinetimevalue").innerText = val + " seconds"
     }
   </script>
+
+  <script>
+    function increaseValue(id) {
+      var element = document.getElementById(id);
+      element.value= +element.value + 1
+    }
+    function decreaseValue(id) {
+      var element = document.getElementById(id)
+      if (+element.value === 0) return
+      element.value= +element.value - 1
+    }
+  </script>
+
+
+
 {% endblock %}
