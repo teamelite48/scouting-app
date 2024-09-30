@@ -1,0 +1,1 @@
+web: gunicorn scouting-app:app
