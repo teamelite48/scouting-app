@@ -5,26 +5,11 @@
 
   <form method="POST">
 
-    <!-- <div class="mb-1">
-      <label for="exampleInputEmail1" class="form-label">Email address</label>
-      <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-      <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
-    </div>
-    
-    <div class="mb-3">
-      <label for="exampleInputPassword1" class="form-label">Password</label>
-      <input type="password" class="form-control" id="exampleInputPassword1">
-    </div>
-    
-    <div class="mb-3 form-check">
-      <input type="checkbox" class="form-check-input" id="exampleCheck1">
-      <label class="form-check-label" for="exampleCheck1">Check me out</label>
-    </div> -->
     <hr>
     <h5>Pre-Match Info</h5>
 
     <div class="mb-3">
-      <label for="scoutname" class="form-label">Scouter Name</label>
+      <label for="scoutname" class="form-label">Name of Scouter</label>
       <input type="text" id="scoutname" name="scoutname" class="form-control">
     </div>
 
@@ -62,43 +47,219 @@
 
     <div class="mb-3">
       <label for="midlinetime" class="form-label">How much time was on the clock when they reached a center note?</label>
-      <input type="range" class="form-range" min="0" max="15" step="1" id="midlinetime" value="0" oninput="updateMidLineTime(this.value)">
+      <input type="range" class="form-range" min="0" max="15" step="1" id="midlinetime" value="0" oninput="sliderupdate(this.value)">
       <div id="midlinetimevalue" class="text-center">0 seconds</div>
+    </div>
+    
+    <h6>Auto Notes</h6>
+
+    <div class="mb-3">
+      <label for="autoAmpScore" class="form-label">Amp Notes SCORED</label>
     </div>
 
     <div class="input-group mb-3">
-      <button class="btn btn-outline-secondary" type="button" onclick="decreaseValue('autoScore')">-</button>
-      <input value="0" type="text" id="autoScore" readonly class="form-control" placeholder="" aria-label="Example text with two button addons">
-      <button class="btn btn-outline-secondary" type="button" onclick="increaseValue('autoScore')" >+</button>
+      <button class="btn btn-outline-secondary" type="button" onclick="decreaseValue('autoAmpScore')">-</button>
+      <input value="0" type="text" id="autoAmpScore" readonly class="form-control">
+      <button class="btn btn-outline-secondary" type="button" onclick="increaseValue('autoAmpScore')" >+</button>
     </div>
 
+    <div class="mb-3">
+      <label for="autoAmpMisses" class="form-label">Amp Notes MISSED</label>
+    </div>
+
+    <div class="input-group mb-3">
+      <button class="btn btn-outline-secondary" type="button" onclick="decreaseValue('autoAmpMisses')">-</button>
+      <input value="0" type="text" id="autoAmpMisses" readonly class="form-control">
+      <button class="btn btn-outline-secondary" type="button" onclick="increaseValue('autoAmpMisses')" >+</button>
+    </div>
+
+    <div class="mb-3">
+      <label for="autoSpeakerScore" class="form-label">Speaker Notes SCORED</label>
+    </div>
+
+    <div class="input-group mb-3">
+      <button class="btn btn-outline-secondary" type="button" onclick="decreaseValue('autoAmpScore')">-</button>
+      <input value="0" type="text" id="autoSpeakerScore" readonly class="form-control">
+      <button class="btn btn-outline-secondary" type="button" onclick="increaseValue('autoAmpScore')" >+</button>
+    </div>
+
+    <div class="mb-3">
+      <label for="autoSpeakerMisses" class="form-label">Speaker Notes MISSED</label>
+    </div>
+
+    <div class="input-group mb-3">
+      <button class="btn btn-outline-secondary" type="button" onclick="decreaseValue('autoSpeakerMisses')">-</button>
+      <input value="0" type="text" id="autoSpeakerMisses" readonly class="form-control">
+      <button class="btn btn-outline-secondary" type="button" onclick="increaseValue('autoSpeakerMisses')" >+</button>
+    </div>
+
+    <hr>
+    <h5>Teleop</h5>
+
+    <div class="mb-3">
+      <input class="form-check-input" type="checkbox" value="" id="SourcePickup">
+      <label class="form-check-label" for="SourcePickup">
+        Did they pick up from the Source?
+      </label>
+    </div>
+    
+    <div class="mb-3">
+      <label for="intake" class="form-label">What is their intake?</label>
+      <select id="intake" class="form-select" aria-label="What is their intake?">
+        <option value="1" selected>Does not pick up from floor</option>
+        <option value="2">Over the Bumper</option>
+        <option value="3">Under the Bumper</option>
+      </select>
+    </div>
+
+    <div class="mb-3"></div>
+      <input class="form-check-input" type="checkbox" value="" id="UnderStage">
+      <label class="form-check-label" for="UnderStage">
+        Did they drive under the stage?
+      </label>
+    </div>
+
+    <h6>Teleop Notes</h6>
+
+    <div class="mb-3">
+      <label for="teleopAmpScore" class="form-label">Amp Notes SCORED</label>
+    </div>
+
+    <div class="input-group mb-3">
+      <button class="btn btn-outline-secondary" type="button" onclick="decreaseValue('teleopAmpScore')">-</button>
+      <input value="0" type="text" id="teleopAmpScore" readonly class="form-control">
+      <button class="btn btn-outline-secondary" type="button" onclick="increaseValue('teleopAmpScore')" >+</button>
+    </div>
+
+    <div class="mb-3">
+      <label for="teleopAmpMisses" class="form-label">Amp Notes MISSED</label>
+    </div>
+
+    <div class="input-group mb-3">
+      <button class="btn btn-outline-secondary" type="button" onclick="decreaseValue('teleopAmpMisses')">-</button>
+      <input value="0" type="text" id="teleopAmpMisses" readonly class="form-control">
+      <button class="btn btn-outline-secondary" type="button" onclick="increaseValue('teleopAmpMisses')" >+</button>
+    </div>
+
+    <div class="mb-3">
+      <label for="teleopSpeakerScore" class="form-label">Speaker Notes SCORED</label>
+    </div>
+
+    <div class="input-group mb-3">
+      <button class="btn btn-outline-secondary" type="button" onclick="decreaseValue('teleopAmpScore')">-</button>
+      <input value="0" type="text" id="teleopSpeakerScore" readonly class="form-control">
+      <button class="btn btn-outline-secondary" type="button" onclick="increaseValue('teleopAmpScore')" >+</button>
+    </div>
+
+    <div class="mb-3">
+      <label for="teleopSpeakerMisses" class="form-label">Speaker Notes MISSED</label>
+    </div>
+
+    <div class="input-group mb-3">
+      <button class="btn btn-outline-secondary" type="button" onclick="decreaseValue('teleopSpeakerMisses')">-</button>
+      <input value="0" type="text" id="teleopSpeakerMisses" readonly class="form-control">
+      <button class="btn btn-outline-secondary" type="button" onclick="increaseValue('teleopSpeakerMisses')" >+</button>
+    </div>
+
+    <h5>Endgame</h5>
+
+    <div class="mb-3"></div>
+      <label for="starthang" class="form-label">How much time was on the clock when they started hanging?</label>
+      <input type="range" class="form-range" min="0" max="15" step="1" id="starthang" value="0" oninput="sliderupdate(this.value)">
+      <div id="starthangvalue" class="text-center">0 seconds</div>
+    </div>
+
+    <div class="mb-3"></div>
+      <label for="stophang" class="form-label">How much time was on the clock when they stopped hanging?</label>
+      <input type="range" class="form-range" min="0" max="15" step="1" id="stophang" value="0" oninput="sliderupdate(this.value)">
+      <div id="stophangvalue" class="text-center">0 seconds</div>
+    </div>
+
+    <div class="mb-3"></div>
+      <label for="TrapScore" class="form-label">Notes Scored in trap (Max 3)</label>
+    </div>
+
+    <div class="input-group mb-3">
+      <button class="btn btn-outline-secondary" type="button" onclick="decreaseValue('TrapScore')">-</button>
+      <input value="0" type="text" id="TrapScore" readonly class="form-control">
+      <button class="btn btn-outline-secondary" type="button" onclick="increaseValue('TrapScore')" >+</button>
+    </div>
+
+    <div class="mb-3"></div>
+      <label for="intake" class="form-label">Stage Status of robot at end of match</label>
+      <select id="intake" class="form-select" aria-label="Stage Status of robot at end of match">
+        <option value="1" selected>Not Parked</option>
+        <option value="2">Parked</option>
+        <option value="3">Stage Attempted</option>
+        <option value="4">On Stage</option>
+        <option value="5">Hung with 1 Robot</option>
+        <option value="6">Hung with 2 Robots</option>
+      </select>
+    </div>
+
+    <hr>
+    <h5>General Notes</h5>
+
+    <div class="mb-3"></div>
+      <input class="form-check-input" type="checkbox" value="" id="FellOver">
+      <label class="form-check-label" for="FellOver">
+        Did they fall over?
+      </label>
+    </div>
+
+    <div class="mb-3"></div>
+      <input class="form-check-input" type="checkbox" value="" id="StoppedWorking">
+      <label class="form-check-label" for="StoppedWorking">
+        Did they stop working?
+      </label>
+    </div>
+
+    <div class="mb-3"></div>
+      <input class="form-check-input" type="checkbox" value="" id="UnstableDriving">
+      <label class="form-check-label" for="UnstableDriving">
+        Did they have unstable Driving?
+      </label>
+    </div>
+    
+    <div class="mb-3"></div>
+      <input class="form-check-input" type="checkbox" value="" id="TurnedOff">
+      <label class="form-check-label" for="TurnedOff">
+        Were they turned off by the head ref?
+      </label>
+    </div>
+    
+    <div class="mb-3"></div>
+      <input class="form-check-input" type="checkbox" value="" id="ConnectionIssues">
+      <label class="form-check-label" for="ConnectionIssues">
+        Did they have connection issues?
+      </label>
+    </div>
+    
+    <div class="mb-3"></div>
+      <input class="form-check-input" type="checkbox" value="" id="GoodDefense">
+      <label class="form-check-label" for="GoodDefense">
+        Did they have good defense?
+      </label>
+    </div>
+    
+    <div class="mb-3">
+      <label for="Comments" class="form-label">Other comments and notes</label>
+      <textarea class="form-control" id="Comments" rows="3"></textarea>
+    </div>
+    
     <div class="d-grid gap-2 col-6 mx-auto"></div>
-      <button class="btn btn-primary" type="button">Submit</button>
-    </div>
+    <button class="btn btn-primary" type="button">Submit</button>
+  </div>
 
-    <!-- Did they pick up from source?: Checkbox
-    What is their intake?: Select
-    Did they drive under stage?: Select
-    Was coopertition made?: Checkbox
-    Notes scored x4: Counter
-
-    Time on clock start/stop hanging: Time slider
-
-    Trap scores: Counter
-    Stage status: Select
-
-    General note stuff
-
-    Other comments: Text -->
   </form>
 
  <!-- Slider Script -->
   <script>
-    function updateMidLineTime(val) {
+    function sliderupdate(val) {
       document.getElementById("midlinetimevalue").innerText = val + " seconds"
     }
   </script>
-
+  <!-- Counter Script -->
   <script>
     function increaseValue(id) {
       var element = document.getElementById(id);
