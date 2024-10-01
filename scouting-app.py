@@ -32,7 +32,7 @@ def save_user_data(data):
 user_data = load_user_data()  # Load data on startup
 
 @app.route("/")
-def home():
+def base():
   return render_template("home.html", user_data=user_data)
 
 @app.route("/testing", methods=["GET", "POST"])
