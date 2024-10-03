@@ -1,3 +1,4 @@
+from pymongo import MongoClient
 from flask import Flask, render_template, request, redirect
 from flask_socketio import SocketIO, emit
 import pickle
@@ -73,15 +74,25 @@ def new_form():
     return render_template("match.html")
 
 @app.route("/match", methods=["POST"])
-def save_form():
+def save_match():
 
-    forms.append(request.form)
+  print(str(request.form))
 
-    print()
-    print(str(forms))
-    print()
+  uri = "mongodb://mongo:mongo@db:27017/"
+  client = MongoClient(uri)
 
-    return redirect("/form/list")
+  db = client.get_database("scouting_app")
+  matches = db.get_collection("2024_matches")
+
+  form = request.form
+
+  matches.insert_one({
+     "scouter_name": form.get("scouter_name"),
+  })
+
+  client.close()
+
+  return redirect("/match")
 
 @socketio.on('live reload')
 def handle_live_reload(message):
