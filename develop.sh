@@ -1,23 +1,29 @@
 #!/bin/bash
 
-function try_open_app {
+SCRIPT_PATH=$(dirname `which $0`)
+
+function open_ui {
 
   wget -q -O /dev/null "http://localhost:5000" 2>&1 >/dev/null
 
-  if [[ $? -eq 0 ]]; then
-    google-chrome "http://localhost:5000"
-  else
-    sleep 1
-    try_open_app
-  fi
+  while true; do
+    if [[ $? -eq 0 ]]; then
+      google-chrome "http://localhost:5000"
+      break
+    else
+      sleep 1
+    fi
+  done
 }
+
+cd $SCRIPT_PATH
 
 cd docker
 sudo docker compose up -d
 cd ..
 
 mongodb-compass &
-try_open_app &
+open_ui &
 python3 -m venv .venv
 . .venv/bin/activate
 pip install -r requirements.txt
