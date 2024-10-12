@@ -1,15 +1,21 @@
 from pymongo import MongoClient
 
+from config import CONFIG
 
-uri = "mongodb://mongo:mongo@db:27017/"
+
+def find_one(collection, query):
+  return _db_operation(collection, lambda db: db.find_one(query))
 
 def insert_one(collection, document):
   return _db_operation(collection, lambda db: db.insert_one(document))
 
+def update_one(collection, id, properties):
+  return _db_operation(collection, lambda db: db.update_one({ "_id": id }, { "$set": properties }))
+
 
 def _db_operation(collection, operation):
 
-  client = MongoClient(uri)
+  client = MongoClient(CONFIG.MONGO_URI)
   db = client.get_database("scouting_app")
 
   result = operation(db.get_collection(collection))
