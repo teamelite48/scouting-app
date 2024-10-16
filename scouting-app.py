@@ -6,7 +6,7 @@ from flask_socketio import SocketIO
 from config import CONFIG
 from data import matches
 from data import users
-from lib.log import log
+from utils.log import log
 
 login_manager = LoginManager()
 
