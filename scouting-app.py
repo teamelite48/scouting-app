@@ -84,7 +84,33 @@ def save_match():
   form = request.form
 
   matches.add({
-    "scouter_name": form.get("scouter_name")
+    "scouter_name": form.get("scouter_name"),
+    "starting_position": form.get("starting_position"),
+    "left_starting_zone": form.get("left_starting_zone"),
+    "midline_collected": form.get("midline_collected"),
+    "midline_time": form.get("midline_time"),
+    "auto_amp_score": form.get("auto_amp_score"),
+    "auto_amp_misses": form.get("auto_amp_misses"),
+    "auto_speaker_score": form.get("auto_speaker_score"),
+    "auto_speaker_misses": form.get("auto_speaker_misses"),
+    "source": form.get("source"),
+    "intake": form.get("intake"),
+    "under_stage": form.get("under_stage"),
+    "teleop_amp_score": form.get("teleop_amp_score"),
+    "teleop_amp_misses": form.get("teleop_amp_misses"),
+    "teleop_speaker_score": form.get("teleop_speaker_score"),
+    "teleop_speaker_misses": form.get("teleop_speaker_misses"),
+    "start_hang": form.get("start_hang"),
+    "stop_hang": form.get("stop_hang"),
+    "trap_score": form.get("trap_score"),
+    "end_of_match_state": form.get("end_of_match_state"),
+    "fell_over": form.get("fell_over"),
+    "stopped_working": form.get("stopped_working"),
+    "unstable_driving": form.get("unstable_driving"),
+    "turned_off": form.get("turned_off"),
+    "connection_issues": form.get("connection_issues"),
+    "good_defense": form.get("good_defense"),
+    "comments": form.get("comments")
   })
 
   return render_template("match.html")

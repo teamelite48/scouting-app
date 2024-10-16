@@ -1,5 +1,5 @@
 from data import db
-from lib.log import log
+from utils.log import log
 
 
 collection = "users"
