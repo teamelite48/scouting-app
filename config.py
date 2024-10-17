@@ -1,5 +1,4 @@
 import os
-import secrets
 
 
 _PROD = os.environ.get("ENVIRONMENT") == "Prod"
@@ -8,8 +7,8 @@ class ProdConfig:
   def __init__(self):
     self.DEBUG = False
     self.PROD = _PROD
-    self.MONGO_URI = os.environ('MONGO_URI')
-    self.SECRET_KEY = secrets.token_hex()
+    self.MONGO_URI = os.environ.get("MONGO_URI")
+    self.SECRET_KEY = os.environ.get("SECRET_KEY")
 
 class LocalConfig:
   def __init__(self):
