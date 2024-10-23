@@ -3,6 +3,9 @@ from pymongo import MongoClient
 from config import CONFIG
 
 
+def find(collection, query={}):
+  return _db_operation(collection, lambda db: db.find(query).to_list())
+
 def find_one(collection, query):
   return _db_operation(collection, lambda db: db.find_one(query))
 

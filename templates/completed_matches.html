@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Hello</h1>
+
+<table class="table">
+    <thead>
+      <tr>
+        {% for col in matches[1].keys() %}
+            <th scope="col">{{col}}</th>
+        {% endfor %}
+      </tr>
+    </thead>
+    <tbody>
+    {% for match in matches %}
+    <tr>
+        {% for data in match %}
+            <td>{{match.get(data)}}</td>
+        {% endfor %}
+    </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+
+{% endblock %}s

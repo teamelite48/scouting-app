@@ -7,7 +7,7 @@ try:
   db = client.get_database("scouting_app")
   matches = db.get_collection("2024_matches")
 
-  match = matches.find_one()
+  match = matches.find().to_list()
 
   print(match)
 
