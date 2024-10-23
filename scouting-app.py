@@ -76,6 +76,11 @@ def home_page():
 def match_page():
     return render_template("match.html")
 
+@app.route("/completed_matches", methods=['GET'])
+@login_required
+def completed_matches():
+    return render_template("completed_matches.html", matches=matches.getAll())
+
 
 @app.route("/match", methods=["POST"])
 @login_required
@@ -83,7 +88,7 @@ def save_match():
 
   form = request.form
 
-  matches.add({
+  matches.save({
     "scouter_name": form.get("scouter_name"),
     "starting_position": form.get("starting_position"),
     "left_starting_zone": form.get("left_starting_zone"),
