@@ -14,8 +14,12 @@
     <tbody>
     {% for match in matches %}
     <tr>
+        <td><a href="/match/{{ match.get('_id') }}">{{ match.get("_id") }}</a></td>
+
         {% for data in match %}
+          {% if not loop.first %}
             <td>{{match.get(data)}}</td>
+          {% endif %}
         {% endfor %}
     </tr>
     {% endfor %}
