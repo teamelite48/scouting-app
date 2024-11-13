@@ -1,4 +1,6 @@
 {% extends "base.html" %}
+{% from "components.html" import select with context %}
+{% from "components.html" import text_input with context %}
 
 {% block content %}
   <h1>Match Form</h1>
@@ -8,20 +10,9 @@
     <hr>
     <h5>Pre-Match Info</h5>
 
-    <div class="mb-3">
-      <label for="scoutname" class="form-label">Name of Scouter</label>
-      <input type="text" id="scoutname" name="scouter_name" class="form-control" value="{{ vm.scouter_name }}">
-    </div>
+    {{ text_input("scouter_name", "Name of Scouter", vm.scouter_name)}}
 
-    <div class="mb-3">
-      <label for="startpos" class="form-label">Starting Position</label>
-      <select id="startpos" name="starting_position" class="form-select" aria-label="What is their starting position">
-        <option value="1" selected>Not There</option>
-        <option value="2">Source</option>
-        <option value="3">Middle of Speaker</option>
-        <option value="4">Amp Side</option>
-      </select>
-    </div>
+    {{ select("starting_position", "Starting Position", vm.starting_position_options, vm.starting_postion )}}
 
     <hr>
     <h5>Autonomous</h5>

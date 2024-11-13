@@ -1,0 +1,35 @@
+{% macro select(id, label, options, selected_key) %}
+  <div class="mb-3">
+    <label for="{{id}}" class="form-label">{{label}}</label>
+    <select id="{{id}}" name="{{id}}" class="form-select">
+      {% for o in options %}
+        <option value="{{o.key}}" {% if o.key == selected_key %} selected="selected"{% endif %}>
+          {{o.value}}
+        </option>
+      {% endfor %}
+    </select>
+  </div>
+{% endmacro %}
+
+{% macro text_input(id, label, value) %}
+  <div class="mb-3">
+    <label for="{{id}}" class="form-label">{{label}}</label>
+    <input type="text" id="{{id}}" name="{{id}}" class="form-control" value="{{value}}">
+  </div>
+{% endmacro %}
+
+
+{% macro slider(id, label, min, max, step, value) %}
+  <div class="mb-3">
+    <label for="{{id}}" class="form-label">{{label}}</label>
+    <input type="range" name="midline_time" class="form-range" min="{{min}}" max="{{max}}" step="{{step}}" id="{{step}}" value="{{value}}" oninput="updateSlider(this.value)">
+    <div id="slider_text" class="text-center">{{value}}</div>
+  </div>
+
+
+  <script>
+    function updateSlider(value) {
+      var element = document.getElementById('slider_text').innerText = value
+    }
+  </script>
+{% endmacro %}

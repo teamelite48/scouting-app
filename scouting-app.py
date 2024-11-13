@@ -71,17 +71,24 @@ def home_page():
   return render_template("home.html", user_data={})
 
 
-@app.route("/match/new", methods=['GET'])
+@app.route("/form/new", methods=['GET'])
 @login_required
 def new_match():
 
     vm = {
         "scouter_name": "",
+        "starting_position": "1",
+        "starting_position_options": [
+            { "key": "1", "value": "Not There" },
+            { "key": "2", "value": "Source" },
+            { "key": "3", "value": "Middle of Speakers"},
+            { "key": "4", "value": "Amp Side"}
+        ]
     }
 
     return render_template("match.html", vm=vm)
 
-@app.route("/match/new", methods=["POST"])
+@app.route("/form/new", methods=["POST"])
 @login_required
 def save_match():
 
@@ -119,7 +126,7 @@ def save_match():
 
   return redirect("/completed_matches")
 
-@app.route("/match/<id>", methods=['GET'])
+@app.route("/form/<id>", methods=['GET'])
 @login_required
 def load_match(id):
 
@@ -131,7 +138,7 @@ def load_match(id):
 
     return render_template("match.html", vm=vm)
 
-@app.route("/match/<id>", methods=["POST"])
+@app.route("/form/<id>", methods=["POST"])
 @login_required
 def update_match(id):
 
