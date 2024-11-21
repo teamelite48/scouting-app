@@ -19,17 +19,10 @@
 {% endmacro %}
 
 
-{% macro slider(id, label, min, max, step, value) %}
+{% macro slider(id, label, min, max, step, value, units) %}
   <div class="mb-3">
     <label for="{{id}}" class="form-label">{{label}}</label>
-    <input type="range" name="midline_time" class="form-range" min="{{min}}" max="{{max}}" step="{{step}}" id="{{step}}" value="{{value}}" oninput="updateSlider(this.value)">
-    <div id="slider_text" class="text-center">{{value}}</div>
+    <input type="range" id="{{id}}" name="{{id}}" class="form-range" min="{{min}}" max="{{max}}" step="{{step}}" id="{{step}}" value="{{value}}" oninput="updateSlider('{{id}}', this.value, 'seconds')">
+    <div id="{{id}}_value" class="text-center">{{value}} {{units}}</div>
   </div>
-
-
-  <script>
-    function updateSlider(value) {
-      var element = document.getElementById('slider_text').innerText = value
-    }
-  </script>
 {% endmacro %}

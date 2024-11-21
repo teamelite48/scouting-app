@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% from "components.html" import select with context %}
 {% from "components.html" import text_input with context %}
+{% from "components.html" import slider with context %}
 
 {% block content %}
   <h1>Match Form</h1>
@@ -36,11 +37,7 @@
       </select>
     </div>
 
-    <div class="mb-3">
-      <label for="midlinetime" class="form-label">How much time was on the clock when they reached a center note?</label>
-      <input type="range" name="midline_time" class="form-range" min="0" max="15" step="1" id="midlinetime" value="0" oninput="updateSlider('midlinetimevalue', this.value)">
-      <div id="midlinetimevalue" class="text-center">0 seconds</div>
-    </div>
+    {{ slider("midline_time", "How much time was on the clock when they reached a center note?", 0, 15, 1, vm.midline_time, "seconds") }}
 
     <h6>Auto Notes</h6>
 
@@ -244,8 +241,9 @@
 </form>
 
 <script>
-  function updateSlider(id,value) {
-    var element = document.getElementById(id).innerText = value + " seconds"
+
+  function updateSlider(id, value, units) {
+    var element = document.getElementById(id + "_value").innerText = value + " " + (units || "")
   }
 
   function increaseCounter(id) {
