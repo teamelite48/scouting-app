@@ -83,7 +83,8 @@ def new_match():
             { "key": "2", "value": "Source" },
             { "key": "3", "value": "Middle of Speakers"},
             { "key": "4", "value": "Amp Side"}
-        ]
+        ],
+        "midline_time": 0
     }
 
     return render_template("match.html", vm=vm)
