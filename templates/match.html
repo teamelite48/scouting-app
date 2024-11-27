@@ -18,24 +18,9 @@
     <hr>
     <h5>Autonomous</h5>
 
-    <div class="mb-3">
-      <label for="leavestartingzone" class="form-label">Did they leave the starting zone?</label>
-      <select id="leavestartingzone" name="left_starting_zone" class="form-select" aria-label="Did they leave the starting zone?">
-        <option value="1" selected>No</option>
-        <option value="2">Yes</option>
-        <option value="3">Attempted</option>
-      </select>
-    </div>
+    {{ select("left_start", "Did they leave the starting zone?", vm.left_start_options, vm.left_start )}}
 
-    <div class="mb-3">
-      <label for="midlinecollect" class="form-label">Collected note from mid-line?</label>
-      <select id="midlinecollect" name="midline_collected" class="form-select" aria-label="Did they collect a note from the mid-line?">
-        <option value="1" selected>No</option>
-        <option value="2" >Yes</option>
-        <option value="3">Attempted</option>
-        <option value="4">Ready for Teleop</option>
-      </select>
-    </div>
+    {{ select("midline_collect", "Collected note from mid-line?", vm.midline_collect_options, vm.midline_collect )}}
 
     {{ slider("midline_time", "How much time was on the clock when they reached a center note?", 0, 15, 1, vm.midline_time, "seconds") }}
 
@@ -151,17 +136,9 @@
 
     <h5>Endgame</h5>
 
-    <div class="mb-3">
-      <label for="starthang" class="form-label">How much time was on the clock when they started hanging?</label>
-      <input type="range" name="start_hang" class="form-range" min="0" max="45" step="1" id="starthang" value="0" oninput="updateSlider('starthangvalue', this.value)">
-      <div id="starthangvalue" class="text-center">0 seconds</div>
-    </div>
+    {{ slider("starthang", "How much time was on the clock when they started hanging?", 0, 45, 1, vm.starthang_time, "seconds") }}
 
-    <div class="mb-3">
-      <label for="stophang" class="form-label">How much time was on the clock when they stopped hanging?</label>
-      <input type="range" name="stop_hang" class="form-range" min="0" max="45" step="1" id="stophang" value="0" oninput="updateSlider('stophangvalue', this.value)">
-      <div id="stophangvalue" class="text-center">0 seconds</div>
-    </div>
+    {{ slider("midline_time", "How much time was on the clock when they stopped hanging?", 0, 45, 1, vm.stophang_time, "seconds") }}
 
     <div class="mb-3">
       <label for="TrapScore" class="form-label">Notes Scored in trap</label>

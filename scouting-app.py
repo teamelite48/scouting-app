@@ -84,7 +84,22 @@ def new_match():
             { "key": "3", "value": "Middle of Speakers"},
             { "key": "4", "value": "Amp Side"}
         ],
-        "midline_time": 0
+        "starting_position": 1,
+        "left_start_options": [
+            { "key": "1", "value": "No" },
+            { "key": "2", "value": "Yes" },
+            { "key": "3", "value": "Attempted"}
+        ],
+        "midline_collect": 1,
+        "midline_collect_options": [
+            { "key": "1", "value": "No" },
+            { "key": "2", "value": "Yes" },
+            { "key": "3", "value": "Attempted"},
+            { "key": "4", "value": "Ready for Teleop"}
+        ],
+        "midline_time": 0,
+        "starthang_time": 0,
+        "stophang_time": 0
     }
 
     return render_template("match.html", vm=vm)
