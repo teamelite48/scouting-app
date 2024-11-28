@@ -14,7 +14,7 @@
     <tbody>
     {% for match in matches %}
     <tr>
-        <td><a href="/form/{{ match.get('_id') }}">{{ match.get("_id") }}</a></td>
+        <td><a href="/form/2024/{{ match.get('_id') }}">{{ match.get("_id") }}</a></td>
 
         {% for data in match %}
           {% if not loop.first %}

@@ -5,6 +5,7 @@
 {% from "components.html" import counter with context %}
 {% from "components.html" import checkbox with context %}
 {% from "components.html" import header with context %}
+{% from "components.html" import button with context %}
 
 {% block content %}
   <h1>Match Form</h1>
@@ -79,5 +80,6 @@
 
     {{ text_input("comments", "Other Notes or Comments", vm.comments) }}
 
+    {{ button("Submit Form", "submit" )}}
 </form>
 {% endblock %}

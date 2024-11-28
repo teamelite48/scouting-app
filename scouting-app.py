@@ -71,9 +71,9 @@ def home_page():
   return render_template("home.html", user_data={})
 
 
-@app.route("/form/new", methods=['GET'])
+@app.route("/form/2024/new", methods=['GET'])
 @login_required
-def new_match():
+def new_2024_form():
 
     vm = {
         "scouter_name": "",
@@ -115,14 +115,14 @@ def new_match():
             { "key": "5", "value": "Hung with 1 Robot" },
             { "key": "6", "value": "Hung with 2 Robots"}
         ],
-        "comments": "",
+        "comments": ""
     }
 
-    return render_template("match.html", vm=vm)
+    return render_template("2024_form.html", vm=vm)
 
-@app.route("/form/new", methods=["POST"])
+@app.route("/form/2024/new", methods=["POST"])
 @login_required
-def save_match():
+def save_2024_form():
 
   form = request.form
 
@@ -158,9 +158,9 @@ def save_match():
 
   return redirect("/completed_matches")
 
-@app.route("/form/<id>", methods=['GET'])
+@app.route("/form/2024/<id>", methods=['GET'])
 @login_required
-def load_match(id):
+def load_2024_form(id):
 
     match = matches.get(id)
 
@@ -168,11 +168,11 @@ def load_match(id):
         "scouter_name": match.get("scouter_name"),
     }
 
-    return render_template("match.html", vm=vm)
+    return render_template("2024_form.html", vm=vm)
 
-@app.route("/form/<id>", methods=["POST"])
+@app.route("/form/2024/<id>", methods=["POST"])
 @login_required
-def update_match(id):
+def update_2024_form(id):
 
   form = request.form
 
