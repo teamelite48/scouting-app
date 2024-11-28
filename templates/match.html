@@ -2,239 +2,82 @@
 {% from "components.html" import select with context %}
 {% from "components.html" import text_input with context %}
 {% from "components.html" import slider with context %}
+{% from "components.html" import counter with context %}
+{% from "components.html" import checkbox with context %}
+{% from "components.html" import header with context %}
 
 {% block content %}
   <h1>Match Form</h1>
 
   <form method="POST">
 
-    <hr>
-    <h5>Pre-Match Info</h5>
+    {{ header("Pre-Match Info", 4, True) }}
 
-    {{ text_input("scouter_name", "Name of Scouter", vm.scouter_name)}}
+    {{ text_input("scouter_name", "Name of Scouter", vm.scouter_name ) }}
 
-    {{ select("starting_position", "Starting Position", vm.starting_position_options, vm.starting_postion )}}
+    {{ select("starting_position", "Starting Position", vm.starting_position_options, vm.starting_postion ) }}
 
-    <hr>
-    <h5>Autonomous</h5>
+    {{ header("Autonomous", 4, True) }}
 
-    {{ select("left_start", "Did they leave the starting zone?", vm.left_start_options, vm.left_start )}}
+    {{ select("left_start", "Did they leave the starting zone?", vm.left_start_options, vm.left_start ) }}
 
-    {{ select("midline_collect", "Collected note from mid-line?", vm.midline_collect_options, vm.midline_collect )}}
+    {{ select("midline_collect", "Collected note from mid-line?", vm.midline_collect_options, vm.midline_collect ) }}
 
-    {{ slider("midline_time", "How much time was on the clock when they reached a center note?", 0, 15, 1, vm.midline_time, "seconds") }}
+    {{ slider("midline_time", "How much time was on the clock when they reached a center note?", 0, 15, 1, vm.midline_time, "seconds" ) }}
 
-    <h6>Auto Notes</h6>
+    {{ header("Auto Notes", 6, False) }}
 
-    <div class="mb-3">
-      <label for="autoAmpScore" class="form-label">Amp Notes SCORED</label>
-    </div>
+    {{ counter("auto_amp_score", "Amp Notes SCORED", 0, 1000, vm.auto_amp_score ) }}
 
-    <div class="input-group mb-3">
-      <button class="btn btn-outline-secondary" type="button" onclick="decreaseCounter('autoAmpScore')">-</button>
-      <input value="0" type="text" min="0" name="auto_amp_score" id="autoAmpScore" readonly class="form-control">
-      <button class="btn btn-outline-secondary" type="button" onclick="increaseCounter('autoAmpScore')" >+</button>
-    </div>
+    {{ counter("auto_amp_misses", "Amp Notes MISSED", 0, 1000, vm.auto_amp_misses ) }}
 
-    <div class="mb-3">
-      <label for="autoAmpMisses" class="form-label">Amp Notes MISSED</label>
-    </div>
+    {{ counter("auto_speaker_score", "Speaker Notes SCORED", 0, 1000, vm.auto_speaker_score ) }}
 
-    <div class="input-group mb-3">
-      <button class="btn btn-outline-secondary" type="button" onclick="decreaseCounter('autoAmpMisses')">-</button>
-      <input value="0" min="0" type="text" name="auto_amp_misses" id="autoAmpMisses" readonly class="form-control">
-      <button class="btn btn-outline-secondary" type="button" onclick="increaseCounter('autoAmpMisses')" >+</button>
-    </div>
+    {{ counter("auto_speaker_misses", "Speaker Notes MISSED", 0, 1000, vm.auto_speaker_misses ) }}
 
-    <div class="mb-3">
-      <label for="autoSpeakerScore" class="form-label">Speaker Notes SCORED</label>
-    </div>
+    {{ header("Teleop", 4, True) }}
 
-    <div class="input-group mb-3">
-      <button class="btn btn-outline-secondary" type="button" onclick="decreaseCounter('autoSpeakerScore')">-</button>
-      <input value="0" min="0" type="text" name="auto_speaker_score" id="autoSpeakerScore" readonly class="form-control">
-      <button class="btn btn-outline-secondary" type="button" onclick="increaseCounter('autoSpeakerScore')" >+</button>
-    </div>
+    {{ checkbox("source_pickup", "Did they pick up from the source?", vm.source_pickup ) }}
 
-    <div class="mb-3">
-      <label for="autoSpeakerMisses" class="form-label">Speaker Notes MISSED</label>
-    </div>
+    {{ select("intake", "What is their intake?", vm.intake_options, vm.intake ) }}
 
-    <div class="input-group mb-3">
-      <button class="btn btn-outline-secondary" type="button" onclick="decreaseCounter('autoSpeakerMisses')">-</button>
-      <input value="0" min="0" type="text" name="auto_speaker_misses" id="autoSpeakerMisses" readonly class="form-control">
-      <button class="btn btn-outline-secondary" type="button" onclick="increaseCounter('autoSpeakerMisses')" >+</button>
-    </div>
+    {{ checkbox("under_stage", "Did they drive under the stage?", vm.under_stage) }}
 
-    <hr>
-    <h5>Teleop</h5>
+    {{ header("Teleop Notes", 6, False) }}
 
-    <div class="mb-3">
-      <input class="form-check-input" name="source" type="checkbox" value="" id="SourcePickup">
-      <label class="form-check-label" for="SourcePickup">
-        Did they pick up from the Source?
-      </label>
-    </div>
+    {{ counter("teleop_amp_score", "Amp Notes SCORED", 0, 1000, vm.teleop_amp_score) }}
 
-    <div class="mb-3">
-      <label for="intake" class="form-label">What is their intake?</label>
-      <select id="intake" name="intake" class="form-select" aria-label="What is their intake?">
-        <option value="1" selected>Does not pick up from floor</option>
-        <option value="2">Over the Bumper</option>
-        <option value="3">Under the Bumper</option>
-      </select>
-    </div>
+    {{ counter("teleop_amp_misses", "Amp Notes MISSED", 0, 1000, vm.teleop_amp_misses) }}
 
-    <div class="mb-3">
-      <input class="form-check-input" name="under_stage" type="checkbox" value="" id="UnderStage">
-      <label class="form-check-label" for="UnderStage">
-        Did they drive under the stage?
-      </label>
-    </div>
+    {{ counter("teleop_speaker_score", "Speaker Notes SCORED", 0, 1000, vm.teleop_speaker_score) }}
 
-    <h6>Teleop Notes</h6>
+    {{ counter("teleop_speaker_misses", "Speaker Notes MISSED", 0, 1000, vm.teleop_speaker_misses) }}
 
-    <div class="mb-3">
-      <label for="teleopAmpScore" class="form-label">Amp Notes SCORED</label>
-    </div>
+    {{ header("Endgame", 4, True) }}
 
-    <div class="input-group mb-3">
-      <button class="btn btn-outline-secondary" type="button" onclick="decreaseCounter('teleopAmpScore')">-</button>
-      <input value="0" min="0" type="text" name="teleop_amp_score" id="teleopAmpScore" readonly class="form-control">
-      <button class="btn btn-outline-secondary" type="button" onclick="increaseCounter('teleopAmpScore')" >+</button>
-    </div>
+    {{ slider("start_hang", "How much time was on the clock when they started hanging?", 0, 45, 1, vm.starthang_time, "seconds") }}
 
-    <div class="mb-3">
-      <label for="teleopAmpMisses" class="form-label">Amp Notes MISSED</label>
-    </div>
+    {{ slider("stop_hang", "How much time was on the clock when they stopped hanging?", 0, 45, 1, vm.stophang_time, "seconds") }}
 
-    <div class="input-group mb-3">
-      <button class="btn btn-outline-secondary" type="button" onclick="decreaseCounter('teleopAmpMisses')">-</button>
-      <input value="0" min="0" type="text" name="teleop_amp_misses" id="teleopAmpMisses" readonly class="form-control">
-      <button class="btn btn-outline-secondary" type="button" onclick="increaseCounter('teleopAmpMisses')" >+</button>
-    </div>
+    {{ counter("trap_score", "Trap Notes SCORED", 0, 3, vm.trap_score) }}
 
-    <div class="mb-3">
-      <label for="teleopSpeakerScore" class="form-label">Speaker Notes SCORED</label>
-    </div>
+    {{ select("end_status", "Did they Park?", vm.end_status_options, vm.end_status )}}
 
-    <div class="input-group mb-3">
-      <button class="btn btn-outline-secondary" type="button" onclick="decreaseCounter('teleopSpeakerScore')">-</button>
-      <input value="0" min="0" name="teleop_speaker_score" type="text" id="teleopSpeakerScore" readonly class="form-control">
-      <button class="btn btn-outline-secondary" type="button" onclick="increaseCounter('teleopSpeakerScore')" >+</button>
-    </div>
+    {{ header("General Notes", 4, True) }}
 
-    <div class="mb-3">
-      <label for="teleopSpeakerMisses" class="form-label">Speaker Notes MISSED</label>
-    </div>
+    {{ checkbox("fell_over", "Did they Fall Over?", vm.fell_over) }}
 
-    <div class="input-group mb-3">
-      <button class="btn btn-outline-secondary" type="button" onclick="decreaseCounter('teleopSpeakerMisses')">-</button>
-      <input value="0" min="0" type="text" name="teleop_speaker_misses" id="teleopSpeakerMisses" readonly class="form-control">
-      <button class="btn btn-outline-secondary" type="button" onclick="increaseCounter('teleopSpeakerMisses')" >+</button>
-    </div>
+    {{ checkbox("stopped_working", "Did they Stop Working?", vm.stopped_working) }}
 
-    <h5>Endgame</h5>
+    {{ checkbox("unstable_driving", "Did they have Unstable Driving?", vm.unstable_driving) }}
 
-    {{ slider("starthang", "How much time was on the clock when they started hanging?", 0, 45, 1, vm.starthang_time, "seconds") }}
+    {{ checkbox("turned_off", "Were they Turned Off?", vm.turned_off) }}
 
-    {{ slider("midline_time", "How much time was on the clock when they stopped hanging?", 0, 45, 1, vm.stophang_time, "seconds") }}
+    {{ checkbox("connection_issues", "Did they have Connection Issues?", vm.connection_issues) }}
 
-    <div class="mb-3">
-      <label for="TrapScore" class="form-label">Notes Scored in trap</label>
-    </div>
+    {{ checkbox("good_defense", "Did they have Good Defense?", vm.good_defense) }}
 
-    <div class="input-group mb-3">
-      <button class="btn btn-outline-secondary" type="button" onclick="decreaseCounter('TrapScore')">-</button>
-      <input value="0" min="0" name="trap_score" type="text" min="0" max="3" id="TrapScore" readonly class="form-control">
-      <button class="btn btn-outline-secondary" type="button" onclick="increaseCounter('TrapScore')" >+</button>
-    </div>
+    {{ text_input("comments", "Other Notes or Comments", vm.comments) }}
 
-    <div class="mb-3">
-      <label for="intake" class="form-label">Stage Status of robot at end of match</label>
-      <select id="intake" name="end_of_match_state" class="form-select" aria-label="Stage Status of robot at end of match">
-        <option value="1" selected>Not Parked</option>
-        <option value="2">Parked</option>
-        <option value="3">Stage Attempted</option>
-        <option value="4">On Stage</option>
-        <option value="5">Hung with 1 Robot</option>
-        <option value="6">Hung with 2 Robots</option>
-      </select>
-    </div>
-
-    <hr>
-    <h5>General Notes</h5>
-
-    <div class="mb-3">
-      <input class="form-check-input" name="fell_over" type="checkbox" id="FellOver">
-      <label class="form-check-label" for="FellOver">
-        Did they fall over?
-      </label>
-    </div>
-
-    <div class="mb-3">
-      <input class="form-check-input" name="stopped_working" type="checkbox" id="StoppedWorking">
-      <label class="form-check-label" for="StoppedWorking">
-        Did they stop working?
-      </label>
-    </div>
-
-    <div class="mb-3">
-      <input class="form-check-input" name="unstable_driving" type="checkbox" id="UnstableDriving">
-      <label class="form-check-label" for="UnstableDriving">
-        Did they have unstable Driving?
-      </label>
-    </div>
-
-    <div class="mb-3">
-      <input class="form-check-input" name="turned_off" type="checkbox" id="TurnedOff">
-      <label class="form-check-label" for="TurnedOff">
-        Were they turned off by the head ref?
-      </label>
-    </div>
-
-    <div class="mb-3">
-      <input class="form-check-input" name="connection_issues" type="checkbox" id="ConnectionIssues">
-      <label class="form-check-label" for="ConnectionIssues">
-        Did they have connection issues?
-      </label>
-    </div>
-
-    <div class="mb-3">
-      <input class="form-check-input" name="good_defense" type="checkbox"x id="GoodDefense">
-      <label class="form-check-label" for="GoodDefense">
-        Did they have good defense?
-      </label>
-    </div>
-
-    <div class="mb-3">
-      <label for="Comments" class="form-label">Other comments and notes</label>
-      <textarea class="form-control" name="comments" id="Comments" rows="3"></textarea>
-    </div>
-
-    <div class="d-grid gap-2 col-6 mx-auto">
-    <button class="btn btn-primary" type="submit">Submit</button>
-  </div>
 </form>
-
-<script>
-
-  function updateSlider(id, value, units) {
-    var element = document.getElementById(id + "_value").innerText = value + " " + (units || "")
-  }
-
-  function increaseCounter(id) {
-    var element = document.getElementById(id);
-    if (element.value === element.max) return
-    element.value= +element.value + 1
-  }
-
-  function decreaseCounter(id) {
-    var element = document.getElementById(id)
-    if (element.value === element.min) return
-    element.value= +element.value - 1
-  }
-</script>
-
-
 {% endblock %}

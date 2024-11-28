@@ -98,8 +98,24 @@ def new_match():
             { "key": "4", "value": "Ready for Teleop"}
         ],
         "midline_time": 0,
+        "intake": 1,
+        "intake_options": [
+            { "key": "1", "value": "Does not pick up from the floor"},
+            { "key": "2", "value": "Over the Bumper"},
+            { "key": "3", "value": "Under the Bumper"}
+        ],
         "starthang_time": 0,
-        "stophang_time": 0
+        "stophang_time": 0,
+        "end_status": 1,
+        "end_status_options": [
+            { "key": "1", "value": "Not Parked"},
+            { "key": "2", "value": "Parked"},
+            { "key": "3", "value": "Stage Attempted"},
+            { "key": "4", "value": "On Stage" },
+            { "key": "5", "value": "Hung with 1 Robot" },
+            { "key": "6", "value": "Hung with 2 Robots"}
+        ],
+        "comments": "",
     }
 
     return render_template("match.html", vm=vm)

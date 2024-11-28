@@ -18,6 +18,27 @@
   </div>
 {% endmacro %}
 
+{% macro counter(id, label, min, max, value) %}
+  <label for="autoAmpScore" class="form-label">{{label}}</label>
+  <div class="input-group mb-3">
+      <button class="btn btn-outline-secondary" type="button" onclick="decreaseCounter('{{id}}')">-</button>
+      <input value="0" type="text" min="{{min}}" max="{{max}}" name="{{id}}" id="{{id}}" readonly class="form-control">
+      <button class="btn btn-outline-secondary" type="button" onclick="increaseCounter('{{id}}')" >+</button>
+    </div>
+    <script>
+      function increaseCounter(id) {
+        var element = document.getElementById(id);
+        if (element.value === element.max) return
+        element.value= +element.value + 1
+      }
+
+      function decreaseCounter(id) {
+        var element = document.getElementById(id)
+        if (element.value === element.min) return
+        element.value= +element.value - 1
+      }
+    </script>
+{% endmacro %}
 
 {% macro slider(id, label, min, max, step, value, units) %}
   <div class="mb-3">
@@ -25,4 +46,46 @@
     <input type="range" id="{{id}}" name="{{id}}" class="form-range" min="{{min}}" max="{{max}}" step="{{step}}" id="{{step}}" value="{{value}}" oninput="updateSlider('{{id}}', this.value, 'seconds')">
     <div id="{{id}}_value" class="text-center">{{value}} {{units}}</div>
   </div>
+
+  <script>
+    function updateSlider(id, value, units) {
+      var element = document.getElementById(id + "_value").innerText = value + " " + (units || "")
+    }
+  </script>
+{% endmacro %}
+
+{% macro checkbox(id, label, checked) %}
+  <div class="mb-3">
+    <input class="form-check-input" name="{{id}}" type="checkbox" id="{{id}}" {% if checked == True %} checked {% endif %}>
+    <label class="form-check-label" for="{{id}}">
+      {{label}}
+    </label>
+  </div>
+{% endmacro %}
+
+{% macro button(label, type, value) %}
+  <div class="d-grid gap-2 col-6 mx-auto">
+    <button class="btn btn-primary" type="{{type}}">{{label}}</button>
+  </div>
+{% endmacro %}
+
+{% macro text_area(id, label, rows, value) %}
+  <label for="{{id}}">{{label}}</label>
+
+  <textarea id="{{id}}" name="{{id}}" rows="{{rows}}">
+    {{value}}
+  </textarea>
+{% endmacro %}
+
+{% macro header(label, size, break) %}
+
+  {% if break == True %}<hr>{% endif %}
+
+  {% if size == 1 %}<h1>{{label}}</h1>{% endif %}
+  {% if size == 2 %}<h2>{{label}}</h2>{% endif %}
+  {% if size == 3 %}<h3>{{label}}</h3>{% endif %}
+  {% if size == 4 %}<h4>{{label}}</h4>{% endif %}
+  {% if size == 5 %}<h5>{{label}}</h5>{% endif %}
+  {% if size == 6 %}<h6>{{label}}</h6>{% endif %}
+
 {% endmacro %}
