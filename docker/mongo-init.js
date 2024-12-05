@@ -4,12 +4,14 @@ app = db.getSiblingDB("scouting_app");
 
 app.createCollection("2024_matches");
 app.createCollection("users");
+app.createCollection("scouters");
 
 matches = app.getCollection("2024_matches");
 
 matches.insertOne({
   "scouter_name": "Elite Scouter",
-  "age": 48
+  "age": 48,
+  "created_on": "2024-12-05 00:34:01.721103"
 });
 
 users = app.getCollection("users");
@@ -30,4 +32,9 @@ users.insertOne({
   "authenticated": false
 })
 
+scouters= app.getCollection("scouters")
+
+scouters.insertOne({
+  "name": "test scouter"
+})
 print('🏁 Finished seeding MongoDB');
