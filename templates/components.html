@@ -19,10 +19,10 @@
 {% endmacro %}
 
 {% macro counter(id, label, min, max, value) %}
-  <label for="autoAmpScore" class="form-label">{{label}}</label>
+  <label for="{{id}}" class="form-label">{{label}}</label>
   <div class="input-group mb-3">
       <button class="btn btn-outline-secondary" type="button" onclick="decreaseCounter('{{id}}')">-</button>
-      <input value="0" type="text" min="{{min}}" max="{{max}}" name="{{id}}" id="{{id}}" readonly class="form-control">
+      <input value="{{value}}" type="text" min="{{min}}" max="{{max}}" name="{{id}}" id="{{id}}" readonly class="form-control">
       <button class="btn btn-outline-secondary" type="button" onclick="increaseCounter('{{id}}')" >+</button>
     </div>
     <script>
@@ -56,7 +56,7 @@
 
 {% macro checkbox(id, label, checked) %}
   <div class="mb-3">
-    <input class="form-check-input" name="{{id}}" type="checkbox" id="{{id}}" {% if checked == True %} checked {% endif %}>
+    <input class="form-check-input" name="{{id}}" type="checkbox" id="{{id}}" {% if checked == "on" %} checked {% endif %}>
     <label class="form-check-label" for="{{id}}">
       {{label}}
     </label>

@@ -16,13 +16,13 @@
 
     {{ text_input("scouter_name", "Name of Scouter", vm.scouter_name ) }}
 
-    {{ select("starting_position", "Starting Position", vm.starting_position_options, vm.starting_postion ) }}
+    {{ select("starting_position", "Starting Position", vm.options.starting_position, vm.starting_position ) }}
 
     {{ header("Autonomous", 4, True) }}
 
-    {{ select("left_start", "Did they leave the starting zone?", vm.left_start_options, vm.left_start ) }}
+    {{ select("left_start", "Did they leave the starting zone?", vm.options.left_start, vm.left_start ) }}
 
-    {{ select("midline_collect", "Collected note from mid-line?", vm.midline_collect_options, vm.midline_collect ) }}
+    {{ select("midline_collect", "Collected note from mid-line?", vm.options.midline_collect, vm.midline_collect ) }}
 
     {{ slider("midline_time", "How much time was on the clock when they reached a center note?", 0, 15, 1, vm.midline_time, "seconds" ) }}
 
@@ -40,7 +40,7 @@
 
     {{ checkbox("source_pickup", "Did they pick up from the source?", vm.source_pickup ) }}
 
-    {{ select("intake", "What is their intake?", vm.intake_options, vm.intake ) }}
+    {{ select("intake", "What is their intake?", vm.options.intake, vm.intake ) }}
 
     {{ checkbox("under_stage", "Did they drive under the stage?", vm.under_stage) }}
 
@@ -56,13 +56,13 @@
 
     {{ header("Endgame", 4, True) }}
 
-    {{ slider("start_hang", "How much time was on the clock when they started hanging?", 0, 45, 1, vm.starthang_time, "seconds") }}
+    {{ slider("start_hang", "How much time was on the clock when they started hanging?", 0, 45, 1, vm.start_hang, "seconds") }}
 
-    {{ slider("stop_hang", "How much time was on the clock when they stopped hanging?", 0, 45, 1, vm.stophang_time, "seconds") }}
+    {{ slider("stop_hang", "How much time was on the clock when they stopped hanging?", 0, 45, 1, vm.stop_hang, "seconds") }}
 
     {{ counter("trap_score", "Trap Notes SCORED", 0, 3, vm.trap_score) }}
 
-    {{ select("end_status", "Did they Park?", vm.end_status_options, vm.end_status )}}
+    {{ select("end_status", "Did they Park?", vm.options.end_status, vm.end_status )}}
 
     {{ header("General Notes", 4, True) }}
 
