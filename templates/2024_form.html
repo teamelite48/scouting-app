@@ -14,7 +14,9 @@
 
     {{ header("Pre-Match Info", 4, True) }}
 
-    {{ text_input("scouter_name", "Name of Scouter", vm.scouter_name ) }}
+    {{ text_input("match_number", "Match Number", vm.match_number)}}
+
+    {{ select("scouter", "Name of Scouter", vm.options.scouters, vm.scouter ) }}
 
     {{ select("starting_position", "Starting Position", vm.options.starting_position, vm.starting_position ) }}
 
