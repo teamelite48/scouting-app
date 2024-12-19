@@ -1,0 +1,36 @@
+{% from "components.html" import header with context %}
+{% from "components.html" import button with context %}
+
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Hello</h1>
+
+<form action="/form/2024/new" method="get">
+  {{ button("Scout a Match", "submit" )}}
+</form>
+
+<table class="table">
+    <thead>
+      <tr>
+        {% for col in forms[0].keys() %}
+            <th scope="col">{{col}}</th>
+        {% endfor %}
+      </tr>
+    </thead>
+    <tbody>
+    {% for form in forms %}
+    <tr>
+        <td><a href="/form/2024/{{ form.get('_id') }}">{{ form.get("_id") }}</a></td>
+
+        {% for data in form %}
+          {% if not loop.first %}
+            <td>{{form.get(data)}}</td>
+          {% endif %}
+        {% endfor %}
+    </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+
+{% endblock %}

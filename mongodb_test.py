@@ -5,11 +5,11 @@ client = MongoClient(uri)
 
 try:
   db = client.get_database("scouting_app")
-  matches = db.get_collection("2024_matches")
+  forms = db.get_collection("2024_forms")
 
-  match = matches.find().to_list()
+  form = forms.find().to_list()
 
-  print(match)
+  print(form)
 
   client.close()
 
