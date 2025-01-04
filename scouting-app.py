@@ -113,11 +113,14 @@ def home_page():
   return redirect("/scouting_dashboard")
 
 
+def get_bag():
+    return {
+        "current_user": current_user.username
+    }
+
 @app.route("/form/2024/new", methods=['GET'])
 @login_required
 def new_2024_form():
-
-
 
     vm = {
         "match_number": "",
@@ -134,7 +137,7 @@ def new_2024_form():
 
 
 
-    return render_template("2024_form.html", vm=vm)
+    return render_template("2024_form.html", vm=vm, bag=get_bag())
 
 @app.route("/form/2024/new", methods=["POST"])
 @login_required
@@ -217,7 +220,7 @@ def load_2024_form(id):
       "options": get_form_options()
     }
 
-    return render_template("2024_form.html", vm=vm)
+    return render_template("2024_form.html", vm=vm, bag=get_bag())
 
 @app.route("/form/2024/<id>", methods=["POST"])
 @login_required
@@ -266,7 +269,7 @@ def scouting_dashboard():
 
     sorted_forms = sorted(forms.getAll(), key=itemgetter("created_on"), reverse=True)
 
-    return render_template("scouting_dashboard.html", forms=sorted_forms)
+    return render_template("scouting_dashboard.html", forms=sorted_forms, bag=get_bag())
 
 
 if CONFIG.PROD == False:
