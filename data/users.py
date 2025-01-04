@@ -10,7 +10,6 @@ class User():
     self.id = user["_id"]
     self.username = user["username"]
     self.password = user["password"]
-    self.full_name = user["full_name"]
     self.admin = user["admin"]
     self.authenticated = user["authenticated"]
 
