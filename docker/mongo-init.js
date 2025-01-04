@@ -4,7 +4,7 @@ app = db.getSiblingDB("scouting_app");
 
 app.createCollection("2024_forms");
 app.createCollection("users");
-app.createCollection("scouters");
+app.createCollection("teams");
 
 forms = app.getCollection("2024_forms");
 
@@ -17,9 +17,23 @@ forms.insertOne({
 users = app.getCollection("users");
 
 users.insertOne({
-  "username": "elite",
+  "username": "A",
   "password": "$2b$12$Lao7omDmMROC8wewoi9LmOrKsEJI/2Z75D802ILccBbhJmwIT3oxu", // team0048
-  "full_name": "Elite Scouter",
+  "admin": false,
+  "authenticated": false
+});
+
+users.insertOne({
+  "username": "B",
+  "password": "$2b$12$Lao7omDmMROC8wewoi9LmOrKsEJI/2Z75D802ILccBbhJmwIT3oxu", // team0048
+  "admin": false,
+  "authenticated": false
+});
+
+
+users.insertOne({
+  "username": "C",
+  "password": "$2b$12$Lao7omDmMROC8wewoi9LmOrKsEJI/2Z75D802ILccBbhJmwIT3oxu", // team0048
   "admin": false,
   "authenticated": false
 });
@@ -27,14 +41,19 @@ users.insertOne({
 users.insertOne({
   "username": "admin",
   "password": "$2b$12$GYboYCKQv1skkPKpwX7SzeP/deJLC5Unjsfb7tAnllQcmGK3NVjcS", // admin
-  "full_name": "Admin",
   "admin": true,
   "authenticated": false
 })
 
-scouters= app.getCollection("scouters")
+teams= app.getCollection("teams")
 
-scouters.insertOne({
-  "name": "test scouter"
+teams.insertOne({
+  "name": "test team 1"
 })
+
+teams.insertOne({
+  "name": "test team 2"
+})
+
+
 print('🏁 Finished seeding MongoDB');

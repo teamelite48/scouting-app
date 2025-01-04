@@ -5,7 +5,7 @@ from flask_login import LoginManager, current_user, login_required, login_user, 
 from flask_socketio import SocketIO
 from config import CONFIG
 from data import forms
-from data import scouters
+from data import teams
 from data import users
 from utils.log import log
 import datetime
@@ -26,7 +26,7 @@ login_manager.login_view = "login"
 
 def get_form_options():
     return {
-        "scouters": list(map(lambda scouter: scouter["name"], scouters.getAll())),
+        "teams": list(map(lambda team: team["name"], teams.getAll())),
         "starting_position": [
             "Not There",
             "Source",
@@ -113,11 +113,14 @@ def home_page():
   return redirect("/scouting_dashboard")
 
 
+def get_bag():
+    return {
+        "current_user": current_user.username
+    }
+
 @app.route("/form/2024/new", methods=['GET'])
 @login_required
 def new_2024_form():
-
-
 
     vm = {
         "match_number": "",
@@ -134,7 +137,7 @@ def new_2024_form():
 
 
 
-    return render_template("2024_form.html", vm=vm)
+    return render_template("2024_form.html", vm=vm, bag=get_bag())
 
 @app.route("/form/2024/new", methods=["POST"])
 @login_required
@@ -143,7 +146,7 @@ def save_2024_form():
   form = request.form
   created_on = str(datetime.datetime.now())
   forms.add({
-        "scouter": form.get("scouter"),
+        "team": form.get("team"),
         "match_number": form.get("match_number"),
         "starting_position": form.get("starting_position"),
         "left_start": form.get("left_start"),
@@ -171,6 +174,8 @@ def save_2024_form():
         "connection_issues": form.get("connection_issues"),
         "good_defense": form.get("good_defense"),
         "comments": form.get("comments"),
+        "created_by": current_user.username,
+        "updated_by": current_user.username,
         "created_on": created_on,
         "updated_on": created_on
     })
@@ -184,7 +189,7 @@ def load_2024_form(id):
     form = forms.get(id)
 
     vm = {
-      "scouter": form.get("scouter"),
+      "team": form.get("team"),
       "match_number": form.get("match_number"),
       "starting_position": form.get("starting_position"),
       "left_start": form.get("left_start"),
@@ -215,7 +220,7 @@ def load_2024_form(id):
       "options": get_form_options()
     }
 
-    return render_template("2024_form.html", vm=vm)
+    return render_template("2024_form.html", vm=vm, bag=get_bag())
 
 @app.route("/form/2024/<id>", methods=["POST"])
 @login_required
@@ -224,7 +229,6 @@ def update_2024_form(id):
   form = request.form
 
   forms.update(id, {
-    "scouter": form.get("scouter"),
     "match_number": form.get("match_number"),
     "starting_position": form.get("starting_position"),
     "left_start": form.get("left_start"),
@@ -252,6 +256,7 @@ def update_2024_form(id):
     "connection_issues": form.get("connection_issues"),
     "good_defense": form.get("good_defense"),
     "comments": form.get("comments"),
+    "updated_by": current_user.username,
     "updated_on": str(datetime.datetime.now())
   })
 
@@ -264,7 +269,7 @@ def scouting_dashboard():
 
     sorted_forms = sorted(forms.getAll(), key=itemgetter("created_on"), reverse=True)
 
-    return render_template("scouting_dashboard.html", forms=sorted_forms)
+    return render_template("scouting_dashboard.html", forms=sorted_forms, bag=get_bag())
 
 
 if CONFIG.PROD == False:
