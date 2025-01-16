@@ -145,9 +145,15 @@ def save_2024_form():
 
   form = request.form
   created_on = str(datetime.datetime.now())
+  totalampshots = int(form.get("teleop_amp_score")) + int(form.get("teleop_amp_misses"))
+  totalspeakershots = int(form.get("teleop_speaker_score")) + int(form.get("teleop_speaker_misses"))
+  teleop_amp_accuracy = int(form.get("teleop_amp_score", 0)) / totalampshots
+  teleop_speaker_accuracy = int(form.get("teleop_speaker_score", 0)) / totalspeakershots
   forms.add({
         "team": form.get("team"),
         "match_number": form.get("match_number"),
+        "teleop_amp_accuracy": f"{teleop_amp_accuracy}",
+        "teleop_speaker_accuracy": f"{teleop_speaker_accuracy}",
         "starting_position": form.get("starting_position"),
         "left_start": form.get("left_start"),
         "midline_collect": form.get("midline_collect"),
@@ -177,7 +183,7 @@ def save_2024_form():
         "created_by": current_user.username,
         "updated_by": current_user.username,
         "created_on": created_on,
-        "updated_on": created_on
+        "updated_on": created_on,
     })
 
   return redirect("/scouting_dashboard")
@@ -227,9 +233,16 @@ def load_2024_form(id):
 def update_2024_form(id):
 
   form = request.form
+  totalampshots = int(form.get("teleop_amp_score")) + int(form.get("teleop_amp_misses"))
+  totalspeakershots = int(form.get("teleop_speaker_score")) + int(form.get("teleop_speaker_misses"))
+  teleop_amp_accuracy = int(form.get("teleop_amp_score", 0)) / totalampshots
+  teleop_speaker_accuracy = int(form.get("teleop_speaker_score", 0)) / totalspeakershots
+
 
   forms.update(id, {
     "match_number": form.get("match_number"),
+    "teleop_amp_accuracy": f"{teleop_amp_accuracy:.1%}",
+    "teleop_speaker_accuracy": f"{teleop_speaker_accuracy:.1%}",
     "starting_position": form.get("starting_position"),
     "left_start": form.get("left_start"),
     "midline_collect": form.get("midline_collect"),
