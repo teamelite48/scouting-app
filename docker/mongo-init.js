@@ -55,5 +55,21 @@ teams.insertOne({
   "name": "test team 2"
 })
 
+teams.insertOne({
+  "name": "test team 3"
+})
+
+teams.insertOne({
+  "name": "test team 4"
+})
+
+teams.insertOne({
+  "name": "test team 5"
+})
+
+teams.insertOne({
+  "name": "test team 6"
+})
+
 
 print('🏁 Finished seeding MongoDB');
