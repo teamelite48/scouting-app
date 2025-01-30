@@ -10,7 +10,7 @@
   {{ button("Scout a Match", "submit" )}}
 </form>
 
-<table class="table">
+<table class="table" id="completedmatches">
     <thead>
       <tr>
         {% for col in forms[0].keys() %}
@@ -32,5 +32,22 @@
     {% endfor %}
     </tbody>
   </table>
+
+  <script>
+    document.querySelectorAll('th').forEach((header,index) => {
+      header.addEventListener('click', () => {
+        const rows = Array.from(document.querySelectorAll('tbody tr'));
+        const isNumeric = !isNaN(rows[0].cells[index].textContent);
+        rows.sort((rowA, rowB) => {
+          const cellA = rowA.cells[index].textContent;
+          const cellB = rowB.cells[index].textContent;
+          return isNumeric
+          ? parseFloat(cellA) - parseFloat(cellB)
+          : cellA.localeCompare(cellB);
+        });
+        document.querySelector('tbody').append(...rows);
+      });
+    });
+  </script>
 
 {% endblock %}
