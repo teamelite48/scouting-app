@@ -10,44 +10,4 @@
   {{ button("Scout a Match", "submit" )}}
 </form>
 
-<table class="table" id="completedmatches">
-    <thead>
-      <tr>
-        {% for col in forms[0].keys() %}
-            <th scope="col">{{col}}</th>
-        {% endfor %}
-      </tr>
-    </thead>
-    <tbody>
-    {% for form in forms %}
-    <tr>
-        <td><a href="/form/2024/{{ form.get('_id') }}">{{ form.get("_id") }}</a></td>
-
-        {% for data in form %}
-          {% if not loop.first %}
-            <td>{{form.get(data)}}</td>
-          {% endif %}
-        {% endfor %}
-    </tr>
-    {% endfor %}
-    </tbody>
-  </table>
-
-  <script>
-    document.querySelectorAll('th').forEach((header,index) => {
-      header.addEventListener('click', () => {
-        const rows = Array.from(document.querySelectorAll('tbody tr'));
-        const isNumeric = !isNaN(rows[0].cells[index].textContent);
-        rows.sort((rowA, rowB) => {
-          const cellA = rowA.cells[index].textContent;
-          const cellB = rowB.cells[index].textContent;
-          return isNumeric
-          ? parseFloat(cellA) - parseFloat(cellB)
-          : cellA.localeCompare(cellB);
-        });
-        document.querySelector('tbody').append(...rows);
-      });
-    });
-  </script>
-
 {% endblock %}

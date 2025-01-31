@@ -74,6 +74,13 @@ def load_user(username):
 def login_page():
     return render_template("login.html")
 
+@app.route("/data", methods=["GET"])
+def match_data():
+
+    sorted_forms = sorted(forms.getAll(), key=itemgetter("created_on"), reverse=True)
+
+    return render_template("match_data.html", forms=sorted_forms, bag=get_bag() )
+
 
 @app.route("/login", methods=["POST"])
 def login():
@@ -276,14 +283,11 @@ def update_2024_form(id):
   return redirect("/scouting_dashboard")
 
 
-@app.route("/scouting_dashboard", methods=['GET'])
-@login_required
+@app.route("/scouting_dashboard", methods=["GET"])
 def scouting_dashboard():
 
-    sorted_forms = sorted(forms.getAll(), key=itemgetter("created_on"), reverse=True)
 
-    return render_template("scouting_dashboard.html", forms=sorted_forms, bag=get_bag())
-
+    return render_template("scouting_dashboard.html", bag=get_bag())
 
 if CONFIG.PROD == False:
 
