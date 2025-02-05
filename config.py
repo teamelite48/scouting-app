@@ -1,15 +1,36 @@
-import os
-import secrets
+from os import environ
+from dotenv import load_dotenv
 
 
-_PROD = os.environ.get("ENVIRONMENT") == "Prod"
+load_dotenv()
+
+_PROD = environ.get("ENVIRONMENT") == "Prod"
+
+class Config:
+    """Configuration from environment variables."""
+    ENVIRONMENT = environ.get("ENVIRONMENT")
+    MONGO_URI = environ.get("MONGO_URI")
+    SECRET_KEY = environ.get("SECRET_KEY")
+    FLASK_DEBUG = environ.get("FLASK_DEBUG")
+    FLASK_APP = "app.py"
+
+    # Static Assets
+    STATIC_FOLDER = "static"
+    TEMPLATES_FOLDER = "templates"
+    COMPRESSOR_DEBUG = False
+
+    # Flask-Assets
+    if ENVIRONMENT == "development":
+        # TODO: Consider adding the app reloading here
+        pass
+
 
 class ProdConfig:
   def __init__(self):
     self.DEBUG = False
     self.PROD = _PROD
-    self.MONGO_URI = os.environ.get('MONGO_URI')
-    self.SECRET_KEY = os.environ.get("SECRET_KEY")
+    self.MONGO_URI = environ.get('MONGO_URI')
+    self.SECRET_KEY = environ.get("SECRET_KEY")
 
 
 class LocalConfig:

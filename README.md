@@ -12,26 +12,28 @@
 
 1. Run `./develop.sh`
 
-###  Windows
+### Windows
 
 #### Create an Environment
 
-```
+```bash
 > py -3 -m venv .venv
 ```
 
 #### Activate Environment
 
-````
+```bash
 > .venv\Scripts\activate
-````
+```
 
 #### Install Requirements
-```
+
+```bash
 > pip install -r requirements.txt
 ```
 
 #### Start Application Server
+
 1. Run `docker compose up` from docker directory
 1. Open: [localhost:5000](http://localhost:5000)
 
@@ -43,13 +45,21 @@
 ## 🧑‍🔬 Test Local MongoDB Connection
 
 ### macOS/Linux
+
 1. Run `python3 mongodb_test.py`
 
 ### Windows
+
 1. Run `py -3 mongodb_test.py`
 
 ## 📝 How to Generate requirements.txt
+
 Creates a text file named `requirements.txt` listing installed Python packages and their versions.
-```
+
+```bash
 pip freeze > requirements.txt
 ```
+
+## References
+
+Used [flask-blueprint-tutorial](https://github.com/hackersandslackers/flask-blueprint-tutorial/tree/master) as a reference for Blueprinting.

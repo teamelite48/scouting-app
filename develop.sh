@@ -8,8 +8,8 @@ function open_ui {
 
   while true; do
     if [[ $? -eq 0 ]]; then
-      google-chrome "http://localhost:5000"
-      # firefox "http://localhost:5000"
+      # google-chrome "http://localhost:5000"
+      firefox "http://localhost:5000"
       break
     else
       sleep 1
