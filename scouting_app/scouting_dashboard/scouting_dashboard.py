@@ -3,8 +3,7 @@ from flask_login import login_required, current_user
 from jinja2 import TemplateNotFound
 from operator import itemgetter
 import importlib
-data_module = importlib.import_module("data")
-forms = data_module.forms
+forms = importlib.import_module("data.forms")
 
 
 scouting_dashboard_bp = Blueprint(

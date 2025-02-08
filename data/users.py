@@ -1,5 +1,5 @@
 from data import db
-from utils.log import log
+# from flask_login import UserMixin
 
 
 collection = "users"

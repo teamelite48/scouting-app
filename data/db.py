@@ -1,7 +1,6 @@
 from bson import ObjectId
 from pymongo import MongoClient
-
-from config import CONFIG
+from config import Config
 
 
 def find(collection, query={}):
@@ -21,8 +20,7 @@ def update_one(collection, id, properties):
 
 
 def _db_operation(collection, operation):
-
-  client = MongoClient(CONFIG.MONGO_URI)
+  client = MongoClient(Config.MONGO_URI)
   db = client.get_database("scouting_app")
 
   result = operation(db.get_collection(collection))
