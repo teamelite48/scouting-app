@@ -5,7 +5,7 @@ client = MongoClient(uri)
 
 try:
   db = client.get_database("scouting_app")
-  forms = db.get_collection("2024_forms")
+  forms = db.get_collection("2025_forms")
 
   form = forms.find().to_list()
 

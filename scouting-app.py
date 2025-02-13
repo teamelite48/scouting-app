@@ -29,31 +29,32 @@ def get_form_options():
         "teams": list(map(lambda team: team["name"], teams.getAll())),
         "starting_position": [
             "Not There",
-            "Source",
-            "Middle of Speaker",
-            "Amp Side"
+            "Left Side",
+            "Middle",
+            "Coral Station Side"
         ],
         "left_start": [
             "No",
             "Yes",
             "Attempted"
         ],
-        "midline_collect": [
-            "No",
-            "Yes",
-            "Attempted",
-            "Ready for Teleop"
+        "coral_intake": [
+            "Does not pick up Coral",
+            "From the Ground",
+            "From the Coral Station",
+            "Both"
         ],
-        "intake": [
-            "Does not pick up from the floor",
-            "Over the Bumper",
-            "Under the Bumper"
+        "algae_intake": [
+            "Does not pick up Algae",
+            "From the Ground",
+            "From the Reef",
+            "Both"
         ],
         "end_status": [
             "Not Parked",
             "Parked",
-            "Stage Attempted",
-            "On Stage",
+            "Cage Attempted",
+            "On Cage",
             "Hung with 1 Robot",
             "Hung with 2 Robots"
         ]
@@ -125,16 +126,15 @@ def get_bag():
         "current_user": current_user.username
     }
 
-@app.route("/form/2024/new", methods=['GET'])
+@app.route("/form/2025/new", methods=['GET'])
 @login_required
-def new_2024_form():
+def new_2025_form():
 
     vm = {
         "match_number": "",
         "starting_position": "Not There",
-        "midline_collect": 1,
-        "midline_time": 0,
-        "intake": 1,
+        "algae_intake": 1,
+        "coral_intake": 1,
         "start_hang": 0,
         "stop_hang": 0,
         "end_status": 1,
@@ -144,11 +144,11 @@ def new_2024_form():
 
 
 
-    return render_template("2024_form.html", vm=vm, bag=get_bag())
+    return render_template("2025_form.html", vm=vm, bag=get_bag())
 
-@app.route("/form/2024/new", methods=["POST"])
+@app.route("/form/2025/new", methods=["POST"])
 @login_required
-def save_2024_form():
+def save_2025_form():
 
   form = request.form
   created_on = str(datetime.datetime.now())
@@ -195,9 +195,9 @@ def save_2024_form():
 
   return redirect("/scouting_dashboard")
 
-@app.route("/form/2024/<id>", methods=['GET'])
+@app.route("/form/2025/<id>", methods=['GET'])
 @login_required
-def load_2024_form(id):
+def load_2025_form(id):
 
     form = forms.get(id)
 
@@ -233,11 +233,11 @@ def load_2024_form(id):
       "options": get_form_options()
     }
 
-    return render_template("2024_form.html", vm=vm, bag=get_bag())
+    return render_template("2025_form.html", vm=vm, bag=get_bag())
 
-@app.route("/form/2024/<id>", methods=["POST"])
+@app.route("/form/2025/<id>", methods=["POST"])
 @login_required
-def update_2024_form(id):
+def update_2025_form(id):
 
   form = request.form
   totalampshots = int(form.get("teleop_amp_score")) + int(form.get("teleop_amp_misses"))

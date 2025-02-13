@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% from "components.html" import select with context %}
+{% from "components.html" import text_input with context %}
+{% from "components.html" import slider with context %}
+{% from "components.html" import counter with context %}
+{% from "components.html" import checkbox with context %}
+{% from "components.html" import header with context %}
+{% from "components.html" import button with context %}
+
+{% block content %}
+  <h1>Match Form</h1>
+
+  <form method="POST">
+
+    {{ header("Pre-Match Info", 4, True) }}
+
+    {{ text_input("match_number", "Match Number", vm.match_number)}}
+
+    {{ select("team", "Team Scouting", vm.options.teams, vm.team ) }}
+
+    {{ select("starting_position", "Starting Position", vm.options.starting_position, vm.starting_position ) }}
+
+    {{ header("Autonomous", 4, True) }}
+
+    {{ select("left_start", "Did they leave the starting zone?", vm.options.left_start, vm.left_start ) }}
+
+    {{ header("Auto Notes", 6, False) }}
+
+    {{ counter("auto_algae", "Algae SCORED", 0, 1000, vm.auto_algae_score ) }}
+
+    {{ counter("auto_processed", "Algae PROCESSED", 0, 1000, vm.auto_processed ) }}
+
+    {{ counter("auto_algae", "Algae MISSED", 0, 1000, vm.auto_algae_misses ) }}
+
+    {{ counter("auto_L4_score", "Coral SCORED (Level 4)", 0, 1000, vm.auto_L4_score ) }}
+
+    {{ counter("auto_L3_score", "Coral SCORED (Level 3)", 0, 1000, vm.auto_L3_score ) }}
+
+    {{ counter("auto_L2_score", "Coral SCORED (Level 2)", 0, 1000, vm.auto_L2_score ) }}
+
+    {{ counter("auto_L1_score", "Coral SCORED (Level 1)", 0, 1000, vm.auto_L1_score ) }}
+
+    {{ counter("auto_algae", "Coral MISSED", 0, 1000, vm.auto_algae_misses ) }}
+
+    {{ header("Teleop", 4, True) }}
+
+    {{ select("algae_intake", "How can they pick up coral?", vm.options.algae_intake, vm.algae_intake ) }}
+
+    {{ select("coral_intake", "How can they pick up algae?", vm.options.coral_intake, vm.coral_intake ) }}
+
+    {{ header("Teleop Notes", 6, False) }}
+
+    {{ counter("teleop_algae", "Algae SCORED", 0, 1000, vm.teleop_algae_score ) }}
+
+    {{ counter("teleop_processed", "Algae PROCESSED", 0, 1000, vm.auto_processed ) }}
+
+    {{ counter("teleop_algae", "Algae MISSED", 0, 1000, vm.auto_algae_misses ) }}
+
+    {{ counter("teleop_L4_score", "Coral SCORED (Level 4)", 0, 1000, vm.teleop_L4_score ) }}
+
+    {{ counter("teleop_L3_score", "Coral SCORED (Level 3)", 0, 1000, vm.teleop_L3_score ) }}
+
+    {{ counter("teleop_L2_score", "Coral SCORED (Level 2)", 0, 1000, vm.teleop_L2_score ) }}
+
+    {{ counter("teleop_L1_score", "Coral SCORED (Level 1)", 0, 1000, vm.teleop_L1_score ) }}
+
+    {{ counter("teleop_algae", "Coral MISSED", 0, 1000, vm.teleop_algae_misses ) }}
+
+    {{ header("Human Player", 6, False) }}
+
+    {{ counter("human_score", "Human Shots SCORED", 0, 1000, vm.human_score ) }}
+
+    {{ counter("human_misses", "Human Shots MISSED", 0, 1000, vm.human_misses ) }}
+
+    {{ header("Endgame", 4, True) }}
+
+    {{ slider("start_hang", "How much time was on the clock when they started hanging?", 0, 45, 1, vm.start_hang, "seconds") }}
+
+    {{ slider("stop_hang", "How much time was on the clock when they stopped hanging?", 0, 45, 1, vm.stop_hang, "seconds") }}
+
+    {{ select("end_status", "Did they Park?", vm.options.end_status, vm.end_status )}}
+
+    {{ header("General Notes", 4, True) }}
+
+    {{ text_input("comments", "Other Notes or Comments", vm.comments) }}
+
+    {{ button("Submit Form", "submit" )}}
+</form>
+{% endblock %}

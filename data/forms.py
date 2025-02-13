@@ -1,7 +1,7 @@
 from data import db
 
 
-collection = "2024_forms"
+collection = "2025_forms"
 
 def add(form):
   return db.insert_one(collection, form)
