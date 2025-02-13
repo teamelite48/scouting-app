@@ -30,7 +30,9 @@
 
     {{ counter("auto_processed", "Algae PROCESSED", 0, 1000, vm.auto_processed ) }}
 
-    {{ counter("auto_algae", "Algae MISSED", 0, 1000, vm.auto_algae_misses ) }}
+    {{ counter("auto_algae_misses", "Algae MISSED", 0, 1000, vm.auto_algae_misses ) }}
+
+    {{ counter("auto_processor_misses", "Algae Processor MISSED", 0, 1000, vm.auto_processor_misses ) }}
 
     {{ counter("auto_L4_score", "Coral SCORED (Level 4)", 0, 1000, vm.auto_L4_score ) }}
 
@@ -40,7 +42,7 @@
 
     {{ counter("auto_L1_score", "Coral SCORED (Level 1)", 0, 1000, vm.auto_L1_score ) }}
 
-    {{ counter("auto_algae", "Coral MISSED", 0, 1000, vm.auto_algae_misses ) }}
+    {{ counter("auto_coral_misses", "Coral MISSED", 0, 1000, vm.auto_coral_misses ) }}
 
     {{ header("Teleop", 4, True) }}
 
@@ -50,11 +52,13 @@
 
     {{ header("Teleop Notes", 6, False) }}
 
-    {{ counter("teleop_algae", "Algae SCORED", 0, 1000, vm.teleop_algae_score ) }}
+    {{ counter("teleop_algae_score", "Algae SCORED", 0, 1000, vm.teleop_algae_score ) }}
 
     {{ counter("teleop_processed", "Algae PROCESSED", 0, 1000, vm.auto_processed ) }}
 
-    {{ counter("teleop_algae", "Algae MISSED", 0, 1000, vm.auto_algae_misses ) }}
+    {{ counter("teleop_algae_misses", "Algae MISSED", 0, 1000, vm.auto_algae_misses ) }}
+
+    {{ counter("teleop_processor_misses", "Algae Processor MISSED", 0, 1000, vm.teleop_processor_misses ) }}
 
     {{ counter("teleop_L4_score", "Coral SCORED (Level 4)", 0, 1000, vm.teleop_L4_score ) }}
 
@@ -64,7 +68,7 @@
 
     {{ counter("teleop_L1_score", "Coral SCORED (Level 1)", 0, 1000, vm.teleop_L1_score ) }}
 
-    {{ counter("teleop_algae", "Coral MISSED", 0, 1000, vm.teleop_algae_misses ) }}
+    {{ counter("teleop_coral_misses", "Coral MISSED", 0, 1000, vm.teleop_coral_misses ) }}
 
     {{ header("Human Player", 6, False) }}
 
