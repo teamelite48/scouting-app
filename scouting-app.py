@@ -133,11 +133,12 @@ def new_2025_form():
     vm = {
         "match_number": "",
         "starting_position": "Not There",
-        "algae_intake": 1,
-        "coral_intake": 1,
+        "left_start": "No",
+        "algae_intake": "Does not pick up Algae",
+        "coral_intake": "Does not pick up Coral",
         "start_hang": 0,
         "stop_hang": 0,
-        "end_status": 1,
+        "end_status": "Not Parked",
         "comments": "",
         "options": get_form_options()
     }
@@ -149,12 +150,24 @@ def new_2025_form():
 @app.route("/form/2025/new", methods=["POST"])
 @login_required
 def save_2025_form():
-
+  totalcoralscore = int(form.get("teleop_L1_score")) + int(form.get("teleop_L2_score")) + int(form.get("teleop_L3_score")) + int(form.get("teleop_L4_score"))
+  totalcoralshots = int(totalcoralscore) + int(form.get("teleop_speaker_misses"))
+  totalalgaeshots = int(form.get("teleop_algae_score")) + int(form.get("teleop_algae_misses"))
+  totalprocessorshots = int(form.get("teleop_processed")) + int(form.get("teleop_processor_misses"))
+  totalhumanshots = int(form.get("human_score")) + int(form.get("human_misses"))
+  teleop_coral_accuracy = totalcoralscore / totalcoralshots
+  teleop_algae_accuracy = int(form.get("teleop_algae_score")) / totalalgaeshots
+  teleop_processor_accuracy = int(form.get("teleop_processed")) + totalprocessorshots
+  human_accuracy = int(form.get("human_score")) / totalhumanshots
   form = request.form
   created_on = str(datetime.datetime.now())
   forms.add({
     "team": form.get("team"),
     "match_number": form.get("match_number"),
+    "teleop_coral_accuracy": f"{teleop_coral_accuracy}",
+    "teleop_algae_accuracy": f"{teleop_algae_accuracy}",
+    "teleop_processor_accuracy": f"{teleop_processor_accuracy}",
+    "human_accuracy": f"{human_accuracy}",
     "starting_position": form.get("starting_position"),
     "left_start": form.get("left_start"),
     "auto_algae_score": form.get("auto_algae_score"),
@@ -226,10 +239,6 @@ def load_2025_form(id):
     "trap_score": form.get("trap_score"),
     "end_status": form.get("end_status"),
     "comments": form.get("comments"),
-    "created_by": current_user.username,
-    "updated_by": current_user.username,
-    "created_on": created_on,
-    "updated_on": created_on,
     "options": get_form_options()
     }
 
@@ -238,13 +247,27 @@ def load_2025_form(id):
 @app.route("/form/2025/<id>", methods=["POST"])
 @login_required
 def update_2025_form(id):
-
+  
+  created_on: str(datetime.datetime.now())
+  totalcoralscore = int(form.get("teleop_L1_score")) + int(form.get("teleop_L2_score")) + int(form.get("teleop_L3_score")) + int(form.get("teleop_L4_score"))
+  totalcoralshots = int(totalcoralscore) + int(form.get("teleop_speaker_misses"))
+  totalalgaeshots = int(form.get("teleop_algae_score")) + int(form.get("teleop_algae_misses"))
+  totalprocessorshots = int(form.get("teleop_processed")) + int(form.get("teleop_processor_misses"))
+  totalhumanshots = int(form.get("human_score")) + int(form.get("human_misses"))
+  teleop_coral_accuracy = totalcoralscore / totalcoralshots
+  teleop_algae_accuracy = int(form.get("teleop_algae_score")) / totalalgaeshots
+  teleop_processor_accuracy = int(form.get("teleop_processed")) + totalprocessorshots
+  human_accuracy = int(form.get("human_score")) / totalhumanshots
   form = request.form
 
 
   forms.update(id, {
     "team": form.get("team"),
     "match_number": form.get("match_number"),
+    "teleop_coral_accuracy": f"{teleop_coral_accuracy}",
+    "teleop_algae_accuracy": f"{teleop_algae_accuracy}",
+    "teleop_processor_accuracy": f"{teleop_processor_accuracy}",
+    "human_accuracy": f"{human_accuracy}",
     "starting_position": form.get("starting_position"),
     "left_start": form.get("left_start"),
     "auto_algae_score": form.get("auto_algae_score"),
