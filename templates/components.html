@@ -35,7 +35,7 @@
 
       function decreaseCounter(id) {
         var element = document.getElementById(id)
-        if (element.value === element.min) return
+        if (element.value === element.min || element.value === None) return
         element.value= +element.value - 1
       }
     </script>
