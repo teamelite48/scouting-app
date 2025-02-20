@@ -150,16 +150,16 @@ def new_2025_form():
 @app.route("/form/2025/new", methods=["POST"])
 @login_required
 def save_2025_form():
+  form = request.form
   totalcoralscore = int(form.get("teleop_L1_score")) + int(form.get("teleop_L2_score")) + int(form.get("teleop_L3_score")) + int(form.get("teleop_L4_score"))
-  totalcoralshots = int(totalcoralscore) + int(form.get("teleop_speaker_misses"))
+  totalcoralshots = int(totalcoralscore) + int(form.get("teleop_coral_misses"))
   totalalgaeshots = int(form.get("teleop_algae_score")) + int(form.get("teleop_algae_misses"))
   totalprocessorshots = int(form.get("teleop_processed")) + int(form.get("teleop_processor_misses"))
   totalhumanshots = int(form.get("human_score")) + int(form.get("human_misses"))
   teleop_coral_accuracy = totalcoralscore / totalcoralshots
   teleop_algae_accuracy = int(form.get("teleop_algae_score")) / totalalgaeshots
-  teleop_processor_accuracy = int(form.get("teleop_processed")) + totalprocessorshots
+  teleop_processor_accuracy = int(form.get("teleop_processed")) / totalprocessorshots
   human_accuracy = int(form.get("human_score")) / totalhumanshots
-  form = request.form
   created_on = str(datetime.datetime.now())
   forms.add({
     "team": form.get("team"),
@@ -249,8 +249,9 @@ def load_2025_form(id):
 def update_2025_form(id):
   
   created_on: str(datetime.datetime.now())
+  form = request.form
   totalcoralscore = int(form.get("teleop_L1_score")) + int(form.get("teleop_L2_score")) + int(form.get("teleop_L3_score")) + int(form.get("teleop_L4_score"))
-  totalcoralshots = int(totalcoralscore) + int(form.get("teleop_speaker_misses"))
+  totalcoralshots = int(totalcoralscore) + int(form.get("teleop_coral_misses"))
   totalalgaeshots = int(form.get("teleop_algae_score")) + int(form.get("teleop_algae_misses"))
   totalprocessorshots = int(form.get("teleop_processed")) + int(form.get("teleop_processor_misses"))
   totalhumanshots = int(form.get("human_score")) + int(form.get("human_misses"))
@@ -258,8 +259,6 @@ def update_2025_form(id):
   teleop_algae_accuracy = int(form.get("teleop_algae_score")) / totalalgaeshots
   teleop_processor_accuracy = int(form.get("teleop_processed")) + totalprocessorshots
   human_accuracy = int(form.get("human_score")) / totalhumanshots
-  form = request.form
-
 
   forms.update(id, {
     "team": form.get("team"),
