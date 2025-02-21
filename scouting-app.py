@@ -161,6 +161,10 @@ def save_2025_form():
   teleop_processor_accuracy = int(form.get("teleop_processed")) / totalprocessorshots
   human_accuracy = int(form.get("human_score")) / totalhumanshots
   created_on = str(datetime.datetime.now())
+  totalampshots = int(form.get("teleop_amp_score")) + int(form.get("teleop_amp_misses"))
+  totalspeakershots = int(form.get("teleop_speaker_score")) + int(form.get("teleop_speaker_misses"))
+  teleop_amp_accuracy = int(form.get("teleop_amp_score", 0)) / totalampshots
+  teleop_speaker_accuracy = int(form.get("teleop_speaker_score", 0)) / totalspeakershots
   forms.add({
     "team": form.get("team"),
     "match_number": form.get("match_number"),
