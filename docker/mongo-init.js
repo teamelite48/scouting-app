@@ -2,16 +2,16 @@ print('🌱 Seeding MongoDB...');
 
 app = db.getSiblingDB("scouting_app");
 
-app.createCollection("2024_forms");
+app.createCollection("2025_forms");
 app.createCollection("users");
 app.createCollection("teams");
 
-forms = app.getCollection("2024_forms");
+forms = app.getCollection("2025_forms");
 
 forms.insertOne({
   "scouter_name": "Elite Scouter",
   "age": 48,
-  "created_on": "2024-12-05 00:34:01.721103"
+  "created_on": "2025-01-01 00:34:01.721103"
 });
 
 users = app.getCollection("users");

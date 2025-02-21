@@ -29,31 +29,32 @@ def get_form_options():
         "teams": list(map(lambda team: team["name"], teams.getAll())),
         "starting_position": [
             "Not There",
-            "Source",
-            "Middle of Speaker",
-            "Amp Side"
+            "Left Side",
+            "Middle",
+            "Coral Station Side"
         ],
         "left_start": [
             "No",
             "Yes",
             "Attempted"
         ],
-        "midline_collect": [
-            "No",
-            "Yes",
-            "Attempted",
-            "Ready for Teleop"
+        "coral_intake": [
+            "Does not pick up Coral",
+            "From the Ground",
+            "From the Coral Station",
+            "Both"
         ],
-        "intake": [
-            "Does not pick up from the floor",
-            "Over the Bumper",
-            "Under the Bumper"
+        "algae_intake": [
+            "Does not pick up Algae",
+            "From the Ground",
+            "From the Reef",
+            "Both"
         ],
         "end_status": [
             "Not Parked",
             "Parked",
-            "Stage Attempted",
-            "On Stage",
+            "Cage Attempted",
+            "On Cage",
             "Hung with 1 Robot",
             "Hung with 2 Robots"
         ]
@@ -73,6 +74,13 @@ def load_user(username):
 @app.route("/login", methods=["GET"])
 def login_page():
     return render_template("login.html")
+
+@app.route("/data", methods=["GET"])
+def match_data():
+
+    sorted_forms = sorted(forms.getAll(), key=itemgetter("created_on"), reverse=True)
+
+    return render_template("match_data.html", forms=sorted_forms, bag=get_bag() )
 
 
 @app.route("/login", methods=["POST"])
@@ -118,172 +126,190 @@ def get_bag():
         "current_user": current_user.username
     }
 
-@app.route("/form/2024/new", methods=['GET'])
+@app.route("/form/2025/new", methods=['GET'])
 @login_required
-def new_2024_form():
+def new_2025_form():
 
     vm = {
         "match_number": "",
         "starting_position": "Not There",
-        "midline_collect": 1,
-        "midline_time": 0,
-        "intake": 1,
+        "left_start": "No",
+        "algae_intake": "Does not pick up Algae",
+        "coral_intake": "Does not pick up Coral",
         "start_hang": 0,
         "stop_hang": 0,
-        "end_status": 1,
+        "end_status": "Not Parked",
         "comments": "",
         "options": get_form_options()
     }
 
 
 
-    return render_template("2024_form.html", vm=vm, bag=get_bag())
+    return render_template("2025_form.html", vm=vm, bag=get_bag())
 
-@app.route("/form/2024/new", methods=["POST"])
+@app.route("/form/2025/new", methods=["POST"])
 @login_required
-def save_2024_form():
-
+def save_2025_form():
   form = request.form
+  totalcoralscore = int(form.get("teleop_L1_score")) + int(form.get("teleop_L2_score")) + int(form.get("teleop_L3_score")) + int(form.get("teleop_L4_score"))
+  totalcoralshots = int(totalcoralscore) + int(form.get("teleop_coral_misses"))
+  totalalgaeshots = int(form.get("teleop_algae_score")) + int(form.get("teleop_algae_misses"))
+  totalprocessorshots = int(form.get("teleop_processed")) + int(form.get("teleop_processor_misses"))
+  totalhumanshots = int(form.get("human_score")) + int(form.get("human_misses"))
+  teleop_coral_accuracy = totalcoralscore / totalcoralshots
+  teleop_algae_accuracy = int(form.get("teleop_algae_score")) / totalalgaeshots
+  teleop_processor_accuracy = int(form.get("teleop_processed")) / totalprocessorshots
+  human_accuracy = int(form.get("human_score")) / totalhumanshots
   created_on = str(datetime.datetime.now())
   totalampshots = int(form.get("teleop_amp_score")) + int(form.get("teleop_amp_misses"))
   totalspeakershots = int(form.get("teleop_speaker_score")) + int(form.get("teleop_speaker_misses"))
   teleop_amp_accuracy = int(form.get("teleop_amp_score", 0)) / totalampshots
   teleop_speaker_accuracy = int(form.get("teleop_speaker_score", 0)) / totalspeakershots
   forms.add({
-        "team": form.get("team"),
-        "match_number": form.get("match_number"),
-        "teleop_amp_accuracy": f"{teleop_amp_accuracy}",
-        "teleop_speaker_accuracy": f"{teleop_speaker_accuracy}",
-        "starting_position": form.get("starting_position"),
-        "left_start": form.get("left_start"),
-        "midline_collect": form.get("midline_collect"),
-        "midline_time": form.get("midline_time"),
-        "auto_amp_score": form.get("auto_amp_score"),
-        "auto_amp_misses": form.get("auto_amp_misses"),
-        "auto_speaker_score": form.get("auto_speaker_score"),
-        "auto_speaker_misses": form.get("auto_speaker_misses"),
-        "source_pickup": form.get("source_pickup"),
-        "intake": form.get("intake"),
-        "under_stage": form.get("under_stage"),
-        "teleop_amp_score": form.get("teleop_amp_score"),
-        "teleop_amp_misses": form.get("teleop_amp_misses"),
-        "teleop_speaker_score": form.get("teleop_speaker_score"),
-        "teleop_speaker_misses": form.get("teleop_speaker_misses"),
-        "start_hang": form.get("start_hang"),
-        "stop_hang": form.get("stop_hang"),
-        "trap_score": form.get("trap_score"),
-        "end_status": form.get("end_status"),
-        "fell_over": form.get("fell_over"),
-        "stopped_working": form.get("stopped_working"),
-        "unstable_driving": form.get("unstable_driving"),
-        "turned_off": form.get("turned_off"),
-        "connection_issues": form.get("connection_issues"),
-        "good_defense": form.get("good_defense"),
-        "comments": form.get("comments"),
-        "created_by": current_user.username,
-        "updated_by": current_user.username,
-        "created_on": created_on,
-        "updated_on": created_on,
-    })
-
-  return redirect("/scouting_dashboard")
-
-@app.route("/form/2024/<id>", methods=['GET'])
-@login_required
-def load_2024_form(id):
-
-    form = forms.get(id)
-
-    vm = {
-      "team": form.get("team"),
-      "match_number": form.get("match_number"),
-      "starting_position": form.get("starting_position"),
-      "left_start": form.get("left_start"),
-      "midline_collect": form.get("midline_collect"),
-      "midline_time": form.get("midline_time"),
-      "auto_amp_score": form.get("auto_amp_score"),
-      "auto_amp_misses": form.get("auto_amp_misses"),
-      "auto_speaker_score": form.get("auto_speaker_score"),
-      "auto_speaker_misses": form.get("auto_speaker_misses"),
-      "source_pickup": form.get("source_pickup"),
-      "intake": form.get("intake"),
-      "under_stage": form.get("under_stage"),
-      "teleop_amp_score": form.get("teleop_amp_score"),
-      "teleop_amp_misses": form.get("teleop_amp_misses"),
-      "teleop_speaker_score": form.get("teleop_speaker_score"),
-      "teleop_speaker_misses": form.get("teleop_speaker_misses"),
-      "start_hang": form.get("start_hang"),
-      "stop_hang": form.get("stop_hang"),
-      "trap_score": form.get("trap_score"),
-      "end_status": form.get("end_status"),
-      "fell_over": form.get("fell_over"),
-      "stopped_working": form.get("stopped_working"),
-      "unstable_driving": form.get("unstable_driving"),
-      "turned_off": form.get("turned_off"),
-      "connection_issues": form.get("connection_issues"),
-      "good_defense": form.get("good_defense"),
-      "comments": form.get("comments"),
-      "options": get_form_options()
-    }
-
-    return render_template("2024_form.html", vm=vm, bag=get_bag())
-
-@app.route("/form/2024/<id>", methods=["POST"])
-@login_required
-def update_2024_form(id):
-
-  form = request.form
-  totalampshots = int(form.get("teleop_amp_score")) + int(form.get("teleop_amp_misses"))
-  totalspeakershots = int(form.get("teleop_speaker_score")) + int(form.get("teleop_speaker_misses"))
-  teleop_amp_accuracy = int(form.get("teleop_amp_score", 0)) / totalampshots
-  teleop_speaker_accuracy = int(form.get("teleop_speaker_score", 0)) / totalspeakershots
-
-
-  forms.update(id, {
+    "team": form.get("team"),
     "match_number": form.get("match_number"),
-    "teleop_amp_accuracy": f"{teleop_amp_accuracy:.1%}",
-    "teleop_speaker_accuracy": f"{teleop_speaker_accuracy:.1%}",
+    "teleop_coral_accuracy": f"{teleop_coral_accuracy:.1%}",
+    "teleop_algae_accuracy": f"{teleop_algae_accuracy:.1%}",
+    "teleop_processor_accuracy": f"{teleop_processor_accuracy:.1%}",
+    "human_accuracy": f"{human_accuracy:.1%}",
     "starting_position": form.get("starting_position"),
     "left_start": form.get("left_start"),
-    "midline_collect": form.get("midline_collect"),
-    "midline_time": form.get("midline_time"),
-    "auto_amp_score": form.get("auto_amp_score"),
-    "auto_amp_misses": form.get("auto_amp_misses"),
-    "auto_speaker_score": form.get("auto_speaker_score"),
-    "auto_speaker_misses": form.get("auto_speaker_misses"),
-    "source_pickup": form.get("source_pickup"),
-    "intake": form.get("intake"),
-    "under_stage": form.get("under_stage"),
-    "teleop_amp_score": form.get("teleop_amp_score"),
-    "teleop_amp_misses": form.get("teleop_amp_misses"),
-    "teleop_speaker_score": form.get("teleop_speaker_score"),
-    "teleop_speaker_misses": form.get("teleop_speaker_misses"),
+    "auto_algae_score": form.get("auto_algae_score"),
+    "auto_algae_misses": form.get("auto_algae_misses"),
+    "auto_processed": form.get("auto_processed"),
+    "auto_processor_misses" :form.get("auto_processor_misses"),
+    "auto_L1_score": form.get("auto_L1_score"),
+    "auto_L2_score": form.get("auto_L2_score"),
+    "auto_L3_score": form.get("auto_L3_score"),
+    "auto_L4_score": form.get("auto_L4_score"),
+    "auto_coral_misses": form.get("auto_coral_misses"),
+    "teleop_algae_score": form.get("teleop_algae_score"),
+    "teleop_algae_misses": form.get("teleop_algae_misses"),
+    "teleop_processed": form.get("teleop_processed"),
+    "teleop_processor_misses" :form.get("teleop_processor_misses"),
+    "teleop_L1_score": form.get("teleop_L1_score"),
+    "teleop_L2_score": form.get("teleop_L2_score"),
+    "teleop_L3_score": form.get("teleop_L3_score"),
+    "teleop_L4_score": form.get("teleop_L4_score"),
+    "teleop_coral_misses": form.get("teleop_coral_misses"),
+    "human_score": form.get("human_score"),
+    "human_misses": form.get("human_misses"),
     "start_hang": form.get("start_hang"),
     "stop_hang": form.get("stop_hang"),
     "trap_score": form.get("trap_score"),
     "end_status": form.get("end_status"),
-    "fell_over": form.get("fell_over"),
-    "stopped_working": form.get("stopped_working"),
-    "unstable_driving": form.get("unstable_driving"),
-    "turned_off": form.get("turned_off"),
-    "connection_issues": form.get("connection_issues"),
-    "good_defense": form.get("good_defense"),
     "comments": form.get("comments"),
+    "created_by": current_user.username,
     "updated_by": current_user.username,
-    "updated_on": str(datetime.datetime.now())
-  })
+    "created_on": created_on,
+    "updated_on": created_on,
+    })
 
   return redirect("/scouting_dashboard")
 
-
-@app.route("/scouting_dashboard", methods=['GET'])
+@app.route("/form/2025/<id>", methods=['GET'])
 @login_required
+def load_2025_form(id):
+
+    form = forms.get(id)
+
+    vm = {
+    "team": form.get("team"),
+    "match_number": form.get("match_number"),
+    "starting_position": form.get("starting_position"),
+    "left_start": form.get("left_start"),
+    "auto_algae_score": form.get("auto_algae_score"),
+    "auto_algae_misses": form.get("auto_algae_misses"),
+    "auto_processed": form.get("auto_processed"),
+    "auto_processor_misses" :form.get("auto_processor_misses"),
+    "auto_L1_score": form.get("auto_L1_score"),
+    "auto_L2_score": form.get("auto_L2_score"),
+    "auto_L3_score": form.get("auto_L3_score"),
+    "auto_L4_score": form.get("auto_L4_score"),
+    "auto_coral_misses": form.get("auto_coral_misses"),
+    "teleop_algae_score": form.get("teleop_algae_score"),
+    "teleop_algae_misses": form.get("teleop_algae_misses"),
+    "teleop_processed": form.get("teleop_processed"),
+    "teleop_processor_misses" :form.get("teleop_processor_misses"),
+    "teleop_L1_score": form.get("teleop_L1_score"),
+    "teleop_L2_score": form.get("teleop_L2_score"),
+    "teleop_L3_score": form.get("teleop_L3_score"),
+    "teleop_L4_score": form.get("teleop_L4_score"),
+    "teleop_coral_misses": form.get("teleop_coral_misses"),
+    "human_score": form.get("human_score"),
+    "human_misses": form.get("human_misses"),
+    "start_hang": form.get("start_hang"),
+    "stop_hang": form.get("stop_hang"),
+    "trap_score": form.get("trap_score"),
+    "end_status": form.get("end_status"),
+    "comments": form.get("comments"),
+    "options": get_form_options()
+    }
+
+    return render_template("2025_form.html", vm=vm, bag=get_bag())
+
+@app.route("/form/2025/<id>", methods=["POST"])
+@login_required
+def update_2025_form(id):
+  
+  created_on: str(datetime.datetime.now())
+  form = request.form
+  totalcoralscore = int(form.get("teleop_L1_score")) + int(form.get("teleop_L2_score")) + int(form.get("teleop_L3_score")) + int(form.get("teleop_L4_score"))
+  totalcoralshots = int(totalcoralscore) + int(form.get("teleop_coral_misses"))
+  totalalgaeshots = int(form.get("teleop_algae_score")) + int(form.get("teleop_algae_misses"))
+  totalprocessorshots = int(form.get("teleop_processed")) + int(form.get("teleop_processor_misses"))
+  totalhumanshots = int(form.get("human_score")) + int(form.get("human_misses"))
+  teleop_coral_accuracy = totalcoralscore / totalcoralshots
+  teleop_algae_accuracy = int(form.get("teleop_algae_score")) / totalalgaeshots
+  teleop_processor_accuracy = int(form.get("teleop_processed")) + totalprocessorshots
+  human_accuracy = int(form.get("human_score")) / totalhumanshots
+
+  forms.update(id, {
+    "team": form.get("team"),
+    "match_number": form.get("match_number"),
+    "teleop_coral_accuracy": f"{teleop_coral_accuracy:.1%}",
+    "teleop_algae_accuracy": f"{teleop_algae_accuracy:.1%}",
+    "teleop_processor_accuracy": f"{teleop_processor_accuracy:.1%}",
+    "human_accuracy": f"{human_accuracy:.1%}",
+    "starting_position": form.get("starting_position"),
+    "left_start": form.get("left_start"),
+    "auto_algae_score": form.get("auto_algae_score"),
+    "auto_algae_misses": form.get("auto_algae_misses"),
+    "auto_processed": form.get("auto_processed"),
+    "auto_processor_misses" :form.get("auto_processor_misses"),
+    "auto_L1_score": form.get("auto_L1_score"),
+    "auto_L2_score": form.get("auto_L2_score"),
+    "auto_L3_score": form.get("auto_L3_score"),
+    "auto_L4_score": form.get("auto_L4_score"),
+    "auto_coral_misses": form.get("auto_coral_misses"),
+    "teleop_algae_score": form.get("teleop_algae_score"),
+    "teleop_algae_misses": form.get("teleop_algae_misses"),
+    "teleop_processed": form.get("teleop_processed"),
+    "teleop_processor_misses" :form.get("teleop_processor_misses"),
+    "teleop_L1_score": form.get("teleop_L1_score"),
+    "teleop_L2_score": form.get("teleop_L2_score"),
+    "teleop_L3_score": form.get("teleop_L3_score"),
+    "teleop_L4_score": form.get("teleop_L4_score"),
+    "teleop_coral_misses": form.get("teleop_coral_misses"),
+    "human_score": form.get("human_score"),
+    "human_misses": form.get("human_misses"),
+    "start_hang": form.get("start_hang"),
+    "stop_hang": form.get("stop_hang"),
+    "trap_score": form.get("trap_score"),
+    "end_status": form.get("end_status"),
+    "comments": form.get("comments"),
+    "updated_by": current_user.username,
+    "updated_on": created_on,
+  })
+
+  return redirect("/data")
+
+
+@app.route("/scouting_dashboard", methods=["GET"])
 def scouting_dashboard():
 
-    sorted_forms = sorted(forms.getAll(), key=itemgetter("created_on"), reverse=True)
 
-    return render_template("scouting_dashboard.html", forms=sorted_forms, bag=get_bag())
-
+    return render_template("scouting_dashboard.html", bag=get_bag())
 
 if CONFIG.PROD == False:
 
