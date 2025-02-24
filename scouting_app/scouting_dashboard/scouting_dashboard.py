@@ -2,8 +2,6 @@ from flask import Blueprint, render_template, abort
 from flask_login import login_required, current_user
 from jinja2 import TemplateNotFound
 from operator import itemgetter
-# import importlib
-# forms = importlib.import_module("data.forms")
 from scouting_app.data import forms
 
 

@@ -19,11 +19,13 @@ def create_app():
     with app.app_context():
         from .users import login
         from .scouting_dashboard import scouting_dashboard
+        from .form import form
 
         login_manager.user_loader(login.load_user)
 
         app.register_blueprint(login.login_bp)
         app.register_blueprint(scouting_dashboard.scouting_dashboard_bp)
+        app.register_blueprint(form.form_bp)
 
 
         if Config.ENVIRONMENT != 'PD':
