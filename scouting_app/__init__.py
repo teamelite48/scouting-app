@@ -20,7 +20,7 @@ def create_app():
         from .users import login
         from .scouting_dashboard import scouting_dashboard
 
-        login_manager.user_loader(login)
+        login_manager.user_loader(login.load_user)
 
         app.register_blueprint(login.login_bp)
         app.register_blueprint(scouting_dashboard.scouting_dashboard_bp)

@@ -4,7 +4,7 @@ from flask_login import UserMixin
 
 collection = "users"
 
-class User():
+class User(UserMixin):
 
   def __init__(self, user):
     self.id = user["_id"]
