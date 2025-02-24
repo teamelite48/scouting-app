@@ -2,8 +2,10 @@ import bcrypt
 from flask import Blueprint, render_template, abort, request, redirect, url_for
 from flask_login import current_user, login_required, login_user, logout_user
 from jinja2 import TemplateNotFound
-import importlib
-users = importlib.import_module("data.users")
+# import importlib
+# users = importlib.import_module("data.users")
+# from ..data import users
+from scouting_app.data import users
 
 
 login_bp = Blueprint(

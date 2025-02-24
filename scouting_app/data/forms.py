@@ -1,4 +1,4 @@
-from data import db
+from . import db
 
 
 collection = "2024_forms"
