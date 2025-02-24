@@ -4,33 +4,45 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>Hello</h1>
+<h1>Scouting Dashboard</h1>
 
 <form action="/form/2024/new" method="get">
-  {{ button("Scout a Match", "submit" )}}
+  <div class="d-grid gap-2 col-6 mx-auto">
+    <button class="btn btn-secondary btn-lg" type="submit">Start Scouting</button>
+  </div>
+</form>
+<div class="d-grid gap-2 col-6 mx-auto">
+  <button type="button" class="btn btn-secondary btn-lg" data-toggle="modal" data-target="#exampleModal">Start Super Scouting</button>
+</div>
+<form action="/form/pit/new" method="get">
+  <div class="d-grid gap-2 col-6 mx-auto">
+    <button class="btn btn-secondary btn-lg" type="submit">Start Pit Scouting</button>
+  </div>
+</form>
+<form action="/data" method="get">
+  <div class="d-grid gap-2 col-6 mx-auto">
+    <button class="btn btn-secondary btn-lg" type="submit">View all Data</button>
+  </div>
 </form>
 
-<table class="table">
-    <thead>
-      <tr>
-        {% for col in forms[0].keys() %}
-            <th scope="col">{{col}}</th>
-        {% endfor %}
-      </tr>
-    </thead>
-    <tbody>
-    {% for form in forms %}
-    <tr>
-        <td><a href="/form/2024/{{ form.get('_id') }}">{{ form.get("_id") }}</a></td>
-
-        {% for data in form %}
-          {% if not loop.first %}
-            <td>{{form.get(data)}}</td>
-          {% endif %}
-        {% endfor %}
-    </tr>
-    {% endfor %}
-    </tbody>
-  </table>
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 {% endblock %}

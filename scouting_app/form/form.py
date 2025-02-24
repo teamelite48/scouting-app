@@ -14,7 +14,6 @@ form_bp = Blueprint(
 @form_bp.route("/form/2024/new", methods=['GET'])
 @login_required
 def new_2024_form():
-
     vm = {
         "match_number": "",
         "starting_position": "Not There",
@@ -163,7 +162,7 @@ def update_2024_form(id):
     "updated_on": str(datetime.datetime.now())
   })
 
-  return redirect("/scouting_dashboard")
+  return redirect("/data")
 
 
 def get_bag():
