@@ -195,7 +195,6 @@ def save_2025_form():
     "human_misses": form.get("human_misses"),
     "start_hang": form.get("start_hang"),
     "stop_hang": form.get("stop_hang"),
-    "trap_score": form.get("trap_score"),
     "end_status": form.get("end_status"),
     "comments": form.get("comments"),
     "created_by": current_user.username,
@@ -240,7 +239,6 @@ def load_2025_form(id):
     "human_misses": form.get("human_misses"),
     "start_hang": form.get("start_hang"),
     "stop_hang": form.get("stop_hang"),
-    "trap_score": form.get("trap_score"),
     "end_status": form.get("end_status"),
     "comments": form.get("comments"),
     "options": get_form_options()
@@ -296,7 +294,6 @@ def update_2025_form(id):
     "human_misses": form.get("human_misses"),
     "start_hang": form.get("start_hang"),
     "stop_hang": form.get("stop_hang"),
-    "trap_score": form.get("trap_score"),
     "end_status": form.get("end_status"),
     "comments": form.get("comments"),
     "updated_by": current_user.username,
