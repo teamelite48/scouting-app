@@ -147,20 +147,6 @@ def new_2025_form():
 
     return render_template("2025_form.html", vm=vm, bag=get_bag())
 
-@app.route("/form/qual/new", methods=['GET'])
-@login_required
-def new_2025_form():
-
-    vm = {
-        "match_number": "",
-        "scouter_name": "",
-        "comments": "",
-    }
-
-
-
-    return render_template("super_scouting.html", vm=vm, bag=get_bag())
-
 @app.route("/form/2025/new", methods=["POST"])
 @login_required
 def save_2025_form():
@@ -310,6 +296,72 @@ def update_2025_form(id):
     "stop_hang": form.get("stop_hang"),
     "trap_score": form.get("trap_score"),
     "end_status": form.get("end_status"),
+    "comments": form.get("comments"),
+    "updated_by": current_user.username,
+    "updated_on": created_on,
+  })
+
+  return redirect("/data")
+
+@app.route("/form/qual/new", methods=['GET'])
+@login_required
+def new_super_scouting_form():
+
+    vm = {
+        "match_number": "",
+        "scouter_name": "",
+        "comments": "",
+        "options": get_form_options()
+    }
+
+
+
+    return render_template("super_scouting.html", vm=vm, bag=get_bag())
+
+@app.route("/form/qual/new", methods=["POST"])
+@login_required
+def save_super_scouting_form():
+  form = request.form
+  created_on = str(datetime.datetime.now())
+  forms.add({
+    "team": form.get("team"),
+    "match_number": form.get("match_number"),
+    "scouter_name": form.get("scouter_name"),
+    "comments": form.get("comments"),
+    "created_by": current_user.username,
+    "updated_by": current_user.username,
+    "created_on": created_on,
+    "updated_on": created_on,
+    })
+
+  return redirect("/scouting_dashboard")
+
+@app.route("/form/qual/<id>", methods=['GET'])
+@login_required
+def load_super_scouting_form(id):
+
+    form = forms.get(id)
+
+    vm = {
+    "team": form.get("team"),
+    "match_number": form.get("match_number"),
+    "scouter_name": form.get("scouter_name"),
+    "comments": form.get("comments"),
+    "options": get_form_options()
+    }
+
+    return render_template("super_scouting.html", vm=vm, bag=get_bag())
+
+@app.route("/form/2025/<id>", methods=["POST"])
+@login_required
+def update_super_scouting_form(id):
+  
+  form = request.form
+  created_on = str(datetime.datetime.now())
+  forms.update(id, {
+    "team": form.get("team"),
+    "match_number": form.get("match_number"),
+    "scouter_name": form.get("scouter_name"),
     "comments": form.get("comments"),
     "updated_by": current_user.username,
     "updated_on": created_on,

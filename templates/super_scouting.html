@@ -1,19 +1,20 @@
 {% extends "base.html" %}
 {% from "components.html" import select with context %}
 {% from "components.html" import text_input with context %}
-{% from "components.html" import slider with context %}
-{% from "components.html" import counter with context %}
-{% from "components.html" import checkbox with context %}
 {% from "components.html" import header with context %}
 {% from "components.html" import button with context %}
 
 {% block content %}
   <h1>Super Scouting Form</h1>
-
-  {{ text_input("match_number", "Match Number", vm.match_number)}}
-
-  {{ select("team", "Team Scouting", vm.options.teams, vm.team ) }}
-
   
+  <form method="POST">
+    {{ text_input("match_number", "Match Number", vm.match_number)}}
 
-{% from "components.html" import button with context %}
+    {{ select("team", "Team Scouting", vm.options.teams, vm.team ) }}
+
+    {{ text_input("comments", "Summarize the Match", vm.comments) }}
+
+    {{ button("Submit Form", "submit" )}}
+
+</form>
+{% endblock %}
