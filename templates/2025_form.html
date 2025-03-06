@@ -18,7 +18,7 @@
 
     {{ text_input("scouter_name", "Name of Scouter", vm.scouter_name)}}
 
-    {{ select("team", "Team Scouting", vm.options.teams, vm.team ) }}
+    {{ text_input("team", "Team Scouting", vm.team ) }}
 
     {{ select("starting_position", "Starting Position", vm.options.starting_position, vm.starting_position ) }}
 
@@ -48,9 +48,9 @@
 
     {{ header("Teleop", 4, True) }}
 
-    {{ select("algae_intake", "How can they pick up coral?", vm.options.algae_intake, vm.algae_intake ) }}
+    {{ select("algae_intake", "How can they pick up coral?", vm.options.coral_intake, vm.coral_intake ) }}
 
-    {{ select("coral_intake", "How can they pick up algae?", vm.options.coral_intake, vm.coral_intake ) }}
+    {{ select("coral_intake", "How can they pick up algae?", vm.options.algae_intake, vm.algae_intake ) }}
 
     {{ header("Teleop Notes", 6, False) }}
 

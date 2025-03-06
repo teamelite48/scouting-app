@@ -132,6 +132,8 @@ def new_2025_form():
 
     vm = {
         "match_number": "",
+        "scouter_name": "",
+        "team": "",
         "starting_position": "Not There",
         "left_start": "No",
         "algae_intake": "Does not pick up Algae",
@@ -258,7 +260,7 @@ def update_2025_form(id):
   totalhumanshots = int(form.get("human_score")) + int(form.get("human_misses"))
   teleop_coral_accuracy = totalcoralscore / totalcoralshots
   teleop_algae_accuracy = int(form.get("teleop_algae_score")) / totalalgaeshots
-  teleop_processor_accuracy = int(form.get("teleop_processed")) + totalprocessorshots
+  teleop_processor_accuracy = int(form.get("teleop_processed")) / totalprocessorshots
   human_accuracy = int(form.get("human_score")) / totalhumanshots
   
   created_on = str(datetime.datetime.now())
