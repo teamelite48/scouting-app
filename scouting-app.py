@@ -147,6 +147,20 @@ def new_2025_form():
 
     return render_template("2025_form.html", vm=vm, bag=get_bag())
 
+@app.route("/form/qual/new", methods=['GET'])
+@login_required
+def new_2025_form():
+
+    vm = {
+        "match_number": "",
+        "scouter_name": "",
+        "comments": "",
+    }
+
+
+
+    return render_template("super_scouting.html", vm=vm, bag=get_bag())
+
 @app.route("/form/2025/new", methods=["POST"])
 @login_required
 def save_2025_form():
@@ -164,6 +178,7 @@ def save_2025_form():
   forms.add({
     "team": form.get("team"),
     "match_number": form.get("match_number"),
+    "scouter_name": form.get("scouter_name"),
     "teleop_coral_accuracy": f"{teleop_coral_accuracy:.1%}",
     "teleop_algae_accuracy": f"{teleop_algae_accuracy:.1%}",
     "teleop_processor_accuracy": f"{teleop_processor_accuracy:.1%}",
@@ -212,6 +227,7 @@ def load_2025_form(id):
     vm = {
     "team": form.get("team"),
     "match_number": form.get("match_number"),
+    "scouter_name": form.get("scouter_name"),
     "starting_position": form.get("starting_position"),
     "left_start": form.get("left_start"),
     "auto_algae_score": form.get("auto_algae_score"),
@@ -248,7 +264,6 @@ def load_2025_form(id):
 @login_required
 def update_2025_form(id):
   
-  created_on: str(datetime.datetime.now())
   form = request.form
   totalcoralscore = int(form.get("teleop_L1_score")) + int(form.get("teleop_L2_score")) + int(form.get("teleop_L3_score")) + int(form.get("teleop_L4_score"))
   totalcoralshots = int(totalcoralscore) + int(form.get("teleop_coral_misses"))
@@ -259,10 +274,12 @@ def update_2025_form(id):
   teleop_algae_accuracy = int(form.get("teleop_algae_score")) / totalalgaeshots
   teleop_processor_accuracy = int(form.get("teleop_processed")) + totalprocessorshots
   human_accuracy = int(form.get("human_score")) / totalhumanshots
-
+  
+  created_on = str(datetime.datetime.now())
   forms.update(id, {
     "team": form.get("team"),
     "match_number": form.get("match_number"),
+    "scouter_name": form.get("scouter_name"),
     "teleop_coral_accuracy": f"{teleop_coral_accuracy:.1%}",
     "teleop_algae_accuracy": f"{teleop_algae_accuracy:.1%}",
     "teleop_processor_accuracy": f"{teleop_processor_accuracy:.1%}",
