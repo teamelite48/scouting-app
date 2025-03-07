@@ -40,6 +40,13 @@ users.insertOne({
 });
 
 users.insertOne({
+  "username": "D",
+  "password": "$2b$12$Lao7omDmMROC8wewoi9LmOrKsEJI/2Z75D802ILccBbhJmwIT3oxu", // team0048
+  "admin": false,
+  "authenticated": false
+});
+
+users.insertOne({
   "username": "admin",
   "password": "$2b$12$GYboYCKQv1skkPKpwX7SzeP/deJLC5Unjsfb7tAnllQcmGK3NVjcS", // admin
   "admin": true,
