@@ -3,6 +3,7 @@ print('🌱 Seeding MongoDB...');
 app = db.getSiblingDB("scouting_app");
 
 app.createCollection("2025_forms");
+app.createCollection("qual_forms");
 app.createCollection("users");
 app.createCollection("teams");
 
@@ -71,5 +72,6 @@ teams.insertOne({
   "name": "test team 6"
 })
 
+forms = app.getCollection("qual_forms");
 
 print('🏁 Finished seeding MongoDB');

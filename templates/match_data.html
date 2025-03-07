@@ -5,7 +5,7 @@
 
 {% block content %}
 
-{{ header("Pick a competition to pull data from (picking is a work in progress.)", 4, True) }}
+{{ header("Quantatative Data", 4, True) }}
 
 <div class="overflow-auto">
   <table class="table" id="completedmatches">
@@ -48,5 +48,7 @@
         });
       });
     </script>
+
+{{ header("Qualatative Data", 4, True) }}
 
   {% endblock %}
