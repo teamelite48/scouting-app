@@ -260,7 +260,6 @@ def update_2025_form(id):
   teleop_algae_accuracy = int(form.get("teleop_algae_score")) / totalalgaeshots if totalalgaeshots != 0 else 0
   teleop_processor_accuracy = int(form.get("teleop_processed")) / totalprocessorshots if totalprocessorshots != 0 else 0
   human_accuracy = int(form.get("human_score")) / totalhumanshots if totalhumanshots != 0 else 0
-  
   created_on = str(datetime.datetime.now())
   forms.update(id, {
     "team": form.get("team"),
