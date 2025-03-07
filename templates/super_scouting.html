@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% from "components.html" import select with context %}
 {% from "components.html" import text_input with context %}
+{% from "components.html" import text_area with context %}
 {% from "components.html" import header with context %}
 {% from "components.html" import button with context %}
 
@@ -10,9 +11,9 @@
   <form method="POST">
     {{ text_input("match_number", "Match Number", vm.match_number)}}
 
-    {{ select("team", "Team Scouting", vm.options.teams, vm.team ) }}
+    {{ text_input("team", "Team Scouting", vm.team ) }}
 
-    {{ text_input("comments", "Summarize the Match", vm.comments) }}
+    {{ text_area("comments", "Summarize the Match", 4, vm.comments) }}
 
     {{ button("Submit Form", "submit" )}}
 

@@ -71,11 +71,14 @@
 {% endmacro %}
 
 {% macro text_area(id, label, rows, value) %}
-  <label for="{{id}}">{{label}}</label>
-
-  <textarea id="{{id}}" name="{{id}}" rows="{{rows}}">
+<div class="input-group">
+  <div class="input-group-prepend">
+    <span class="input-group-text">{{label}}</span>
+  </div>
+  <textarea id="{{id}}" name="{{id}}" rows="{{rows}}" class="form-control">
     {{value}}
   </textarea>
+</div>
 {% endmacro %}
 
 {% macro header(label, size, break) %}

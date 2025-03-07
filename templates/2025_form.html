@@ -6,6 +6,7 @@
 {% from "components.html" import checkbox with context %}
 {% from "components.html" import header with context %}
 {% from "components.html" import button with context %}
+{% from "components.html" import text_area with context %}
 
 {% block content %}
   <h1>Match Form</h1>
@@ -88,7 +89,7 @@
 
     {{ header("General Notes", 4, True) }}
 
-    {{ text_input("comments", "Other Notes or Comments", vm.comments) }}
+    {{ text_area("comments", "Other Comments or Notes", 4, vm.comments) }}
 
     {{ button("Submit Form", "submit" )}}
 </form>
