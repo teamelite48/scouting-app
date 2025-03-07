@@ -153,15 +153,15 @@ def new_2025_form():
 @login_required
 def save_2025_form():
   form = request.form
-  totalcoralscore = int(form.get("teleop_L1_score")) + int(form.get("teleop_L2_score")) + int(form.get("teleop_L3_score")) + int(form.get("teleop_L4_score"))
-  totalcoralshots = int(totalcoralscore) + int(form.get("teleop_coral_misses"))
-  totalalgaeshots = int(form.get("teleop_algae_score")) + int(form.get("teleop_algae_misses"))
-  totalprocessorshots = int(form.get("teleop_processed")) + int(form.get("teleop_processor_misses"))
-  totalhumanshots = int(form.get("human_score")) + int(form.get("human_misses"))
-  teleop_coral_accuracy = totalcoralscore / totalcoralshots
-  teleop_algae_accuracy = int(form.get("teleop_algae_score")) / totalalgaeshots
-  teleop_processor_accuracy = int(form.get("teleop_processed")) / totalprocessorshots
-  human_accuracy = int(form.get("human_score")) / totalhumanshots
+  totalcoralscore = int(form.get("teleop_L1_score") or 0) + int(form.get("teleop_L2_score") or 0) + int(form.get("teleop_L3_score") or 0) + int(form.get("teleop_L4_score") or 0)
+  totalcoralshots = int(totalcoralscore) + int(form.get("teleop_coral_misses") or 0)
+  totalalgaeshots = int(form.get("teleop_algae_score") or 0) + int(form.get("teleop_algae_misses") or 0)
+  totalprocessorshots = int(form.get("teleop_processed") or 0) + int(form.get("teleop_processor_misses") or 0)
+  totalhumanshots = int(form.get("human_score") or 0) + int(form.get("human_misses") or 0)
+  teleop_coral_accuracy = totalcoralscore / totalcoralshots if totalcoralshots != 0 else 0
+  teleop_algae_accuracy = int(form.get("teleop_algae_score")) / totalalgaeshots if totalalgaeshots != 0 else 0
+  teleop_processor_accuracy = int(form.get("teleop_processed")) / totalprocessorshots if totalprocessorshots != 0 else 0
+  human_accuracy = int(form.get("human_score")) / totalhumanshots if totalhumanshots != 0 else 0
   created_on = str(datetime.datetime.now())
   forms.add({
     "team": form.get("team"),
