@@ -12,10 +12,10 @@
   </div>
 {% endmacro %}
 
-{% macro text_input(id, label, value) %}
+{% macro text_input(id, label, value, required) %}
   <div class="mb-3">
     <label for="{{id}}" class="form-label">{{label}}</label>
-    <input type="text" id="{{id}}" name="{{id}}" class="form-control" value="{{value}}">
+    <input type="text" id="{{id}}" name="{{id}}" class="form-control" value="{{value}}" {% if required %} required {% endif %}>
   </div>
 {% endmacro %}
 
@@ -70,7 +70,7 @@
   </div>
 {% endmacro %}
 
-{% macro text_area(id, label, rows, value) %}
+{% macro text_area(id, label, rows, value,) %}
 <div class="input-group">
   <div class="input-group-prepend">
     <span class="input-group-text">{{label}}</span>

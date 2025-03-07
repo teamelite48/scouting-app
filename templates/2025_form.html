@@ -15,11 +15,11 @@
 
     {{ header("Pre-Match Info", 4, True) }}
 
-    {{ text_input("match_number", "Match Number", vm.match_number)}}
+    {{ text_input("match_number", "Match Number", vm.match_number ) }}
 
-    {{ text_input("scouter_name", "Name of Scouter", vm.scouter_name)}}
+    {{ text_input("scouter_name", "Name of Scouter", vm.scouter_name, true ) }}
 
-    {{ text_input("team", "Team Scouting", vm.team ) }}
+    {{ text_input("team", "Team Scouting", vm.team, true ) }}
 
     {{ select("starting_position", "Starting Position", vm.options.starting_position, vm.starting_position ) }}
 
