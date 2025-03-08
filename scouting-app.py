@@ -31,7 +31,7 @@ def get_form_options():
             "Not There",
             "Left Side",
             "Middle",
-            "Coral Station Side"
+            "Right Side"
         ],
         "left_start": [
             "No",
