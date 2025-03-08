@@ -327,7 +327,7 @@ def new_super_scouting_form():
 def save_super_scouting_form():
   form = request.form
   created_on = str(datetime.datetime.now())
-  quals.add({
+  forms.add({
     "team": form.get("team"),
     "match_number": form.get("match_number"),
     "scouter_name": form.get("scouter_name"),
