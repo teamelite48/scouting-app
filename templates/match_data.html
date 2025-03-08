@@ -61,11 +61,11 @@
         </tr>
       </thead>
       <tbody>
-      {% for form in forms %}
+      {% for qual in quals %}
       <tr>
           <td><a href="/form/qual/{{ form.get('_id') }}">{{ form.get("_id") }}</a></td>
 
-          {% for data in form %}
+          {% for data in qual %}
             {% if not loop.first %}
               <td>{{form.get(data)}}</td>
             {% endif %}

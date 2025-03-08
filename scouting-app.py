@@ -327,7 +327,7 @@ def new_super_scouting_form():
 def save_super_scouting_form():
   form = request.form
   created_on = str(datetime.datetime.now())
-  forms.add({
+  quals.add({
     "team": form.get("team"),
     "match_number": form.get("match_number"),
     "scouter_name": form.get("scouter_name"),
@@ -356,7 +356,7 @@ def load_super_scouting_form(id):
 
     return render_template("super_scouting.html", vm=vm, bag=get_bag())
 
-@app.route("/form/2025/<id>", methods=["POST"])
+@app.route("/form/qual/<id>", methods=["POST"])
 @login_required
 def update_super_scouting_form(id):
   

@@ -79,6 +79,6 @@ teams.insertOne({
   "name": "test team 6"
 })
 
-forms = app.getCollection("qual_forms");
+quals = app.getCollection("qual_forms");
 
 print('🏁 Finished seeding MongoDB');
