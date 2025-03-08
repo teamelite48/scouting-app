@@ -54,9 +54,8 @@ def get_form_options():
             "Not Parked",
             "Parked",
             "Cage Attempted",
-            "On Cage",
-            "Hung with 1 Robot",
-            "Hung with 2 Robots"
+            "Shallow Cage",
+            "Deep Cage"
         ]
     }
 
