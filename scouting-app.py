@@ -29,9 +29,9 @@ def get_form_options():
         "teams": list(map(lambda team: team["name"], teams.getAll())),
         "starting_position": [
             "Not There",
-            "Left Side",
-            "Middle",
-            "Right Side"
+            "Coral Side",
+            "Middle of Reef",
+            "Processor Side"
         ],
         "left_start": [
             "No",
