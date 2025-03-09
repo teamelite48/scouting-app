@@ -4,7 +4,7 @@ from flask import Flask, render_template, request, redirect
 from flask_login import LoginManager, current_user, login_required, login_user, logout_user
 from flask_socketio import SocketIO
 from config import CONFIG
-from data import forms
+from data import forms, quals
 from data import teams
 from data import users
 from utils.log import log
@@ -79,7 +79,9 @@ def match_data():
 
     sorted_forms = sorted(forms.getAll(), key=itemgetter("created_on"), reverse=True)
 
-    return render_template("match_data.html", forms=sorted_forms, bag=get_bag() )
+    sorted_quals = sorted(quals.getAll(), key=itemgetter("created_on"), reverse=True)
+
+    return render_template("match_data.html", quals=sorted_quals, forms=sorted_forms, bag=get_bag() )
 
 
 @app.route("/login", methods=["POST"])
@@ -350,7 +352,7 @@ def new_super_scouting_form():
 def save_super_scouting_form():
   form = request.form
   created_on = str(datetime.datetime.now())
-  forms.add({
+  quals.add({
     "team": form.get("team"),
     "match_number": form.get("match_number"),
     "scouter_name": form.get("scouter_name"),
@@ -367,7 +369,7 @@ def save_super_scouting_form():
 @login_required
 def load_super_scouting_form(id):
 
-    form = forms.get(id)
+    form = quals.get(id)
 
     vm = {
     "team": form.get("team"),
@@ -385,7 +387,7 @@ def update_super_scouting_form(id):
   
   form = request.form
   created_on = str(datetime.datetime.now())
-  forms.update(id, {
+  quals.update(id, {
     "team": form.get("team"),
     "match_number": form.get("match_number"),
     "scouter_name": form.get("scouter_name"),
