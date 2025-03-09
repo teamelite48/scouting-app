@@ -10,7 +10,7 @@ app.createCollection("teams");
 forms = app.getCollection("2025_forms");
 
 forms.insertOne({
-  "scouter_name": "Test",
+  "scouter_name": "Elite Scouter",
   "age": 48,
   "created_on": "2025-01-01 00:34:01.721103"
 });
@@ -83,17 +83,8 @@ quals = app.getCollection("qual_forms");
 
 quals.insertOne({
   "scouter_name": "Elite Scouter",
-  "team": "Test",
-  "match_number": "Test",
-  "scouter_name": "Test",
-  "comments": "Test",
+  "age": 48,
   "created_on": "2025-01-01 00:34:01.721103"
-});
-
-pits = app.getCollection("qual_forms");
-
-pits.insertOne({
-
 });
 
 print('🏁 Finished seeding MongoDB');
