@@ -1,7 +1,7 @@
-{% macro select(id, label, options, selected_value) %}
+{% macro select(id, label, options, selected_value, required) %}
   <div class="mb-3">
     <label for="{{id}}" class="form-label">{{label}}</label>
-    <select id="{{id}}" name="{{id}}" class="form-select">
+    <select id="{{id}}" name="{{id}}" class="form-select" {% if required %} required {% endif %}>
       <option></option>
       {% for o in options %}
         <option value="{{o}}" {% if o == selected_value %} selected="selected"{% endif %}>

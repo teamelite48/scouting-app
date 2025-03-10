@@ -28,17 +28,12 @@ login_manager.login_view = "login"
 
 def get_form_options():
     return {
-        "teams": list(map(lambda team: team["name"], teams.getAll())),
+        "team": list(map(lambda team: team["name"], teams.getAll())),
         "starting_position": [
             "Not There",
-            "Coral Side",
+            "Left Coral Side",
             "Middle of Reef",
             "Processor Side"
-        ],
-        "left_start": [
-            "No",
-            "Yes",
-            "Attempted"
         ],
         "coral_intake": [
             "Does not pick up Coral",
@@ -140,7 +135,6 @@ def new_2025_form():
         "scouter_name": "",
         "team": "",
         "starting_position": "Not There",
-        "left_start": "No",
         "auto_algae_score": 0,
         "auto_algae_misses": 0,
         "auto_processed": 0,
@@ -200,7 +194,6 @@ def save_2025_form():
     "algae_intake": form.get("algae_intake"),
     "coral_intake": form.get("coral_intake"),
     "starting_position": form.get("starting_position"),
-    "left_start": form.get("left_start"),
     "auto_algae_score": form.get("auto_algae_score"),
     "auto_algae_misses": form.get("auto_algae_misses"),
     "auto_processed": form.get("auto_processed"),
@@ -247,7 +240,6 @@ def load_2025_form(id):
     "starting_position": form.get("starting_position"),
     "algae_intake": form.get("algae_intake"),
     "coral_intake": form.get("coral_intake"),
-    "left_start": form.get("left_start"),
     "auto_algae_score": form.get("auto_algae_score"),
     "auto_algae_misses": form.get("auto_algae_misses"),
     "auto_processed": form.get("auto_processed"),
@@ -304,7 +296,6 @@ def update_2025_form(id):
     "starting_position": form.get("starting_position"),
     "algae_intake": form.get("algae_intake"),
     "coral_intake": form.get("coral_intake"),
-    "left_start": form.get("left_start"),
     "auto_algae_score": form.get("auto_algae_score"),
     "auto_algae_misses": form.get("auto_algae_misses"),
     "auto_processed": form.get("auto_processed"),
@@ -336,6 +327,11 @@ def update_2025_form(id):
 
   return redirect("/data")
 
+def get_qual_options():
+    return {
+        "team": list(map(lambda team: team["name"], teams.getAll()))
+    }
+
 @app.route("/form/qual/new", methods=['GET'])
 @login_required
 def new_super_scouting_form():
@@ -343,7 +339,8 @@ def new_super_scouting_form():
     vm = {
         "match_number": "",
         "scouter_name": "",
-        "comments": ""
+        "comments": "",
+        "options": get_qual_options()
     }
 
 
@@ -378,7 +375,8 @@ def load_super_scouting_form(id):
     "team": form.get("team"),
     "match_number": form.get("match_number"),
     "scouter_name": form.get("scouter_name"),
-    "comments": form.get("comments")
+    "comments": form.get("comments"),
+    "options": get_qual_options()
     }
 
     return render_template("super_scouting_form.html", vm=vm, bag=get_bag())
@@ -402,7 +400,7 @@ def update_super_scouting_form(id):
 
 def get_pit_options():
     return {
-        "teams": list(map(lambda team: team["name"], teams.getAll())),
+        "team": list(map(lambda team: team["name"], teams.getAll())),
         "base": [
             "Swerve L1",
             "Swerve L2",
@@ -475,7 +473,7 @@ def save_pit_form():
 
   return redirect("/scouting_dashboard")
 
-@app.route("/form/2025/<id>", methods=['GET'])
+@app.route("/form/pit/<id>", methods=['GET'])
 @login_required
 def load_pit_form(id):
 

@@ -19,29 +19,27 @@
 
     {{ text_input("scouter_name", "Name of Scouter", vm.scouter_name, true ) }}
 
-    {{ text_input("team", "Team Scouting", vm.team, true ) }}
+    {{ select("team", "Team Scouting", vm.options.team, vm.team ) }}
 
-    {{ select("starting_position", "Starting Position", vm.options.starting_position, vm.starting_position ) }}
+    {{ select("starting_position", "Starting Position (Relative to Robot)", vm.options.starting_position, vm.starting_position ) }}
 
     {{ header("Autonomous", 4, True) }}
 
-    {{ select("left_start", "Did they leave the starting zone?", vm.options.left_start, vm.left_start ) }}
-
     {{ header("Auto Notes", 6, False) }}
 
-    {{ counter("auto_algae_score", "Algae SCORED", 0, 1000, vm.auto_algae_score ) }}
+    {{ counter("auto_algae_score", "Algae SCORED in the net", 0, 18, vm.auto_algae_score ) }}
 
     {{ counter("auto_processed", "Algae PROCESSED", 0, 1000, vm.auto_processed ) }}
 
-    {{ counter("auto_algae_misses", "Algae MISSED", 0, 1000, vm.auto_algae_misses ) }}
+    {{ counter("auto_algae_misses", "Algae MISSED in the net", 0, 1000, vm.auto_algae_misses ) }}
 
     {{ counter("auto_processor_misses", "Algae Processor MISSED", 0, 1000, vm.auto_processor_misses ) }}
 
-    {{ counter("auto_L4_score", "Coral SCORED (Level 4)", 0, 1000, vm.auto_L4_score ) }}
+    {{ counter("auto_L4_score", "Coral SCORED (Level 4)", 0, 12, vm.auto_L4_score ) }}
 
-    {{ counter("auto_L3_score", "Coral SCORED (Level 3)", 0, 1000, vm.auto_L3_score ) }}
+    {{ counter("auto_L3_score", "Coral SCORED (Level 3)", 0, 12, vm.auto_L3_score ) }}
 
-    {{ counter("auto_L2_score", "Coral SCORED (Level 2)", 0, 1000, vm.auto_L2_score ) }}
+    {{ counter("auto_L2_score", "Coral SCORED (Level 2)", 0, 12, vm.auto_L2_score ) }}
 
     {{ counter("auto_L1_score", "Coral SCORED (Level 1)", 0, 1000, vm.auto_L1_score ) }}
 
@@ -55,19 +53,19 @@
 
     {{ header("Teleop Notes", 6, False) }}
 
-    {{ counter("teleop_algae_score", "Algae SCORED", 0, 1000, vm.teleop_algae_score ) }}
+    {{ counter("teleop_algae_score", "Algae SCORED in the net", 0, 18, vm.teleop_algae_score ) }}
 
     {{ counter("teleop_processed", "Algae PROCESSED", 0, 1000, vm.auto_processed ) }}
 
-    {{ counter("teleop_algae_misses", "Algae MISSED", 0, 1000, vm.auto_algae_misses ) }}
+    {{ counter("teleop_algae_misses", "Algae MISSED in the net", 0, 1000, vm.auto_algae_misses ) }}
 
     {{ counter("teleop_processor_misses", "Algae Processor MISSED", 0, 1000, vm.teleop_processor_misses ) }}
 
-    {{ counter("teleop_L4_score", "Coral SCORED (Level 4)", 0, 1000, vm.teleop_L4_score ) }}
+    {{ counter("teleop_L4_score", "Coral SCORED (Level 4)", 0, 12, vm.teleop_L4_score ) }}
 
-    {{ counter("teleop_L3_score", "Coral SCORED (Level 3)", 0, 1000, vm.teleop_L3_score ) }}
+    {{ counter("teleop_L3_score", "Coral SCORED (Level 3)", 0, 12, vm.teleop_L3_score ) }}
 
-    {{ counter("teleop_L2_score", "Coral SCORED (Level 2)", 0, 1000, vm.teleop_L2_score ) }}
+    {{ counter("teleop_L2_score", "Coral SCORED (Level 2)", 0, 12, vm.teleop_L2_score ) }}
 
     {{ counter("teleop_L1_score", "Coral SCORED (Level 1)", 0, 1000, vm.teleop_L1_score ) }}
 
@@ -75,7 +73,7 @@
 
     {{ header("Human Player", 6, False) }}
 
-    {{ counter("human_score", "Human Shots SCORED", 0, 1000, vm.human_score ) }}
+    {{ counter("human_score", "Human Shots SCORED", 0, 18, vm.human_score ) }}
 
     {{ counter("human_misses", "Human Shots MISSED", 0, 1000, vm.human_misses ) }}
 
@@ -85,7 +83,7 @@
 
     {{ slider("stop_hang", "How much time was on the clock when they stopped hanging?", 0, 45, 1, vm.stop_hang, "seconds") }}
 
-    {{ select("end_status", "Did they Park?", vm.options.end_status, vm.end_status )}}
+    {{ select("end_status", "Endgame Result", vm.options.end_status, vm.end_status )}}
 
     {{ header("General Notes", 4, True) }}
 
