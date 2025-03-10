@@ -4,6 +4,7 @@ app = db.getSiblingDB("scouting_app");
 
 app.createCollection("2025_forms");
 app.createCollection("qual_forms");
+app.createCollection("pit_forms");
 app.createCollection("users");
 app.createCollection("teams");
 
@@ -11,8 +12,48 @@ forms = app.getCollection("2025_forms");
 
 forms.insertOne({
   "scouter_name": "Elite Scouter",
-  "age": 48,
+  "age": "Test",
   "created_on": "2025-01-01 00:34:01.721103"
+});
+
+quals = app.getCollection("qual_forms");
+
+quals.insertOne({
+  "team": "Test",
+  "match_number": "Test",
+  "scouter_name": "Test",
+  "comments": "Test",
+  "created_by": "Test",
+  "updated_by": "Test",
+  "created_on": "2025-01-01 00:34:01.721103",
+  "updated_on": "2025-01-01 00:34:01.721103",
+});
+
+pits = app.getCollection("pit_forms");
+
+pits.insertOne({
+  "scouter_name": "Test",
+  "team": "Test",
+  "base": "Test",
+  "dimensions": "Test",
+  "weight": "Test",
+  "gravity": "Test",
+  "algae_intake": "Test",
+  "coral_intake": "Test",
+  "L4": "Test",
+  "L3": "Test",
+  "L2": "Test",
+  "L1": "Test",
+  "auto_move": "Test",
+  "auto_score": "Test",
+  "auto_best_score": "Test",
+  "shallow": "Test",
+  "deep": "Test",
+  "comments": "Test",
+  "created_by": "Test",
+  "updated_by": "Test",
+  "created_on": "2025-01-01 00:34:01.721103",
+  "updated_on": "2025-01-01 00:34:01.721103"
 });
 
 users = app.getCollection("users");
@@ -78,13 +119,5 @@ teams.insertOne({
 teams.insertOne({
   "name": "test team 6"
 })
-
-quals = app.getCollection("qual_forms");
-
-quals.insertOne({
-  "scouter_name": "Elite Scouter",
-  "age": 48,
-  "created_on": "2025-01-01 00:34:01.721103"
-});
 
 print('🏁 Finished seeding MongoDB');

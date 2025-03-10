@@ -4,7 +4,9 @@ from flask import Flask, render_template, request, redirect
 from flask_login import LoginManager, current_user, login_required, login_user, logout_user
 from flask_socketio import SocketIO
 from config import CONFIG
-from data import forms, quals
+from data import forms
+from data import quals
+from data import pits
 from data import teams
 from data import users
 from utils.log import log
@@ -81,7 +83,9 @@ def match_data():
 
     sorted_quals = sorted(quals.getAll(), key=itemgetter("created_on"), reverse=True)
 
-    return render_template("match_data.html", quals=sorted_quals, forms=sorted_forms, bag=get_bag() )
+    sorted_pits = sorted(pits.getAll(), key=itemgetter("created_on"), reverse=True)
+
+    return render_template("match_data.html", pits=sorted_pits, quals=sorted_quals, forms=sorted_forms, bag=get_bag() )
 
 
 @app.route("/login", methods=["POST"])
@@ -140,7 +144,7 @@ def new_2025_form():
         "auto_algae_score": 0,
         "auto_algae_misses": 0,
         "auto_processed": 0,
-        "auto_processor_misses" :0,
+        "auto_processor_misses": 0,
         "auto_L1_score": 0,
         "auto_L2_score": 0,
         "auto_L3_score": 0,
@@ -339,13 +343,12 @@ def new_super_scouting_form():
     vm = {
         "match_number": "",
         "scouter_name": "",
-        "comments": "",
-        "options": get_form_options()
+        "comments": ""
     }
 
 
 
-    return render_template("super_scouting.html", vm=vm, bag=get_bag())
+    return render_template("super_scouting_form.html", vm=vm, bag=get_bag())
 
 @app.route("/form/qual/new", methods=["POST"])
 @login_required
@@ -375,11 +378,10 @@ def load_super_scouting_form(id):
     "team": form.get("team"),
     "match_number": form.get("match_number"),
     "scouter_name": form.get("scouter_name"),
-    "comments": form.get("comments"),
-    "options": get_form_options()
+    "comments": form.get("comments")
     }
 
-    return render_template("super_scouting.html", vm=vm, bag=get_bag())
+    return render_template("super_scouting_form.html", vm=vm, bag=get_bag())
 
 @app.route("/form/qual/<id>", methods=["POST"])
 @login_required
@@ -397,6 +399,139 @@ def update_super_scouting_form(id):
   })
 
   return redirect("/data")
+
+def get_pit_options():
+    return {
+        "teams": list(map(lambda team: team["name"], teams.getAll())),
+        "base": [
+            "Swerve L1",
+            "Swerve L2",
+            "Swerve L3",
+            "Tank",
+            "Mecanum"
+        ],
+        "coral_intake": [
+            "Does not pick up Coral",
+            "From the Ground",
+            "From the Coral Station",
+            "Both"
+        ],
+        "algae_intake": [
+            "Does not pick up Algae",
+            "From the Ground",
+            "From the Reef",
+            "Both"
+        ]
+    }
+
+@app.route("/form/pit/new", methods=['GET'])
+@login_required
+def new_pit_form():
+
+    vm = {
+        "scouter_name": "",
+        "team": "",
+        "dimensions": "",
+        "weight": "",
+        "algae_intake": "Does not pick up Algae",
+        "coral_intake": "Does not pick up Coral",
+        "auto_best_score": 0,
+        "comments": "",
+        "options": get_pit_options()
+    }
+
+
+
+    return render_template("pit_form.html", vm=vm, bag=get_bag())
+
+@app.route("/form/pit/new", methods=["POST"])
+@login_required
+def save_pit_form():
+  form = request.form
+  created_on = str(datetime.datetime.now())
+  pits.add({
+    "scouter_name": form.get("scouter_name"),
+    "team": form.get("team"),
+    "base": form.get("base"),
+    "dimensions": form.get("dimensions"),
+    "weight": form.get("weight"),
+    "algae_intake": form.get("algae_intake"),
+    "coral_intake": form.get("coral_intake"),
+    "L4": form.get("L4"),
+    "L3": form.get("L3"),
+    "L2": form.get("L2"),
+    "L1": form.get("L1"),
+    "auto_move": form.get("auto_move"),
+    "auto_score": form.get("auto_score"),
+    "auto_best_score": form.get("auto_best_score"),
+    "shallow": form.get("shallow"),
+    "deep": form.get("deep"),
+    "comments": form.get("comments"),
+    "created_by": current_user.username,
+    "updated_by": current_user.username,
+    "created_on": created_on,
+    "updated_on": created_on,
+    })
+
+  return redirect("/scouting_dashboard")
+
+@app.route("/form/2025/<id>", methods=['GET'])
+@login_required
+def load_pit_form(id):
+
+    form = pits.get(id)
+
+    vm = {
+    "scouter_name": form.get("scouter_name"),
+    "team": form.get("team"),
+    "base": form.get("base"),
+    "dimensions": form.get("dimensions"),
+    "weight": form.get("weight"),
+    "algae_intake": form.get("algae_intake"),
+    "coral_intake": form.get("coral_intake"),
+    "L4": form.get("L4"),
+    "L3": form.get("L3"),
+    "L2": form.get("L2"),
+    "L1": form.get("L1"),
+    "auto_move": form.get("auto_move"),
+    "auto_score": form.get("auto_score"),
+    "auto_best_score": form.get("auto_best_score"),
+    "shallow": form.get("shallow"),
+    "deep": form.get("deep"),
+    "comments": form.get("comments"),
+    "options": get_form_options()
+    }
+
+    return render_template("2025_form.html", vm=vm, bag=get_bag())
+
+@app.route("/form/pit/<id>", methods=["POST"])
+@login_required
+def update_pit_form():
+  form = request.form
+  created_on = str(datetime.datetime.now())
+  pits.add({
+    "scouter_name": form.get("scouter_name"),
+    "team": form.get("team"),
+    "base": form.get("base"),
+    "dimensions": form.get("dimensions"),
+    "weight": form.get("weight"),
+    "algae_intake": form.get("algae_intake"),
+    "coral_intake": form.get("coral_intake"),
+    "L4": form.get("L4"),
+    "L3": form.get("L3"),
+    "L2": form.get("L2"),
+    "L1": form.get("L1"),
+    "auto_move": form.get("auto_move"),
+    "auto_score": form.get("auto_score"),
+    "auto_best_score": form.get("auto_best_score"),
+    "shallow": form.get("shallow"),
+    "deep": form.get("deep"),
+    "comments": form.get("comments"),
+    "updated_by": current_user.username,
+    "updated_on": created_on,
+    })
+
+  return redirect("/scouting_dashboard")
 
 
 @app.route("/scouting_dashboard", methods=["GET"])
