@@ -96,28 +96,49 @@ users.insertOne({
 
 teams= app.getCollection("teams")
 
-teams.insertOne({
-  "name": "test team 1"
-})
-
-teams.insertOne({
-  "name": "test team 2"
-})
-
-teams.insertOne({
-  "name": "test team 3"
-})
-
-teams.insertOne({
-  "name": "test team 4"
-})
-
-teams.insertOne({
-  "name": "test team 5"
-})
-
-teams.insertOne({
-  "name": "test team 6"
-})
+teams.insertOne({ "name": "34" })
+teams.insertOne({ "name": "48" })
+teams.insertOne({ "name": "144" })
+teams.insertOne({ "name": "325" })
+teams.insertOne({ "name": "432" })
+teams.insertOne({ "name": "538" })
+teams.insertOne({ "name": "744" })
+teams.insertOne({ "name": "1038" })
+teams.insertOne({ "name": "2190" })
+teams.insertOne({ "name": "2220" })
+teams.insertOne({ "name": "2338" })
+teams.insertOne({ "name": "2502" })
+teams.insertOne({ "name": "2783" })
+teams.insertOne({ "name": "2973" })
+teams.insertOne({ "name": "3058" })
+teams.insertOne({ "name": "3138" })
+teams.insertOne({ "name": "3140" })
+teams.insertOne({ "name": "3468" })
+teams.insertOne({ "name": "3630" })
+teams.insertOne({ "name": "3814" })
+teams.insertOne({ "name": "3824" })
+teams.insertOne({ "name": "3843" })
+teams.insertOne({ "name": "3959" })
+teams.insertOne({ "name": "3966" })
+teams.insertOne({ "name": "4020" })
+teams.insertOne({ "name": "4028" })
+teams.insertOne({ "name": "4265" })
+teams.insertOne({ "name": "4601" })
+teams.insertOne({ "name": "5005" })
+teams.insertOne({ "name": "5045" })
+teams.insertOne({ "name": "5125" })
+teams.insertOne({ "name": "6107" })
+teams.insertOne({ "name": "6302" })
+teams.insertOne({ "name": "6517" })
+teams.insertOne({ "name": "7072" })
+teams.insertOne({ "name": "7111" })
+teams.insertOne({ "name": "7428" })
+teams.insertOne({ "name": "7725" })
+teams.insertOne({ "name": "8624" })
+teams.insertOne({ "name": "8772" })
+teams.insertOne({ "name": "9097" })
+teams.insertOne({ "name": "9410" })
+teams.insertOne({ "name": "9590" })
+teams.insertOne({ "name": "10011" })
 
 print('🏁 Finished seeding MongoDB');
