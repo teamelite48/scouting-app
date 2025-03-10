@@ -8,9 +8,11 @@
     <button class="btn btn-secondary btn-lg" type="submit">Start Scouting</button>
   </div>
 </form>
-<div class="d-grid gap-2 col-6 mx-auto">
- <button type="button" class="btn btn-secondary btn-lg" data-toggle="modal" data-target="#exampleModal">Start Super Scouting</button>
-</div>
+<form action="/form/qual/new" method="get">
+  <div class="d-grid gap-2 col-6 mx-auto">
+    <button class="btn btn-secondary btn-lg" type="submit">Start Super Scouting</button>
+  </div>
+</form>
 <form action="/form/pit/new" method="get">
   <div class="d-grid gap-2 col-6 mx-auto">
     <button class="btn btn-secondary btn-lg" type="submit">Start Pit Scouting</button>
@@ -21,24 +23,4 @@
     <button class="btn btn-secondary btn-lg" type="submit">View all Data</button>
   </div>
 </form>
-
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
 {% endblock %}

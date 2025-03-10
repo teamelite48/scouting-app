@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% from "components.html" import select with context %}
+{% from "components.html" import text_input with context %}
+{% from "components.html" import text_area with context %}
+{% from "components.html" import header with context %}
+{% from "components.html" import button with context %}
+
+{% block content %}
+  <h1>Super Scouting Form</h1>
+  
+  <form method="POST">
+    {{ text_input("match_number", "Match Number", vm.match_number)}}
+
+    {{ text_input("team", "Team Scouting", vm.team, true ) }}
+
+    {{ text_input("scouter_name", "Name of Scouter", vm.scouter_name, true ) }}
+
+    {{ text_area("comments", "Summarize the Match", 4, vm.comments) }}
+    <hr>
+    {{ button("Submit Form", "submit" )}}
+
+</form>
+{% endblock %}

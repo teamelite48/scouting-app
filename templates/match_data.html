@@ -5,10 +5,10 @@
 
 {% block content %}
 
-{{ header("Pick a competition to pull data from (picking is a work in progress.)", 4, True) }}
+{{ header("Quantatative Data", 4, True) }}
 
 <div class="overflow-auto">
-  <table class="table" id="completedmatches">
+  <table class="table" id="completedquantitative">
       <thead>
         <tr>
           {% for col in forms[0].keys() %}
@@ -30,23 +30,106 @@
       {% endfor %}
       </tbody>
     </table>
-  </div>
-
-    <script>
-      document.querySelectorAll('th').forEach((header,index) => {
-        header.addEventListener('click', () => {
-          const rows = Array.from(document.querySelectorAll('tbody tr'));
-          const isNumeric = !isNaN(rows[0].cells[index].textContent);
-          rows.sort((rowA, rowB) => {
-            const cellA = rowA.cells[index].textContent;
-            const cellB = rowB.cells[index].textContent;
-            return isNumeric
-            ? parseFloat(cellA) - parseFloat(cellB)
-            : cellA.localeCompare(cellB);
-          });
-          document.querySelector('tbody').append(...rows);
+</div>
+  <script>
+    document.querySelectorAll('th').forEach((header,index) => {
+      header.addEventListener('click', () => {
+        const rows = Array.from(document.querySelectorAll('tbody tr'));
+        const isNumeric = !isNaN(rows[0].cells[index].textContent);
+        rows.sort((rowA, rowB) => {
+          const cellA = rowA.cells[index].textContent;
+          const cellB = rowB.cells[index].textContent;
+          return isNumeric
+          ? parseFloat(cellA) - parseFloat(cellB)
+          : cellA.localeCompare(cellB);
         });
+        document.querySelector('tbody').append(...rows);
       });
-    </script>
+    });
+  </script>
+{{ header("Qualatative Data", 4, True) }}
 
+<div class="overflow-auto">
+  <table class="table" id="completedqualitative">
+      <thead>
+        <tr>
+          {% for col in quals[0].keys() %}
+              <th scope="col">{{col}}</th>
+          {% endfor %}
+        </tr>
+      </thead>
+      <tbody>
+      {% for qual in quals %}
+      <tr>
+          <td><a href="/form/qual/{{ qual.get('_id') }}">{{ qual.get("_id") }}</a></td>
+
+          {% for data in qual %}
+            {% if not loop.first %}
+              <td>{{qual.get(data)}}</td>
+            {% endif %}
+          {% endfor %}
+      </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+</div>
+  <script>
+    document.querySelectorAll('th').forEach((header,index) => {
+      header.addEventListener('click', () => {
+        const rows = Array.from(document.querySelectorAll('tbody tr'));
+        const isNumeric = !isNaN(rows[0].cells[index].textContent);
+        rows.sort((rowA, rowB) => {
+          const cellA = rowA.cells[index].textContent;
+          const cellB = rowB.cells[index].textContent;
+          return isNumeric
+          ? parseFloat(cellA) - parseFloat(cellB)
+          : cellA.localeCompare(cellB);
+        });
+        document.querySelector('tbody').append(...rows);
+      });
+    });
+  </script>
+
+{{ header("Pit Forms", 4, True) }}
+
+<div class="overflow-auto">
+  <table class="table" id="completedpits">
+      <thead>
+        <tr>
+          {% for col in pits[0].keys() %}
+              <th scope="col">{{col}}</th>
+          {% endfor %}
+        </tr>
+      </thead>
+      <tbody>
+      {% for pit in pits %}
+      <tr>
+          <td><a href="/form/pit/{{ pit.get('_id') }}">{{ pit.get("_id") }}</a></td>
+
+          {% for data in pit %}
+            {% if not loop.first %}
+              <td>{{pit.get(data)}}</td>
+            {% endif %}
+          {% endfor %}
+      </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+</div>
+  <script>
+    document.querySelectorAll('th').forEach((header,index) => {
+      header.addEventListener('click', () => {
+        const rows = Array.from(document.querySelectorAll('tbody tr'));
+        const isNumeric = !isNaN(rows[0].cells[index].textContent);
+        rows.sort((rowA, rowB) => {
+          const cellA = rowA.cells[index].textContent;
+          const cellB = rowB.cells[index].textContent;
+          return isNumeric
+          ? parseFloat(cellA) - parseFloat(cellB)
+          : cellA.localeCompare(cellB);
+        });
+        document.querySelector('tbody').append(...rows);
+      });
+    });
+  </script>
   {% endblock %}

@@ -6,6 +6,7 @@
 {% from "components.html" import checkbox with context %}
 {% from "components.html" import header with context %}
 {% from "components.html" import button with context %}
+{% from "components.html" import text_area with context %}
 
 {% block content %}
   <h1>Match Form</h1>
@@ -14,9 +15,11 @@
 
     {{ header("Pre-Match Info", 4, True) }}
 
-    {{ text_input("match_number", "Match Number", vm.match_number)}}
+    {{ text_input("match_number", "Match Number", vm.match_number ) }}
 
-    {{ select("team", "Team Scouting", vm.options.teams, vm.team ) }}
+    {{ text_input("scouter_name", "Name of Scouter", vm.scouter_name, true ) }}
+
+    {{ text_input("team", "Team Scouting", vm.team, true ) }}
 
     {{ select("starting_position", "Starting Position", vm.options.starting_position, vm.starting_position ) }}
 
@@ -46,9 +49,9 @@
 
     {{ header("Teleop", 4, True) }}
 
-    {{ select("algae_intake", "How can they pick up coral?", vm.options.algae_intake, vm.algae_intake ) }}
+    {{ select("coral_intake", "How can they pick up coral?", vm.options.coral_intake, vm.coral_intake ) }}
 
-    {{ select("coral_intake", "How can they pick up algae?", vm.options.coral_intake, vm.coral_intake ) }}
+    {{ select("algae_intake", "How can they pick up algae?", vm.options.algae_intake, vm.algae_intake ) }}
 
     {{ header("Teleop Notes", 6, False) }}
 
@@ -86,8 +89,8 @@
 
     {{ header("General Notes", 4, True) }}
 
-    {{ text_input("comments", "Other Notes or Comments", vm.comments) }}
-
+    {{ text_area("comments", "Other Comments or Notes", 4, vm.comments) }}
+    <hr>
     {{ button("Submit Form", "submit" )}}
 </form>
 {% endblock %}
