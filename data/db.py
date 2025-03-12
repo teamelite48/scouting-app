@@ -19,6 +19,9 @@ def insert_one(collection, document):
 def update_one(collection, id, properties):
   return _db_operation(collection, lambda db: db.update_one({ "_id": ObjectId(id) }, { "$set": properties }))
 
+def delete_one(collection, id):
+  return _db_operation(collection, lambda db: db.delete_one({ "_id": ObjectId(id) }))
+
 
 def _db_operation(collection, operation):
 

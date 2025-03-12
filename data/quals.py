@@ -14,3 +14,6 @@ def get(id):
 
 def update(id, form):
   return db.update_one(collection, id, form)
+
+def delete(id):
+  return db.delete_one(collection, id)

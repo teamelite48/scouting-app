@@ -538,6 +538,12 @@ def scouting_dashboard():
 
     return render_template("scouting_dashboard.html", bag=get_bag())
 
+@app.route("/manage", methods=["GET"])
+def management_dashboard():
+
+
+    return render_template("management.html", bag=get_bag())
+
 if CONFIG.PROD == False:
 
     socketio = SocketIO(app)
