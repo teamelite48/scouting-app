@@ -6,5 +6,19 @@ from data import pits
 from data import teams
 
 {% block content %}
+<button class="btn btn-secondary btn-lg" onclick="deleteData(vm.team)">Delete Team List</button>
 
+
+
+<script>
+function deleteData(id) {
+    fetch(`/delete/${id}`, {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' }
+    })
+    .then(response => response.json())
+    .then(data => console.log('Deleted:', data))
+    .catch(error => console.error('Error:', error));
+}
+</script>
 {% endblock %}

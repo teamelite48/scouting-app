@@ -544,6 +544,24 @@ def management_dashboard():
 
     return render_template("management.html", bag=get_bag())
 
+@app.route("/form/pit/new", methods=['GET'])
+@login_required
+def management_all_teams():
+
+    vm = {
+        "team": teams.getAll()
+    }
+
+
+
+    return render_template("pit_form.html", vm=vm, bag=get_bag())
+
+@app.route("/manage", methods=["DELETE"])
+def management_delete():
+
+
+    return render_template("management.html", bag=get_bag())
+
 if CONFIG.PROD == False:
 
     socketio = SocketIO(app)
