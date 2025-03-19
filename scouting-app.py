@@ -500,7 +500,7 @@ def load_pit_form(id):
     "options": get_form_options()
     }
 
-    return render_template("2025_form.html", vm=vm, bag=get_bag())
+    return render_template("pit_form.html", vm=vm, bag=get_bag())
 
 @app.route("/form/pit/<id>", methods=["POST"])
 @login_required
