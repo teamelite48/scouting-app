@@ -16,7 +16,7 @@
 
     {{ select("team", "Team Scouting", vm.options.team, vm.team ) }}
 
-    {{ select("base", "What is their drive base type?", vm.options.base, vm.base ) }}
+    {{ text_input("base", "What is their drive base type?", vm.base, true ) }}
 
     {{ text_input("dimensions", "What is the dimensions of the robot?", vm.dimensions ) }}
 
