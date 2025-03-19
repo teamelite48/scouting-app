@@ -400,14 +400,7 @@ def update_super_scouting_form(id):
 
 def get_pit_options():
     return {
-        "team": list(map(lambda team: team["name"], teams.getAll())),
-        "base": [
-            "Swerve L1",
-            "Swerve L2",
-            "Swerve L3",
-            "Tank",
-            "Mecanum"
-        ],
+        "teams": list(map(lambda team: team["name"], teams.getAll())),
         "coral_intake": [
             "Does not pick up Coral",
             "From the Ground",
@@ -429,6 +422,7 @@ def new_pit_form():
     vm = {
         "scouter_name": "",
         "team": "",
+        "base": "",
         "dimensions": "",
         "weight": "",
         "algae_intake": "Does not pick up Algae",
