@@ -73,10 +73,6 @@
     
     {{ header("Endgame", 4, True) }}
 
-    {{ slider("start_hang", "How much time was on the clock when they started hanging?", 0, 45, 1, vm.start_hang, "seconds") }}
-
-    {{ slider("stop_hang", "How much time was on the clock when they stopped hanging?", 0, 45, 1, vm.stop_hang, "seconds") }}
-
     {{ select("end_status", "Endgame Result", vm.options.end_status, vm.end_status )}}
 
     {{ header("General Notes", 4, True) }}
