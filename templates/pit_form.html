@@ -41,13 +41,13 @@
 
     {{ counter("auto_best_score", "What is their best score in auto?", 0, 1000, vm.auto_best_score ) }}
 
-    {{ checkbox("Shallow", "Can Hang on Shallow Cage" ) }}
+    {{ checkbox("shallow", "Can Hang on Shallow Cage" ) }}
 
-    {{ checkbox("Deep", "Can Hang on Deep Cage" ) }}
+    {{ checkbox("deep", "Can Hang on Deep Cage" ) }}
 
     {{ text_area("comments", "Other Comments or Notes", 4, vm.comments) }}
 
-    {{ file_input(photos, "Submit a Photo of the Robot") }}
+    <!-- {{ file_input(photos, "Submit a Photo of the Robot") }} -->
     <hr>
     {{ button("Submit Form", "submit" )}}
 </form>
