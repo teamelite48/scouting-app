@@ -129,26 +129,30 @@
 </script>
 
 <script>
-
   function makeSortable(table) {
-
-    table.querySelectorAll('th').forEach((header,index) => {
+    table.querySelectorAll('th').forEach((header, index) => {
+      let ascending = true;
       header.addEventListener('click', () => {
-
         var rows = Array.from(table.querySelectorAll('tbody tr'));
         const isNumeric = !isNaN(rows[0].cells[index].textContent);
 
         rows = rows.sort((rowA, rowB) => {
-
           const cellA = rowA.cells[index].textContent;
           const cellB = rowB.cells[index].textContent;
 
-          return isNumeric
-            ? parseFloat(cellA) - parseFloat(cellB)
-            : cellA.localeCompare(cellB);
+          if (isNumeric) {
+            return ascending
+              ? parseFloat(cellA) - parseFloat(cellB)
+              : parseFloat(cellB) - parseFloat(cellA);
+          } else {
+            return ascending
+              ? cellA.localeCompare(cellB)
+              : cellB.localeCompare(cellA);
+          }
         });
 
         table.querySelector('tbody').append(...rows);
+        ascending = !ascending;
       });
     });
   }
@@ -156,6 +160,5 @@
   makeSortable(document.querySelector('#completedquantitative'));
   makeSortable(document.querySelector('#completedqualitative'));
   makeSortable(document.querySelector('#completedpits'));
-
 </script>
 {% endblock %}
