@@ -70,13 +70,7 @@
     {{ counter("teleop_L1_score", "Coral SCORED (Level 1)", 0, 1000, vm.teleop_L1_score ) }}
 
     {{ counter("teleop_coral_misses", "Coral MISSED", 0, 1000, vm.teleop_coral_misses ) }}
-
-    {{ header("Human Player", 6, False) }}
-
-    {{ counter("human_score", "Human Shots SCORED", 0, 18, vm.human_score ) }}
-
-    {{ counter("human_misses", "Human Shots MISSED", 0, 1000, vm.human_misses ) }}
-
+    
     {{ header("Endgame", 4, True) }}
 
     {{ slider("start_hang", "How much time was on the clock when they started hanging?", 0, 45, 1, vm.start_hang, "seconds") }}
