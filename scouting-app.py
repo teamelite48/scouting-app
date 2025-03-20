@@ -400,7 +400,7 @@ def update_super_scouting_form(id):
 
 def get_pit_options():
     return {
-        "teams": list(map(lambda team: team["name"], teams.getAll())),
+        "team": list(map(lambda team: team["name"], teams.getAll())),
         "coral_intake": [
             "Does not pick up Coral",
             "From the Ground",
@@ -442,6 +442,7 @@ def save_pit_form():
   form = request.form
   created_on = str(datetime.datetime.now())
   pits.add({
+    "photos": form.get("photos"),
     "scouter_name": form.get("scouter_name"),
     "team": form.get("team"),
     "base": form.get("base"),
@@ -474,6 +475,7 @@ def load_pit_form(id):
     form = pits.get(id)
 
     vm = {
+    "photos": form.get("photos"),
     "scouter_name": form.get("scouter_name"),
     "team": form.get("team"),
     "base": form.get("base"),
@@ -502,6 +504,7 @@ def update_pit_form():
   form = request.form
   created_on = str(datetime.datetime.now())
   pits.add({
+    "photos": form.get("photos"),
     "scouter_name": form.get("scouter_name"),
     "team": form.get("team"),
     "base": form.get("base"),
