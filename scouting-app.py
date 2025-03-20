@@ -153,8 +153,6 @@ def new_2025_form():
         "teleop_L3_score": 0,
         "teleop_L4_score": 0,
         "teleop_coral_misses": 0,
-        "human_score": 0,
-        "human_misses": 0,
         "algae_intake": "Does not pick up Algae",
         "coral_intake": "Does not pick up Coral",
         "start_hang": 0,
@@ -176,11 +174,9 @@ def save_2025_form():
   totalcoralshots = int(totalcoralscore) + int(form.get("teleop_coral_misses") or 0)
   totalalgaeshots = int(form.get("teleop_algae_score") or 0) + int(form.get("teleop_algae_misses") or 0)
   totalprocessorshots = int(form.get("teleop_processed") or 0) + int(form.get("teleop_processor_misses") or 0)
-  totalhumanshots = int(form.get("human_score") or 0) + int(form.get("human_misses") or 0)
   teleop_coral_accuracy = totalcoralscore / totalcoralshots if totalcoralshots != 0 else 0
   teleop_algae_accuracy = int(form.get("teleop_algae_score")) / totalalgaeshots if totalalgaeshots != 0 else 0
   teleop_processor_accuracy = int(form.get("teleop_processed")) / totalprocessorshots if totalprocessorshots != 0 else 0
-  human_accuracy = int(form.get("human_score")) / totalhumanshots if totalhumanshots != 0 else 0
   climb_speed = int(form.get("start_hang")) - int(form.get("stop_hang"))
   created_on = str(datetime.datetime.now())
   forms.add({
@@ -190,7 +186,6 @@ def save_2025_form():
     "teleop_coral_accuracy": f"{teleop_coral_accuracy:.1%}",
     "teleop_algae_accuracy": f"{teleop_algae_accuracy:.1%}",
     "teleop_processor_accuracy": f"{teleop_processor_accuracy:.1%}",
-    "human_accuracy": f"{human_accuracy:.1%}",
     "algae_intake": form.get("algae_intake"),
     "coral_intake": form.get("coral_intake"),
     "starting_position": form.get("starting_position"),
@@ -212,8 +207,6 @@ def save_2025_form():
     "teleop_L3_score": form.get("teleop_L3_score"),
     "teleop_L4_score": form.get("teleop_L4_score"),
     "teleop_coral_misses": form.get("teleop_coral_misses"),
-    "human_score": form.get("human_score"),
-    "human_misses": form.get("human_misses"),
     "start_hang": form.get("start_hang"),
     "stop_hang": form.get("stop_hang"),
     "climb_speed": climb_speed,
@@ -258,8 +251,6 @@ def load_2025_form(id):
     "teleop_L3_score": form.get("teleop_L3_score"),
     "teleop_L4_score": form.get("teleop_L4_score"),
     "teleop_coral_misses": form.get("teleop_coral_misses"),
-    "human_score": form.get("human_score"),
-    "human_misses": form.get("human_misses"),
     "start_hang": form.get("start_hang"),
     "stop_hang": form.get("stop_hang"),
     "end_status": form.get("end_status"),
@@ -278,11 +269,9 @@ def update_2025_form(id):
   totalcoralshots = int(totalcoralscore) + int(form.get("teleop_coral_misses") or 0)
   totalalgaeshots = int(form.get("teleop_algae_score") or 0) + int(form.get("teleop_algae_misses") or 0)
   totalprocessorshots = int(form.get("teleop_processed") or 0) + int(form.get("teleop_processor_misses") or 0)
-  totalhumanshots = int(form.get("human_score") or 0) + int(form.get("human_misses") or 0)
   teleop_coral_accuracy = totalcoralscore / totalcoralshots if totalcoralshots != 0 else 0
   teleop_algae_accuracy = int(form.get("teleop_algae_score")) / totalalgaeshots if totalalgaeshots != 0 else 0
   teleop_processor_accuracy = int(form.get("teleop_processed")) / totalprocessorshots if totalprocessorshots != 0 else 0
-  human_accuracy = int(form.get("human_score")) / totalhumanshots if totalhumanshots != 0 else 0
   climb_speed = int(form.get("start_hang")) - int(form.get("stop_hang"))
   created_on = str(datetime.datetime.now())
   forms.update(id, {
@@ -292,7 +281,6 @@ def update_2025_form(id):
     "teleop_coral_accuracy": f"{teleop_coral_accuracy:.1%}",
     "teleop_algae_accuracy": f"{teleop_algae_accuracy:.1%}",
     "teleop_processor_accuracy": f"{teleop_processor_accuracy:.1%}",
-    "human_accuracy": f"{human_accuracy:.1%}",
     "starting_position": form.get("starting_position"),
     "algae_intake": form.get("algae_intake"),
     "coral_intake": form.get("coral_intake"),
@@ -314,8 +302,6 @@ def update_2025_form(id):
     "teleop_L3_score": form.get("teleop_L3_score"),
     "teleop_L4_score": form.get("teleop_L4_score"),
     "teleop_coral_misses": form.get("teleop_coral_misses"),
-    "human_score": form.get("human_score"),
-    "human_misses": form.get("human_misses"),
     "start_hang": form.get("start_hang"),
     "stop_hang": form.get("stop_hang"),
     "climb_speed": climb_speed,
@@ -442,7 +428,7 @@ def save_pit_form():
   form = request.form
   created_on = str(datetime.datetime.now())
   pits.add({
-    # "photos": form.get("photos"),
+    "photos": form.get("photos"),
     "scouter_name": form.get("scouter_name"),
     "team": form.get("team"),
     "base": form.get("base"),
@@ -475,7 +461,7 @@ def load_pit_form(id):
     form = pits.get(id)
 
     vm = {
-    # "photos": form.get("photos"),
+    "photos": form.get("photos"),
     "scouter_name": form.get("scouter_name"),
     "team": form.get("team"),
     "base": form.get("base"),
@@ -504,7 +490,7 @@ def update_pit_form():
   form = request.form
   created_on = str(datetime.datetime.now())
   pits.add({
-    # "photos": form.get("photos"),
+    "photos": form.get("photos"),
     "scouter_name": form.get("scouter_name"),
     "team": form.get("team"),
     "base": form.get("base"),

@@ -97,6 +97,6 @@
 {% macro file_input(id, label) %}
   <div class="mb-3">
     <label for="formFileMultiple" class="form-label">{{label}}</label>
-    <input class="form-control" type="file" id="{{id}}" multiple>
+    <input class="form-control" type="file" capture="camera" id="{{id}}" multiple>
   </div>
   {% endmacro %}
