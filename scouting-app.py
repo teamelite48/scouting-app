@@ -442,7 +442,7 @@ def save_pit_form():
   form = request.form
   created_on = str(datetime.datetime.now())
   pits.add({
-    "photos": form.get("photos"),
+    # "photos": form.get("photos"),
     "scouter_name": form.get("scouter_name"),
     "team": form.get("team"),
     "base": form.get("base"),
@@ -475,7 +475,7 @@ def load_pit_form(id):
     form = pits.get(id)
 
     vm = {
-    "photos": form.get("photos"),
+    # "photos": form.get("photos"),
     "scouter_name": form.get("scouter_name"),
     "team": form.get("team"),
     "base": form.get("base"),
@@ -504,7 +504,7 @@ def update_pit_form():
   form = request.form
   created_on = str(datetime.datetime.now())
   pits.add({
-    "photos": form.get("photos"),
+    # "photos": form.get("photos"),
     "scouter_name": form.get("scouter_name"),
     "team": form.get("team"),
     "base": form.get("base"),
