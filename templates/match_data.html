@@ -5,6 +5,8 @@
 
 {% block content %}
 
+{{ header("Quantitative Data", 4, True) }}
+
 <button class="btn btn-secondary btn-sm" onclick="toggleTable('completedquantitative')">Toggle Quantitative Data</button>
 <button class="btn btn-secondary btn-sm" onclick="exportTableToCSV('quantitative.csv', 'completedquantitative')">Export Quantitative Data to CSV</button>
 <br>
@@ -33,6 +35,8 @@
     </table>
 </div>
 
+{{ header("Qualitative Data", 4, True) }}
+
 <button class="btn btn-secondary btn-sm" onclick="toggleTable('completedqualitative')">Toggle Qualitative Data</button>
 <button class="btn btn-secondary btn-sm" onclick="exportTableToCSV('qualitative.csv', 'completedqualitative')">Export Qualitative Data to CSV</button>
 <br>
@@ -60,6 +64,8 @@
       </tbody>
     </table>
 </div>
+
+{{ header("Pit Forms", 4, True) }}
 
 <button class="btn btn-secondary btn-sm" onclick="toggleTable('completedpits')">Toggle Pit Forms</button>
 <button class="btn btn-secondary btn-sm" onclick="exportTableToCSV('pits.csv', 'completedpits')">Export Pit Forms to CSV</button>
