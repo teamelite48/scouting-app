@@ -6,6 +6,7 @@
 {% block content %}
 
 <button class="btn btn-secondary btn-sm" onclick="toggleTable('completedquantitative')">Toggle Quantitative Data</button>
+<button class="btn btn-secondary btn-sm" onclick="exportTableToCSV('quantitative.csv', 'completedquantitative')">Export Quantitative Data to CSV</button>
 <br>
 <div class="overflow-auto" id="quantitative-container">
   <table class="table" id="completedquantitative">
@@ -33,6 +34,7 @@
 </div>
 
 <button class="btn btn-secondary btn-sm" onclick="toggleTable('completedqualitative')">Toggle Qualitative Data</button>
+<button class="btn btn-secondary btn-sm" onclick="exportTableToCSV('qualitative.csv', 'completedqualitative')">Export Qualitative Data to CSV</button>
 <br>
 <div class="overflow-auto" id="qualitative-container">
   <table class="table" id="completedqualitative">
@@ -60,6 +62,7 @@
 </div>
 
 <button class="btn btn-secondary btn-sm" onclick="toggleTable('completedpits')">Toggle Pit Forms</button>
+<button class="btn btn-secondary btn-sm" onclick="exportTableToCSV('pits.csv', 'completedpits')">Export Pit Forms to CSV</button>
 <br>
 <div class="overflow-auto" id="pits-container">
   <table class="table" id="completedpits">
@@ -85,6 +88,32 @@
       </tbody>
     </table>
 </div>
+
+<script>
+  function exportTableToCSV(filename, tableId) {
+    var csv = [];
+    var rows = document.querySelectorAll(`#${tableId} tr`);
+    
+    for (var i = 0; i < rows.length; i++) {
+      var row = [], cols = rows[i].querySelectorAll("td, th");
+      
+      for (var j = 0; j < cols.length; j++) {
+        row.push(cols[j].innerText);
+      }
+      
+      csv.push(row.join(","));
+    }
+
+    var csvFile = new Blob([csv.join("\n")], { type: "text/csv" });
+    var downloadLink = document.createElement("a");
+    downloadLink.download = filename;
+    downloadLink.href = window.URL.createObjectURL(csvFile);
+    downloadLink.style.display = "none";
+    document.body.appendChild(downloadLink);
+    downloadLink.click();
+    document.body.removeChild(downloadLink);
+  }
+</script>
 
 <script>
   function toggleTable(tableId) {
