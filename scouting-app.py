@@ -155,8 +155,6 @@ def new_2025_form():
         "teleop_coral_misses": 0,
         "algae_intake": "Does not pick up Algae",
         "coral_intake": "Does not pick up Coral",
-        "start_hang": 0,
-        "stop_hang": 0,
         "end_status": "Not Parked",
         "comments": "",
         "options": get_form_options()
@@ -177,7 +175,6 @@ def save_2025_form():
   teleop_coral_accuracy = totalcoralscore / totalcoralshots if totalcoralshots != 0 else 0
   teleop_algae_accuracy = int(form.get("teleop_algae_score")) / totalalgaeshots if totalalgaeshots != 0 else 0
   teleop_processor_accuracy = int(form.get("teleop_processed")) / totalprocessorshots if totalprocessorshots != 0 else 0
-  climb_speed = int(form.get("start_hang")) - int(form.get("stop_hang"))
   created_on = str(datetime.datetime.now())
   forms.add({
     "team": form.get("team"),
@@ -207,9 +204,6 @@ def save_2025_form():
     "teleop_L3_score": form.get("teleop_L3_score"),
     "teleop_L4_score": form.get("teleop_L4_score"),
     "teleop_coral_misses": form.get("teleop_coral_misses"),
-    "start_hang": form.get("start_hang"),
-    "stop_hang": form.get("stop_hang"),
-    "climb_speed": climb_speed,
     "end_status": form.get("end_status"),
     "comments": form.get("comments"),
     "created_by": current_user.username,
@@ -251,8 +245,6 @@ def load_2025_form(id):
     "teleop_L3_score": form.get("teleop_L3_score"),
     "teleop_L4_score": form.get("teleop_L4_score"),
     "teleop_coral_misses": form.get("teleop_coral_misses"),
-    "start_hang": form.get("start_hang"),
-    "stop_hang": form.get("stop_hang"),
     "end_status": form.get("end_status"),
     "comments": form.get("comments"),
     "options": get_form_options()
@@ -272,7 +264,6 @@ def update_2025_form(id):
   teleop_coral_accuracy = totalcoralscore / totalcoralshots if totalcoralshots != 0 else 0
   teleop_algae_accuracy = int(form.get("teleop_algae_score")) / totalalgaeshots if totalalgaeshots != 0 else 0
   teleop_processor_accuracy = int(form.get("teleop_processed")) / totalprocessorshots if totalprocessorshots != 0 else 0
-  climb_speed = int(form.get("start_hang")) - int(form.get("stop_hang"))
   created_on = str(datetime.datetime.now())
   forms.update(id, {
     "team": form.get("team"),
@@ -302,9 +293,6 @@ def update_2025_form(id):
     "teleop_L3_score": form.get("teleop_L3_score"),
     "teleop_L4_score": form.get("teleop_L4_score"),
     "teleop_coral_misses": form.get("teleop_coral_misses"),
-    "start_hang": form.get("start_hang"),
-    "stop_hang": form.get("stop_hang"),
-    "climb_speed": climb_speed,
     "end_status": form.get("end_status"),
     "comments": form.get("comments"),
     "updated_by": current_user.username,
