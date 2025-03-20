@@ -5,9 +5,9 @@
 
 {% block content %}
 
-{{ header("Quantatitive Data", 4, True) }}
-
-<div class="overflow-auto">
+<button class="btn btn-secondary btn-sm" onclick="toggleTable('completedquantitative')">Toggle Quantitative Data</button>
+<br>
+<div class="overflow-auto" id="quantitative-container">
   <table class="table" id="completedquantitative">
       <thead>
         <tr>
@@ -32,9 +32,9 @@
     </table>
 </div>
 
-{{ header("Qualitative Data", 4, True) }}
-
-<div class="overflow-auto">
+<button class="btn btn-secondary btn-sm" onclick="toggleTable('completedqualitative')">Toggle Qualitative Data</button>
+<br>
+<div class="overflow-auto" id="qualitative-container">
   <table class="table" id="completedqualitative">
       <thead>
         <tr>
@@ -45,7 +45,7 @@
       </thead>
       <tbody>
       {% for qual in quals %}
-      <tr>
+      <tr></tr>
           <td><a href="/form/qual/{{ qual.get('_id') }}">{{ qual.get("_id") }}</a></td>
 
           {% for data in qual %}
@@ -59,9 +59,9 @@
     </table>
 </div>
 
-{{ header("Pit Forms", 4, True) }}
-
-<div class="overflow-auto">
+<button class="btn btn-secondary btn-sm" onclick="toggleTable('completedpits')">Toggle Pit Forms</button>
+<br>
+<div class="overflow-auto" id="pits-container">
   <table class="table" id="completedpits">
       <thead>
         <tr>
@@ -85,6 +85,13 @@
       </tbody>
     </table>
 </div>
+
+<script>
+  function toggleTable(tableId) {
+    const tableContainer = document.getElementById(tableId).parentElement;
+    tableContainer.style.display = tableContainer.style.display === 'none' ? 'block' : 'none';
+  }
+</script>
 
 <script>
 
