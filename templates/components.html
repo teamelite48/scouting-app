@@ -92,4 +92,11 @@
   {% if size == 5 %}<h5>{{label}}</h5>{% endif %}
   {% if size == 6 %}<h6>{{label}}</h6>{% endif %}
 
-{% endmacro %}
+  {% endmacro %}
+
+{% macro file_input(id, label) %}
+  <div class="mb-3">
+    <label for="formFileMultiple" class="form-label">{{label}}</label>
+    <input class="form-control" type="file" id="{{id}}" multiple>
+  </div>
+  {% endmacro %}
