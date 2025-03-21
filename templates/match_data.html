@@ -16,10 +16,107 @@
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="teamDataLongTitle">Team Stats</h5>
+        <h5 class="modal-title" id="teamDataLongTitle">Team Stats for team </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
       <div class="modal-body">
-        ...
+        <div>Average Coral Per match:</div>
+        <div>Average Algae Per match:</div>
+        <div>Average Processed Per Match:</div>
+        <div>Average Coral Accuracy:</div>
+        <div>Average Algae Accuracy:</div>
+        <div>Average Processor Accuracy:</div>
+        <!-- {{ header("Quantitative Data", 4, True) }}
+
+        <button class="btn btn-secondary btn-sm" onclick="toggleTable('completedquantitative')">Toggle Quantitative Data</button>
+        <button class="btn btn-secondary btn-sm" onclick="exportTableToCSV('quantitative.csv', 'completedquantitative')">Export Quantitative Data to CSV</button>
+        <br>
+        <div class="overflow-auto" id="quantitative-container">
+          <table class="table" id="completedquantitative">
+              <thead>
+                <tr>
+                  {% for col in forms[0].keys() %}
+                      <th scope="col">{{col}}</th>
+                  {% endfor %}
+                </tr>
+              </thead>
+              <tbody>
+              {% for form in forms %}
+              <tr>
+                  <td><a href="/form/2025/{{ form.get('_id') }}">{{ form.get("_id") }}</a></td>
+
+                  {% for data in form %}
+                    {% if not loop.first %}
+                      <td>{{form.get(data)}}</td>
+                    {% endif %}
+                  {% endfor %}
+              </tr>
+              {% endfor %}
+              </tbody>
+            </table>
+        </div>
+
+        {{ header("Qualitative Data", 4, True) }}
+
+        <button class="btn btn-secondary btn-sm" onclick="toggleTable('completedqualitative')">Toggle Qualitative Data</button>
+        <button class="btn btn-secondary btn-sm" onclick="exportTableToCSV('qualitative.csv', 'completedqualitative')">Export Qualitative Data to CSV</button>
+        <br>
+        <div class="overflow-auto" id="qualitative-container">
+          <table class="table" id="completedqualitative">
+              <thead>
+                <tr>
+                  {% for col in quals[0].keys() %}
+                      <th scope="col">{{col}}</th>
+                  {% endfor %}
+                </tr>
+              </thead>
+              <tbody>
+              {% for qual in quals %}
+              <tr></tr>
+                  <td><a href="/form/qual/{{ qual.get('_id') }}">{{ qual.get("_id") }}</a></td>
+
+                  {% for data in qual %}
+                    {% if not loop.first %}
+                      <td>{{qual.get(data)}}</td>
+                    {% endif %}
+                  {% endfor %}
+              </tr>
+              {% endfor %}
+              </tbody>
+            </table>
+        </div>
+
+        {{ header("Pit Forms", 4, True) }}
+
+        <button class="btn btn-secondary btn-sm" onclick="toggleTable('completedpits')">Toggle Pit Forms</button>
+        <button class="btn btn-secondary btn-sm" onclick="exportTableToCSV('pits.csv', 'completedpits')">Export Pit Forms to CSV</button>
+        <br>
+        <div class="overflow-auto" id="pits-container">
+          <table class="table" id="completedpits">
+              <thead>
+                <tr>
+                  {% for col in pits[0].keys() %}
+                      <th scope="col">{{col}}</th>
+                  {% endfor %}
+                </tr>
+              </thead>
+              <tbody>
+              {% for pit in pits %}
+              <tr>
+                  <td><a href="/form/pit/{{ pit.get('_id') }}">{{ pit.get("_id") }}</a></td>
+
+                  {% for data in pit %}
+                    {% if not loop.first %}
+                      <td>{{pit.get(data)}}</td>
+                    {% endif %}
+                  {% endfor %}
+              </tr>
+              {% endfor %}
+              </tbody>
+            </table>
+        </div> -->
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
