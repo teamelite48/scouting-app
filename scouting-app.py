@@ -90,8 +90,7 @@ def match_data():
 
     sorted_pits = sorted(pits.getAll(), key=itemgetter("created_on"), reverse=True)
 
-    return render_template("match_data.html", pits=sorted_pits, quals=sorted_quals, forms=sorted_forms, bag=get_bag() )
-
+    return render_template("match_data.html", vm=vm, pits=sorted_pits, quals=sorted_quals, forms=sorted_forms, bag=get_bag() )
 
 @app.route("/login", methods=["POST"])
 def login():
