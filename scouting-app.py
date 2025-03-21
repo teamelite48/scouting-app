@@ -71,8 +71,18 @@ def load_user(username):
 def login_page():
     return render_template("login.html")
 
+def get_teams():
+    return {
+        "team": list(map(lambda team: team["name"], teams.getAll())),
+    }
+
 @app.route("/data", methods=["GET"])
 def match_data():
+
+    vm = {
+        "team": "",
+        "options": get_teams()
+    }
 
     sorted_forms = sorted(forms.getAll(), key=itemgetter("created_on"), reverse=True)
 
@@ -505,7 +515,6 @@ def update_pit_form():
 
 @app.route("/scouting_dashboard", methods=["GET"])
 def scouting_dashboard():
-
 
     return render_template("scouting_dashboard.html", bag=get_bag())
 
