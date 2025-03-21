@@ -1,9 +1,19 @@
 {% from "components.html" import header with context %}
 {% from "components.html" import button with context %}
+{% from "components.html" import select with context %}
 
 {% extends "base.html" %}
 
 {% block content %}
+
+{{ header("Lookup a Team", 4, True) }}
+
+<form action="/data" method="get">
+  <div class="d-grid gap-2 col-6 mx-auto">
+    {{ select("team", "Team Scouting", vm.options.team, vm.team ) }}
+    <button class="btn btn-secondary btn-lg" type="submit">Lookup Team</button>
+  </div>
+</form>
 
 {{ header("Quantitative Data", 4, True) }}
 
