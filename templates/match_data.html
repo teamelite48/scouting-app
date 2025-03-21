@@ -6,14 +6,28 @@
 
 {% block content %}
 
-<!-- {{ header("Lookup a Team", 4, True) }}
+{{ select("team", "Team", vm.options.team, vm.team ) }}
 
-<form action="/{{team}}" method="get">
-  <div class="d-grid gap-2 col-6 mx-auto">
-    {{ select("team", "Team Scouting" ) }}
-    <button class="btn btn-secondary btn-lg" type="submit">Lookup Team</button>
+<button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#teamDataCenter">
+  Lookup Team
+</button>
+
+<div class="modal fade" id="teamDataCenter" tabindex="-1" role="dialog" aria-labelledby="teamDataCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="teamDataLongTitle">Team Stats</h5>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
   </div>
-</form> -->
+</div>
+
 
 {{ header("Quantitative Data", 4, True) }}
 
