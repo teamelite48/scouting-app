@@ -8,30 +8,36 @@
 
 {{ select("team", "Team", vm.options.team, vm.team ) }}
 
-<button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#teamDataCenter">
-  Lookup Team
-</button>
+<button type="button" class="btn btn-secondary" data-toggle="modal" data-target=".bd-team-modal-lg">Lookup Team</button>
 
-<div class="modal fade" id="teamDataCenter" tabindex="-1" role="dialog" aria-labelledby="teamDataCenterTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
+<div class="modal fade bd-team-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
     <div class="modal-content">
+
       <div class="modal-header">
-        <h5 class="modal-title" id="teamDataLongTitle">Team Stats for team </h5>
+        <h4 class="modal-title" id="teamDataLongTitle">Team Stats for team </h4>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
+
       <div class="modal-body">
-        <div>Average Coral Per match:</div>
+        {{ header("Team Averages", 4, True) }}
+
+        <div >Average Coral Per match:</div>
         <div>Average Algae Per match:</div>
         <div>Average Processed Per Match:</div>
         <div>Average Coral Accuracy:</div>
         <div>Average Algae Accuracy:</div>
         <div>Average Processor Accuracy:</div>
-        <!-- {{ header("Quantitative Data", 4, True) }}
 
-        <button class="btn btn-secondary btn-sm" onclick="toggleTable('completedquantitative')">Toggle Quantitative Data</button>
-        <button class="btn btn-secondary btn-sm" onclick="exportTableToCSV('quantitative.csv', 'completedquantitative')">Export Quantitative Data to CSV</button>
+        {{ header("Quantitative Data", 4, True) }}
+
+        <div>
+          <button class="btn btn-secondary btn-sm" onclick="toggleTable('completedquantitative')">Toggle Quantitative Data</button>
+          <button class="btn btn-secondary btn-sm" onclick="exportTableToCSV('quantitative.csv', 'completedquantitative')">Export Quantitative Data to CSV</button>
+        </div>
+
         <br>
         <div class="overflow-auto" id="quantitative-container">
           <table class="table" id="completedquantitative">
@@ -60,8 +66,11 @@
 
         {{ header("Qualitative Data", 4, True) }}
 
-        <button class="btn btn-secondary btn-sm" onclick="toggleTable('completedqualitative')">Toggle Qualitative Data</button>
-        <button class="btn btn-secondary btn-sm" onclick="exportTableToCSV('qualitative.csv', 'completedqualitative')">Export Qualitative Data to CSV</button>
+        <div>
+          <button class="btn btn-secondary btn-sm" onclick="toggleTable('completedqualitative')">Toggle Qualitative Data</button>
+          <button class="btn btn-secondary btn-sm" onclick="exportTableToCSV('qualitative.csv', 'completedqualitative')">Export Qualitative Data to CSV</button>
+        </div>
+
         <br>
         <div class="overflow-auto" id="qualitative-container">
           <table class="table" id="completedqualitative">
@@ -90,8 +99,11 @@
 
         {{ header("Pit Forms", 4, True) }}
 
-        <button class="btn btn-secondary btn-sm" onclick="toggleTable('completedpits')">Toggle Pit Forms</button>
-        <button class="btn btn-secondary btn-sm" onclick="exportTableToCSV('pits.csv', 'completedpits')">Export Pit Forms to CSV</button>
+        <div>
+          <button class="btn btn-secondary btn-sm" onclick="toggleTable('completedpits')">Toggle Pit Forms</button>
+          <button class="btn btn-secondary btn-sm" onclick="exportTableToCSV('pits.csv', 'completedpits')">Export Pit Forms to CSV</button>
+        </div>
+
         <br>
         <div class="overflow-auto" id="pits-container">
           <table class="table" id="completedpits">
@@ -116,15 +128,18 @@
               {% endfor %}
               </tbody>
             </table>
-        </div> -->
+        </div>
       </div>
+
+      
+
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
       </div>
+
     </div>
   </div>
 </div>
-
 
 {{ header("Quantitative Data", 4, True) }}
 
