@@ -88,7 +88,7 @@
 
         <br>
         <div class="overflow-auto" id="teamqualitative-container">
-          {% if quals | length > 0 %}
+          {% if quals | selectattr("team", "equalto", "48") | list | length > 0 %}
             <table class="table" id="teamqualitative">
                 <thead>
                   <tr>
@@ -98,17 +98,18 @@
                   </tr>
                 </thead>
                 <tbody>
-                {% for qual in quals %}
-                <tr>
-                    <td><a href="/form/qual/{{ qual.get('_id') }}">{{ qual.get("_id") }}</a></td>
+                  {% for qual in quals if qual.get("team") == "48" %}
+                    <tr>
+                        <td><a href="/form/qual/{{ qual.get('_id') }}">{{ qual.get("_id") }}</a></td>
 
-                    {% for data in qual %}
-                      {% if not loop.first %}
-                        <td>{{qual.get(data)}}</td>
-                      {% endif %}
-                    {% endfor %}
-                </tr>
-                {% endfor %}
+                        {% for data in qual %}
+                          {% if not loop.first %}
+                            <td>{{qual.get(data)}}</td>
+                          {% endif %}
+                        {% endfor %}
+                        
+                    </tr>
+                  {% endfor %}
                 </tbody>
               </table>
           {% else %}
@@ -125,7 +126,7 @@
 
         <br>
         <div class="overflow-auto" id="teampits-container">
-          {% if pits | length > 0 %}
+          {% if pits | selectattr("team", "equalto", "48") | list | length > 0 %}
             <table class="table" id="teampits">
                 <thead>
                   <tr>
@@ -135,16 +136,16 @@
                   </tr>
                 </thead>
                 <tbody>
-                {% for pit in pits %}
-                <tr>
-                    <td><a href="/form/pit/{{ pit.get('_id') }}">{{ pit.get("_id") }}</a></td>
+                  {% for pit in pits if pit.get("team") == "48" %}
+                    <tr>
+                        <td><a href="/form/pit/{{ pit.get('_id') }}">{{ pit.get("_id") }}</a></td>
 
-                    {% for data in pit %}
-                      {% if not loop.first %}
-                        <td>{{pit.get(data)}}</td>
-                      {% endif %}
-                    {% endfor %}
-                </tr>
+                        {% for data in pit %}
+                          {% if not loop.first %}
+                            <td>{{pit.get(data)}}</td>
+                          {% endif %}
+                        {% endfor %}
+                    </tr>
                 {% endfor %}
                 </tbody>
               </table>
