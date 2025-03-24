@@ -9,12 +9,12 @@
 {{ select("team", "Team", vm.options.team, vm.team ) }}
 
 <form action="/team/<id>" method="get" class="mb-1">
-  <button class="btn btn-secondary btn-lg" type="submit">Start Super Scouting</button>
+  <button class="btn btn-secondary btn-lg" type="submit">Lookup Team</button>
 </form>
 
 <!-- <button type="button" class="btn btn-secondary" data-toggle="modal" data-target=".bd-team-modal-lg">Lookup Team</button> -->
 
-<!-- <div class="modal fade bd-team-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+<!-- \\\<div class="modal fade bd-team-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
 
@@ -28,6 +28,8 @@
       <div class="modal-body">
         {% set filtered_forms = forms | selectattr("team", "equalto", "48") | rejectattr("match_number", "equalto", "Practice") | list %}
         {% set form_count = filtered_forms | length %}
+
+        {{ select("team", "Team", vm.options.team, vm.team ) }}
 
         <div>Total Matches Scouted in Qualifications:
           {{ form_count }}
