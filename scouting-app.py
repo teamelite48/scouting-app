@@ -318,6 +318,7 @@ def save_2025_form():
     "total_coral_score": total_coral_score,
     "total_algae_score": total_algae_score,
     "total_processed": total_processed,
+    "defended": form.get("defended"),
     "algae_intake": form.get("algae_intake"),
     "coral_intake": form.get("coral_intake"),
     "starting_position": form.get("starting_position"),
@@ -381,6 +382,7 @@ def load_2025_form(id):
     "teleop_L4_score": form.get("teleop_L4_score"),
     "teleop_coral_misses": form.get("teleop_coral_misses"),
     "end_status": form.get("end_status"),
+    "defended": form.get("defended"),
     "comments": form.get("comments"),
     "options": get_form_options()
     }
@@ -414,6 +416,7 @@ def update_2025_form(id):
     "total_coral_score": total_coral_score,
     "total_algae_score": total_algae_score,
     "total_processed": total_processed,
+    "defended": form.get("defended"),
     "starting_position": form.get("starting_position"),
     "algae_intake": form.get("algae_intake"),
     "coral_intake": form.get("coral_intake"),

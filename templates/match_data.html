@@ -29,17 +29,32 @@
 
         <div>Average Coral Per Match: 
           {% set total_coral_score = filtered_forms | map(attribute="total_coral_score") | sum %}
-          {{ (total_coral_score / form_count) if form_count > 0 else "N/A" }}
+          {{ (total_coral_score / form_count)|round(2) if form_count > 0 else "N/A" }}
         </div>
 
         <div>Average Algae Per Match:
           {% set total_algae_score = filtered_forms | map(attribute="total_algae_score") | sum %}
-          {{ (total_algae_score / form_count) if form_count > 0 else "N/A" }}
+          {{ (total_algae_score / form_count)|round(2) if form_count > 0 else "N/A" }}
         </div>
 
         <div>Average Processed Per Match:
           {% set total_processed = filtered_forms | map(attribute="total_processed") | sum %}
-          {{ (total_processed / form_count) if form_count > 0 else "N/A" }}
+          {{ (total_processed / form_count)|round(2) if form_count > 0 else "N/A" }}
+        </div>
+
+        <div>Average Coral Accuracy:
+          {% set teleop_coral_accuracy = filtered_forms | map(attribute="teleop_coral_accuracy") | map("string") | map("replace", "%", "") | map("int") | sum %}
+          {{ ((teleop_coral_accuracy / form_count)|round(2) ~ '%') if form_count > 0 else "N/A" }}
+        </div>
+
+        <div>Average Algae Accuracy:
+          {% set teleop_algae_accuracy = filtered_forms | map(attribute="teleop_algae_accuracy") | map("string") | map("replace", "%", "") | map("int") | sum %}
+          {{ ((teleop_algae_accuracy / form_count)|round(2) ~ '%') if form_count > 0 else "N/A" }}
+        </div>
+
+        <div>Average Processor Accuracy:
+          {% set teleop_processor_accuracy = filtered_forms | map(attribute="teleop_processor_accuracy") | map("string") | map("replace", "%", "") | map("int") | sum %}
+          {{ ((teleop_processor_accuracy / form_count)|round(2) ~ '%') if form_count > 0 else "N/A" }}
         </div>
 
           {{ header("Quantitative Data", 5, True) }}
