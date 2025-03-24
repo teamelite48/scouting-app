@@ -29,6 +29,109 @@ login_manager.login_view = "login"
 def get_form_options():
     return {
         "team": list(map(lambda team: team["name"], teams.getAll())),
+        "match_number": [
+            "Practice",
+            "Qualification 1",
+            "Qualification 2",
+            "Qualification 3",
+            "Qualification 4",
+            "Qualification 5",
+            "Qualification 6",
+            "Qualification 7",
+            "Qualification 8",
+            "Qualification 9",
+            "Qualification 10",
+            "Qualification 11",
+            "Qualification 12",
+            "Qualification 13",
+            "Qualification 14",
+            "Qualification 15",
+            "Qualification 16",
+            "Qualification 17",
+            "Qualification 18",
+            "Qualification 19",
+            "Qualification 20",
+            "Qualification 21",
+            "Qualification 22",
+            "Qualification 23",
+            "Qualification 24",
+            "Qualification 25",
+            "Qualification 26",
+            "Qualification 27",
+            "Qualification 28",
+            "Qualification 29",
+            "Qualification 30",
+            "Qualification 31",
+            "Qualification 32",
+            "Qualification 33",
+            "Qualification 34",
+            "Qualification 35",
+            "Qualification 36",
+            "Qualification 37",
+            "Qualification 38",
+            "Qualification 39",
+            "Qualification 40",
+            "Qualification 41",
+            "Qualification 42",
+            "Qualification 43",
+            "Qualification 44",
+            "Qualification 45",
+            "Qualification 46",
+            "Qualification 47",
+            "Qualification 48",
+            "Qualification 49",
+            "Qualification 50",
+            "Qualification 51",
+            "Qualification 52",
+            "Qualification 53",
+            "Qualification 54",
+            "Qualification 55",
+            "Qualification 56",
+            "Qualification 57",
+            "Qualification 58",
+            "Qualification 59",
+            "Qualification 60",
+            "Qualification 61",
+            "Qualification 62",
+            "Qualification 63",
+            "Qualification 64",
+            "Qualification 65",
+            "Qualification 66",
+            "Qualification 67",
+            "Qualification 68",
+            "Qualification 69",
+            "Qualification 70",
+            "Qualification 71",
+            "Qualification 72",
+            "Qualification 73",
+            "Qualification 74",
+            "Qualification 75",
+            "Qualification 76",
+            "Qualification 77",
+            "Qualification 78",
+            "Qualification 79",
+            "Qualification 80",
+            "Qualification 81",
+            "Qualification 82",
+            "Qualification 83",
+            "Qualification 84",
+            "Qualification 85",
+            "Qualification 86",
+            "Qualification 87",
+            "Qualification 88",
+            "Qualification 89",
+            "Qualification 90",
+            "Qualification 91",
+            "Qualification 92",
+            "Qualification 93",
+            "Qualification 94",
+            "Qualification 95",
+            "Qualification 96",
+            "Qualification 97",
+            "Qualification 98",
+            "Qualification 99",
+            "Qualification 100",
+        ],
         "starting_position": [
             "Not There",
             "Left Coral Side",
@@ -177,13 +280,17 @@ def new_2025_form():
 @login_required
 def save_2025_form():
   form = request.form
-  totalcoralscore = int(form.get("teleop_L1_score") or 0) + int(form.get("teleop_L2_score") or 0) + int(form.get("teleop_L3_score") or 0) + int(form.get("teleop_L4_score") or 0)
-  totalcoralshots = int(totalcoralscore) + int(form.get("teleop_coral_misses") or 0)
-  totalalgaeshots = int(form.get("teleop_algae_score") or 0) + int(form.get("teleop_algae_misses") or 0)
-  totalprocessorshots = int(form.get("teleop_processed") or 0) + int(form.get("teleop_processor_misses") or 0)
-  teleop_coral_accuracy = totalcoralscore / totalcoralshots if totalcoralshots != 0 else 0
-  teleop_algae_accuracy = int(form.get("teleop_algae_score")) / totalalgaeshots if totalalgaeshots != 0 else 0
-  teleop_processor_accuracy = int(form.get("teleop_processed")) / totalprocessorshots if totalprocessorshots != 0 else 0
+  total_teleop_coral_score = int(form.get("teleop_L1_score") or 0) + int(form.get("teleop_L2_score") or 0) + int(form.get("teleop_L3_score") or 0) + int(form.get("teleop_L4_score") or 0)
+  total_teleop_coral_shots = int(total_teleop_coral_score) + int(form.get("teleop_coral_misses") or 0)
+  total_teleop_algae_shots = int(form.get("teleop_algae_score") or 0) + int(form.get("teleop_algae_misses") or 0)
+  total_teleop_processor_shots = int(form.get("teleop_processed") or 0) + int(form.get("teleop_processor_misses") or 0)
+  teleop_coral_accuracy = total_teleop_coral_score / total_teleop_coral_shots if total_teleop_coral_shots != 0 else 0
+  teleop_algae_accuracy = int(form.get("teleop_algae_score")) / total_teleop_algae_shots if total_teleop_algae_shots != 0 else 0
+  teleop_processor_accuracy = int(form.get("teleop_processed")) / total_teleop_processor_shots if total_teleop_processor_shots != 0 else 0
+  totalautocoralscore = int(form.get("auto_L1_score") or 0) + int(form.get("auto_L2_score") or 0) + int(form.get("auto_L3_score") or 0) + int(form.get("auto_L4_score") or 0)
+  total_coral_score = totalautocoralscore + total_teleop_coral_score
+  total_algae_score = int(form.get("auto_algae_score") or 0) + int(form.get("teleop_algae_score") or 0)
+  total_processed = int(form.get("auto_processed") or 0) + int(form.get("teleop_processed") or 0)
   created_on = str(datetime.datetime.now())
   forms.add({
     "team": form.get("team"),
@@ -192,6 +299,9 @@ def save_2025_form():
     "teleop_coral_accuracy": f"{teleop_coral_accuracy:.1%}",
     "teleop_algae_accuracy": f"{teleop_algae_accuracy:.1%}",
     "teleop_processor_accuracy": f"{teleop_processor_accuracy:.1%}",
+    "total_coral_score": total_coral_score,
+    "total_algae_score": total_algae_score,
+    "total_processed": total_processed,
     "algae_intake": form.get("algae_intake"),
     "coral_intake": form.get("coral_intake"),
     "starting_position": form.get("starting_position"),
@@ -266,13 +376,17 @@ def load_2025_form(id):
 def update_2025_form(id):
   
   form = request.form
-  totalcoralscore = int(form.get("teleop_L1_score") or 0) + int(form.get("teleop_L2_score") or 0) + int(form.get("teleop_L3_score") or 0) + int(form.get("teleop_L4_score") or 0)
-  totalcoralshots = int(totalcoralscore) + int(form.get("teleop_coral_misses") or 0)
-  totalalgaeshots = int(form.get("teleop_algae_score") or 0) + int(form.get("teleop_algae_misses") or 0)
-  totalprocessorshots = int(form.get("teleop_processed") or 0) + int(form.get("teleop_processor_misses") or 0)
-  teleop_coral_accuracy = totalcoralscore / totalcoralshots if totalcoralshots != 0 else 0
-  teleop_algae_accuracy = int(form.get("teleop_algae_score")) / totalalgaeshots if totalalgaeshots != 0 else 0
-  teleop_processor_accuracy = int(form.get("teleop_processed")) / totalprocessorshots if totalprocessorshots != 0 else 0
+  total_teleop_coral_score = int(form.get("teleop_L1_score") or 0) + int(form.get("teleop_L2_score") or 0) + int(form.get("teleop_L3_score") or 0) + int(form.get("teleop_L4_score") or 0)
+  total_teleop_coral_shots = int(total_teleop_coral_score) + int(form.get("teleop_coral_misses") or 0)
+  total_teleop_algae_shots = int(form.get("teleop_algae_score") or 0) + int(form.get("teleop_algae_misses") or 0)
+  total_teleop_processor_shots = int(form.get("teleop_processed") or 0) + int(form.get("teleop_processor_misses") or 0)
+  teleop_coral_accuracy = total_teleop_coral_score / total_teleop_coral_shots if total_teleop_coral_shots != 0 else 0
+  teleop_algae_accuracy = int(form.get("teleop_algae_score")) / total_teleop_algae_shots if total_teleop_algae_shots != 0 else 0
+  teleop_processor_accuracy = int(form.get("teleop_processed")) / total_teleop_processor_shots if total_teleop_processor_shots != 0 else 0
+  totalautocoralscore = int(form.get("auto_L1_score") or 0) + int(form.get("auto_L2_score") or 0) + int(form.get("auto_L3_score") or 0) + int(form.get("auto_L4_score") or 0)
+  total_coral_score = totalautocoralscore + total_teleop_coral_score
+  total_algae_score = int(form.get("auto_algae_score") or 0) + int(form.get("teleop_algae_score") or 0)
+  total_processed = int(form.get("auto_processed") or 0) + int(form.get("teleop_processed") or 0)
   created_on = str(datetime.datetime.now())
   forms.update(id, {
     "team": form.get("team"),
@@ -281,6 +395,9 @@ def update_2025_form(id):
     "teleop_coral_accuracy": f"{teleop_coral_accuracy:.1%}",
     "teleop_algae_accuracy": f"{teleop_algae_accuracy:.1%}",
     "teleop_processor_accuracy": f"{teleop_processor_accuracy:.1%}",
+    "total_coral_score": total_coral_score,
+    "total_algae_score": total_algae_score,
+    "total_processed": total_processed,
     "starting_position": form.get("starting_position"),
     "algae_intake": form.get("algae_intake"),
     "coral_intake": form.get("coral_intake"),
@@ -312,6 +429,109 @@ def update_2025_form(id):
 
 def get_qual_options():
     return {
+        "match_number": [
+            "Practice",
+            "Qualification 1",
+            "Qualification 2",
+            "Qualification 3",
+            "Qualification 4",
+            "Qualification 5",
+            "Qualification 6",
+            "Qualification 7",
+            "Qualification 8",
+            "Qualification 9",
+            "Qualification 10",
+            "Qualification 11",
+            "Qualification 12",
+            "Qualification 13",
+            "Qualification 14",
+            "Qualification 15",
+            "Qualification 16",
+            "Qualification 17",
+            "Qualification 18",
+            "Qualification 19",
+            "Qualification 20",
+            "Qualification 21",
+            "Qualification 22",
+            "Qualification 23",
+            "Qualification 24",
+            "Qualification 25",
+            "Qualification 26",
+            "Qualification 27",
+            "Qualification 28",
+            "Qualification 29",
+            "Qualification 30",
+            "Qualification 31",
+            "Qualification 32",
+            "Qualification 33",
+            "Qualification 34",
+            "Qualification 35",
+            "Qualification 36",
+            "Qualification 37",
+            "Qualification 38",
+            "Qualification 39",
+            "Qualification 40",
+            "Qualification 41",
+            "Qualification 42",
+            "Qualification 43",
+            "Qualification 44",
+            "Qualification 45",
+            "Qualification 46",
+            "Qualification 47",
+            "Qualification 48",
+            "Qualification 49",
+            "Qualification 50",
+            "Qualification 51",
+            "Qualification 52",
+            "Qualification 53",
+            "Qualification 54",
+            "Qualification 55",
+            "Qualification 56",
+            "Qualification 57",
+            "Qualification 58",
+            "Qualification 59",
+            "Qualification 60",
+            "Qualification 61",
+            "Qualification 62",
+            "Qualification 63",
+            "Qualification 64",
+            "Qualification 65",
+            "Qualification 66",
+            "Qualification 67",
+            "Qualification 68",
+            "Qualification 69",
+            "Qualification 70",
+            "Qualification 71",
+            "Qualification 72",
+            "Qualification 73",
+            "Qualification 74",
+            "Qualification 75",
+            "Qualification 76",
+            "Qualification 77",
+            "Qualification 78",
+            "Qualification 79",
+            "Qualification 80",
+            "Qualification 81",
+            "Qualification 82",
+            "Qualification 83",
+            "Qualification 84",
+            "Qualification 85",
+            "Qualification 86",
+            "Qualification 87",
+            "Qualification 88",
+            "Qualification 89",
+            "Qualification 90",
+            "Qualification 91",
+            "Qualification 92",
+            "Qualification 93",
+            "Qualification 94",
+            "Qualification 95",
+            "Qualification 96",
+            "Qualification 97",
+            "Qualification 98",
+            "Qualification 99",
+            "Qualification 100",
+        ],
         "team": list(map(lambda team: team["name"], teams.getAll()))
     }
 
@@ -320,7 +540,6 @@ def get_qual_options():
 def new_super_scouting_form():
 
     vm = {
-        "match_number": "",
         "scouter_name": "",
         "comments": "",
         "options": get_qual_options()
