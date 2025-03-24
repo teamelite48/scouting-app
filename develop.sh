@@ -22,7 +22,6 @@ cd docker
 sudo docker compose up -d
 cd ..
 
-mongodb-compass &
 open_ui &
 python3 -m venv .venv
 . .venv/bin/activate
