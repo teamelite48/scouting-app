@@ -19,11 +19,27 @@ from operator import itemgetter
 login_manager = LoginManager()
 
 app = Flask(__name__)
+# Existing imports and code
+
+# Add a custom filter to check if a value is numeric
+# def is_number(value):
+#     try:
+#         float(value)
+#         return True
+#     except ValueError:
+#         return False
+
+# app.jinja_env.filters['is_number'] = is_number
 app.debug = CONFIG.DEBUG
 app.secret_key = CONFIG.SECRET_KEY
 
 login_manager.init_app(app)
 login_manager.login_view = "login"
+
+@app.before_request
+def require_login():
+    if not current_user.is_authenticated and request.endpoint not in ['login', 'login_page', 'static']:
+        return redirect('/login')
 
 
 def get_form_options():

@@ -15,7 +15,7 @@
     <div class="modal-content">
 
       <div class="modal-header">
-        <h4 class="modal-title" id="teamDataLongTitle">Team Stats for team </h4>
+        <h4 class="modal-title" id="teamDataLongTitle">Team Stats</h4>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -24,45 +24,60 @@
       <div class="modal-body">
         {{ header("Team Averages", 4) }}
 
-        <div >Average Coral Per match:</div>
-        <div>Average Algae Per match:</div>
-        <div>Average Processed Per Match:</div>
-        <div>Average Coral Accuracy:</div>
-        <div>Average Algae Accuracy:</div>
-        <div>Average Processor Accuracy:</div>
-
-        {{ header("Quantitative Data", 4, True) }}
-
-        <div>
-          <button class="btn btn-secondary btn-sm" onclick="toggleTable('teamquantitative')">Toggle Quantitative Data</button>
-          <button class="btn btn-secondary btn-sm" onclick="exportTableToCSV('quantitative.csv', 'teamquantitative')">Export Quantitative Data to CSV</button>
+        <div>Average Coral Per Match: 
+          {% set form_count = forms | selectattr("team", "equalto", "48") | list | length %}
+          {% set total_coral_score = forms | selectattr("team", "equalto", "48") | map(attribute="total_coral_score") | sum %}
+          {{ (total_coral_score / form_count) if form_count > 0 else "N/A" }}
         </div>
 
-        <br>
-        <div class="overflow-auto" id="teamquantitative-container">
-            <table class="table" id="teamquantitative">
-              <thead>
-              <tr>
-                {% for col in forms[0].keys() %}
-                  <th scope="col">{{col}}</th>
-                {% endfor %}
-              </tr>
-              </thead>
-              <tbody>
-              {% for form in forms if form.get("team") == "48" %}
-              <tr>
-                <td><a href="/form/2025/{{ form.get('_id') }}">{{ form.get("_id") }}</a></td>
-
-                {% for data in form %}
-                {% if not loop.first %}
-                  <td>{{form.get(data)}}</td>
-                {% endif %}
-                {% endfor %}
-              </tr>
-              {% endfor %}
-              </tbody>
-            </table>
+        <div>Average Algae Per Match:
+          {% set form_count = forms | selectattr("team", "equalto", "48") | list | length %}
+          {% set total_algae_score = forms | selectattr("team", "equalto", "48") | map(attribute="total_algae_score") | sum %}
+          {{ (total_algae_score / form_count) if form_count > 0 else "N/A" }}
         </div>
+
+        <div>Average Processed Per Match:
+          {% set form_count = forms | selectattr("team", "equalto", "48") | list | length %}
+          {% set total_processed = forms | selectattr("team", "equalto", "48") | map(attribute="total_processed") | sum %}
+          {{ (total_processed / form_count) if form_count > 0 else "N/A" }}
+        </div>
+
+          {{ header("Quantitative Data", 4, True) }}
+
+          <div>
+            <button class="btn btn-secondary btn-sm" onclick="toggleTable('teamquantitative')">Toggle Quantitative Data</button>
+            <button class="btn btn-secondary btn-sm" onclick="exportTableToCSV('quantitative.csv', 'teamquantitative')">Export Quantitative Data to CSV</button>
+          </div>
+
+          <br>
+          <div class="overflow-auto" id="teamquantitative-container">
+            {% if forms | selectattr("team", "equalto", "48") | list | length > 0 %}
+              <table class="table" id="teamquantitative">
+                <thead>
+                  <tr>
+                    {% for col in forms[0].keys() %}
+                      <th scope="col">{{col}}</th>
+                    {% endfor %}
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for form in forms if form.get("team") == "48" %}
+                    <tr>
+                      <td><a href="/form/2025/{{ form.get('_id') }}">{{ form.get("_id") }}</a></td>
+
+                      {% for data in form %}
+                        {% if not loop.first %}
+                          <td>{{form.get(data)}}</td>
+                        {% endif %}
+                      {% endfor %}
+                    </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            {% else %}
+              <h4>There is no data to pull from yet.</h4>
+            {% endif %}
+          </div>
 
         {{ header("Qualitative Data", 4, True) }}
 
@@ -73,28 +88,32 @@
 
         <br>
         <div class="overflow-auto" id="teamqualitative-container">
-          <table class="table" id="teamqualitative">
-              <thead>
+          {% if quals | length > 0 %}
+            <table class="table" id="teamqualitative">
+                <thead>
+                  <tr>
+                    {% for col in quals[0].keys() %}
+                        <th scope="col">{{col}}</th>
+                    {% endfor %}
+                  </tr>
+                </thead>
+                <tbody>
+                {% for qual in quals %}
                 <tr>
-                  {% for col in quals[0].keys() %}
-                      <th scope="col">{{col}}</th>
-                  {% endfor %}
-                </tr>
-              </thead>
-              <tbody>
-              {% for qual in quals %}
-              <tr></tr>
-                  <td><a href="/form/qual/{{ qual.get('_id') }}">{{ qual.get("_id") }}</a></td>
+                    <td><a href="/form/qual/{{ qual.get('_id') }}">{{ qual.get("_id") }}</a></td>
 
-                  {% for data in qual %}
-                    {% if not loop.first %}
-                      <td>{{qual.get(data)}}</td>
-                    {% endif %}
-                  {% endfor %}
-              </tr>
-              {% endfor %}
-              </tbody>
-            </table>
+                    {% for data in qual %}
+                      {% if not loop.first %}
+                        <td>{{qual.get(data)}}</td>
+                      {% endif %}
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+                </tbody>
+              </table>
+          {% else %}
+            <h4>There is no data to pull from yet.</h4>
+          {% endif %}
         </div>
 
         {{ header("Pit Forms", 4, True) }}
@@ -106,28 +125,32 @@
 
         <br>
         <div class="overflow-auto" id="teampits-container">
-          <table class="table" id="teampits">
-              <thead>
+          {% if pits | length > 0 %}
+            <table class="table" id="teampits">
+                <thead>
+                  <tr>
+                    {% for col in pits[0].keys() %}
+                        <th scope="col">{{col}}</th>
+                    {% endfor %}
+                  </tr>
+                </thead>
+                <tbody>
+                {% for pit in pits %}
                 <tr>
-                  {% for col in pits[0].keys() %}
-                      <th scope="col">{{col}}</th>
-                  {% endfor %}
-                </tr>
-              </thead>
-              <tbody>
-              {% for pit in pits %}
-              <tr>
-                  <td><a href="/form/pit/{{ pit.get('_id') }}">{{ pit.get("_id") }}</a></td>
+                    <td><a href="/form/pit/{{ pit.get('_id') }}">{{ pit.get("_id") }}</a></td>
 
-                  {% for data in pit %}
-                    {% if not loop.first %}
-                      <td>{{pit.get(data)}}</td>
-                    {% endif %}
-                  {% endfor %}
-              </tr>
-              {% endfor %}
-              </tbody>
-            </table>
+                    {% for data in pit %}
+                      {% if not loop.first %}
+                        <td>{{pit.get(data)}}</td>
+                      {% endif %}
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+                </tbody>
+              </table>
+          {% else %}
+            <h4>There is no data to pull from yet.</h4>
+          {% endif %}
         </div>
       </div>
 
@@ -147,28 +170,32 @@
 <button class="btn btn-secondary btn-sm" onclick="exportTableToCSV('quantitative.csv', 'completedquantitative')">Export Quantitative Data to CSV</button>
 <br>
 <div class="overflow-auto" id="quantitative-container">
-  <table class="table" id="completedquantitative">
-      <thead>
+  {% if forms | length > 0 %}
+    <table class="table" id="completedquantitative">
+        <thead>
+          <tr>
+            {% for col in forms[0].keys() %}
+                <th scope="col">{{col}}</th>
+            {% endfor %}
+          </tr>
+        </thead>
+        <tbody>
+        {% for form in forms %}
         <tr>
-          {% for col in forms[0].keys() %}
-              <th scope="col">{{col}}</th>
-          {% endfor %}
-        </tr>
-      </thead>
-      <tbody>
-      {% for form in forms %}
-      <tr>
-          <td><a href="/form/2025/{{ form.get('_id') }}">{{ form.get("_id") }}</a></td>
+            <td><a href="/form/2025/{{ form.get('_id') }}">{{ form.get("_id") }}</a></td>
 
-          {% for data in form %}
-            {% if not loop.first %}
-              <td>{{form.get(data)}}</td>
-            {% endif %}
-          {% endfor %}
-      </tr>
-      {% endfor %}
-      </tbody>
-    </table>
+            {% for data in form %}
+              {% if not loop.first %}
+                <td>{{form.get(data)}}</td>
+              {% endif %}
+            {% endfor %}
+        </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+  {% else %}
+    <h4>There is no data to pull from yet.</h4>
+  {% endif %}
 </div>
 
 {{ header("Qualitative Data", 4, True) }}
@@ -177,28 +204,32 @@
 <button class="btn btn-secondary btn-sm" onclick="exportTableToCSV('qualitative.csv', 'completedqualitative')">Export Qualitative Data to CSV</button>
 <br>
 <div class="overflow-auto" id="qualitative-container">
-  <table class="table" id="completedqualitative">
-      <thead>
+  {% if quals | length > 0 %}
+    <table class="table" id="completedqualitative">
+        <thead>
+          <tr>
+            {% for col in quals[0].keys() %}
+                <th scope="col">{{col}}</th>
+            {% endfor %}
+          </tr>
+        </thead>
+        <tbody>
+        {% for qual in quals %}
         <tr>
-          {% for col in quals[0].keys() %}
-              <th scope="col">{{col}}</th>
-          {% endfor %}
-        </tr>
-      </thead>
-      <tbody>
-      {% for qual in quals %}
-      <tr></tr>
-          <td><a href="/form/qual/{{ qual.get('_id') }}">{{ qual.get("_id") }}</a></td>
+            <td><a href="/form/qual/{{ qual.get('_id') }}">{{ qual.get("_id") }}</a></td>
 
-          {% for data in qual %}
-            {% if not loop.first %}
-              <td>{{qual.get(data)}}</td>
-            {% endif %}
-          {% endfor %}
-      </tr>
-      {% endfor %}
-      </tbody>
-    </table>
+            {% for data in qual %}
+              {% if not loop.first %}
+                <td>{{qual.get(data)}}</td>
+              {% endif %}
+            {% endfor %}
+        </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+  {% else %}
+    <h4>There is no data to pull from yet.</h4>
+  {% endif %}
 </div>
 
 {{ header("Pit Forms", 4, True) }}
@@ -207,28 +238,32 @@
 <button class="btn btn-secondary btn-sm" onclick="exportTableToCSV('pits.csv', 'completedpits')">Export Pit Forms to CSV</button>
 <br>
 <div class="overflow-auto" id="pits-container">
-  <table class="table" id="completedpits">
-      <thead>
+  {% if pits | length > 0 %}
+    <table class="table" id="completedpits">
+        <thead>
+          <tr>
+            {% for col in pits[0].keys() %}
+                <th scope="col">{{col}}</th>
+            {% endfor %}
+          </tr>
+        </thead>
+        <tbody>
+        {% for pit in pits %}
         <tr>
-          {% for col in pits[0].keys() %}
-              <th scope="col">{{col}}</th>
-          {% endfor %}
-        </tr>
-      </thead>
-      <tbody>
-      {% for pit in pits %}
-      <tr>
-          <td><a href="/form/pit/{{ pit.get('_id') }}">{{ pit.get("_id") }}</a></td>
+            <td><a href="/form/pit/{{ pit.get('_id') }}">{{ pit.get("_id") }}</a></td>
 
-          {% for data in pit %}
-            {% if not loop.first %}
-              <td>{{pit.get(data)}}</td>
-            {% endif %}
-          {% endfor %}
-      </tr>
-      {% endfor %}
-      </tbody>
-    </table>
+            {% for data in pit %}
+              {% if not loop.first %}
+                <td>{{pit.get(data)}}</td>
+              {% endif %}
+            {% endfor %}
+        </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+  {% else %}
+    <h4>There is no data to pull from yet.</h4>
+  {% endif %}
 </div>
 
 <script>
