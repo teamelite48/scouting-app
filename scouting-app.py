@@ -211,6 +211,30 @@ def match_data():
 
     return render_template("match_data.html", vm=vm, pits=sorted_pits, quals=sorted_quals, forms=sorted_forms, bag=get_bag() )
 
+# @app.route("/data", methods=["GET", "POST"])
+# def team_summary_calculations():
+
+#     filtered_forms = forms.getAll() | selectattr("team", "equalto", "48") | rejectattr("match_number", "equalto", "Practice") | list
+#     form_count = filtered_forms | length
+    
+#     total_coral_score = filtered_forms | map(attribute="total_coral_score") | sum
+#     (total_coral_score / form_count)|round(2) if form_count > 0 else "N/A"
+
+#     total_algae_score = filtered_forms | map(attribute="total_algae_score") | sum 
+#     (total_algae_score / form_count)|round(2) if form_count > 0 else "N/A"
+
+#     total_processed = filtered_forms | map(attribute="total_processed") | sum
+#     (total_processed / form_count)|round(2) if form_count > 0 else "N/A"
+
+#     teleop_coral_accuracy = filtered_forms | map(attribute="teleop_coral_accuracy") | map("string") | map("replace", "%", "") | map("int") | sum
+#     ((teleop_coral_accuracy / form_count)|round(2) ~ '%') if form_count > 0 else "N/A"
+
+#     teleop_algae_accuracy = filtered_forms | map(attribute="teleop_algae_accuracy") | map("string") | map("replace", "%", "") | map("int") | sum
+#     ((teleop_algae_accuracy / form_count)|round(2) ~ '%') if form_count > 0 else "N/A"
+
+#     teleop_processor_accuracy = filtered_forms | map(attribute="teleop_processor_accuracy") | map("string") | map("replace", "%", "") | map("int") | sum
+#     ((teleop_processor_accuracy / form_count)|round(2) ~ '%') if form_count > 0 else "N/A"
+
 @app.route("/login", methods=["POST"])
 def login():
 

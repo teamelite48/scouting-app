@@ -14,3 +14,6 @@ def get(id):
 
 def update(id, form):
   return db.update_one(collection, id, form)
+
+def find(filter):
+  return db.find(collection, filter)

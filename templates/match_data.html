@@ -8,9 +8,13 @@
 
 {{ select("team", "Team", vm.options.team, vm.team ) }}
 
-<button type="button" class="btn btn-secondary" data-toggle="modal" data-target=".bd-team-modal-lg">Lookup Team</button>
+<form action="/team/<id>" method="get" class="mb-1">
+  <button class="btn btn-secondary btn-lg" type="submit">Start Super Scouting</button>
+</form>
 
-<div class="modal fade bd-team-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+<!-- <button type="button" class="btn btn-secondary" data-toggle="modal" data-target=".bd-team-modal-lg">Lookup Team</button> -->
+
+<!-- <div class="modal fade bd-team-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
 
@@ -22,10 +26,12 @@
       </div>
 
       <div class="modal-body">
-        {{ header("Team Averages", 5) }}
-
         {% set filtered_forms = forms | selectattr("team", "equalto", "48") | rejectattr("match_number", "equalto", "Practice") | list %}
         {% set form_count = filtered_forms | length %}
+
+        <div>Total Matches Scouted in Qualifications:
+          {{ form_count }}
+        </div>
 
         <div>Average Coral Per Match: 
           {% set total_coral_score = filtered_forms | map(attribute="total_coral_score") | sum %}
@@ -181,7 +187,7 @@
 
     </div>
   </div>
-</div>
+</div> -->
 
 {{ header("Quantitative Data", 4, True) }}
 
