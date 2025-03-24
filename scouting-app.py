@@ -10,7 +10,7 @@ from data import pits
 from data import teams
 from data import users
 from utils.log import log
-import datetime
+from datetime import datetime
 import pprint
 import sys
 from operator import itemgetter
@@ -216,11 +216,11 @@ def match_data():
 
 #     filtered_forms = forms.getAll() | selectattr("team", "equalto", "48") | rejectattr("match_number", "equalto", "Practice") | list
 #     form_count = filtered_forms | length
-    
+
 #     total_coral_score = filtered_forms | map(attribute="total_coral_score") | sum
 #     (total_coral_score / form_count)|round(2) if form_count > 0 else "N/A"
 
-#     total_algae_score = filtered_forms | map(attribute="total_algae_score") | sum 
+#     total_algae_score = filtered_forms | map(attribute="total_algae_score") | sum
 #     (total_algae_score / form_count)|round(2) if form_count > 0 else "N/A"
 
 #     total_processed = filtered_forms | map(attribute="total_processed") | sum
@@ -416,7 +416,7 @@ def load_2025_form(id):
 @app.route("/form/2025/<id>", methods=["POST"])
 @login_required
 def update_2025_form(id):
-  
+
   form = request.form
   total_teleop_coral_score = int(form.get("teleop_L1_score") or 0) + int(form.get("teleop_L2_score") or 0) + int(form.get("teleop_L3_score") or 0) + int(form.get("teleop_L4_score") or 0)
   total_teleop_coral_shots = int(total_teleop_coral_score) + int(form.get("teleop_coral_misses") or 0)
@@ -629,7 +629,7 @@ def load_super_scouting_form(id):
 @app.route("/form/qual/<id>", methods=["POST"])
 @login_required
 def update_super_scouting_form(id):
-  
+
   form = request.form
   created_on = str(datetime.datetime.now())
   quals.update(id, {
@@ -778,6 +778,14 @@ def update_pit_form():
 def scouting_dashboard():
 
     return render_template("scouting_dashboard.html", bag=get_bag())
+
+@app.route("/htmx", methods=["GET"])
+def htmx():
+    return render_template("htmx.html", bag=get_bag())
+
+@app.route("/team-data", methods=["POST"])
+def team_data():
+    return str(datetime.now())
 
 if CONFIG.PROD == False:
 

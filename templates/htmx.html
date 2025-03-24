@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<button hx-post="/team-data"
+    hx-trigger="click"
+    hx-target="#team-data"
+    hx-swap="innerHTML">
+    Click Me!
+</button>
+
+<div id="team-data"></div>
+
+{% endblock %}
