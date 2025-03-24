@@ -77,6 +77,8 @@
 
     {{ header("General Notes", 4, True) }}
 
+    {{ checkbox("defended", "Did they play defense?" ) }}
+
     {{ text_area("comments", "Other Comments or Notes", 4, vm.comments) }}
     <hr>
     {{ button("Submit Form", "submit" )}}
