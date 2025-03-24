@@ -34,30 +34,30 @@
         {{ header("Quantitative Data", 4, True) }}
 
         <div>
-          <button class="btn btn-secondary btn-sm" onclick="toggleTable('completedquantitative')">Toggle Quantitative Data</button>
-          <button class="btn btn-secondary btn-sm" onclick="exportTableToCSV('quantitative.csv', 'completedquantitative')">Export Quantitative Data to CSV</button>
+          <button class="btn btn-secondary btn-sm" onclick="toggleTable('teamquantitative')">Toggle Quantitative Data</button>
+          <button class="btn btn-secondary btn-sm" onclick="exportTableToCSV('quantitative.csv', 'teamquantitative')">Export Quantitative Data to CSV</button>
         </div>
 
         <br>
-        <div class="overflow-auto" id="quantitative-container">
-          <table class="table" id="completedquantitative">
+        <div class="overflow-auto" id="teamquantitative-container">
+            <table class="table" id="teamquantitative">
               <thead>
-                <tr>
-                  {% for col in forms[0].keys() %}
-                      <th scope="col">{{col}}</th>
-                  {% endfor %}
-                </tr>
+              <tr>
+                {% for col in forms[0].keys() %}
+                  <th scope="col">{{col}}</th>
+                {% endfor %}
+              </tr>
               </thead>
               <tbody>
-              {% for form in forms %}
+              {% for form in forms if form.get("team") == "48" %}
               <tr>
-                  <td><a href="/form/2025/{{ form.get('_id') }}">{{ form.get("_id") }}</a></td>
+                <td><a href="/form/2025/{{ form.get('_id') }}">{{ form.get("_id") }}</a></td>
 
-                  {% for data in form %}
-                    {% if not loop.first %}
-                      <td>{{form.get(data)}}</td>
-                    {% endif %}
-                  {% endfor %}
+                {% for data in form %}
+                {% if not loop.first %}
+                  <td>{{form.get(data)}}</td>
+                {% endif %}
+                {% endfor %}
               </tr>
               {% endfor %}
               </tbody>
@@ -67,13 +67,13 @@
         {{ header("Qualitative Data", 4, True) }}
 
         <div>
-          <button class="btn btn-secondary btn-sm" onclick="toggleTable('completedqualitative')">Toggle Qualitative Data</button>
-          <button class="btn btn-secondary btn-sm" onclick="exportTableToCSV('qualitative.csv', 'completedqualitative')">Export Qualitative Data to CSV</button>
+          <button class="btn btn-secondary btn-sm" onclick="toggleTable('teamqualitative')">Toggle Qualitative Data</button>
+          <button class="btn btn-secondary btn-sm" onclick="exportTableToCSV('qualitative.csv', 'teamqualitative')">Export Qualitative Data to CSV</button>
         </div>
 
         <br>
-        <div class="overflow-auto" id="qualitative-container">
-          <table class="table" id="completedqualitative">
+        <div class="overflow-auto" id="teamqualitative-container">
+          <table class="table" id="teamqualitative">
               <thead>
                 <tr>
                   {% for col in quals[0].keys() %}
@@ -100,13 +100,13 @@
         {{ header("Pit Forms", 4, True) }}
 
         <div>
-          <button class="btn btn-secondary btn-sm" onclick="toggleTable('completedpits')">Toggle Pit Forms</button>
-          <button class="btn btn-secondary btn-sm" onclick="exportTableToCSV('pits.csv', 'completedpits')">Export Pit Forms to CSV</button>
+          <button class="btn btn-secondary btn-sm" onclick="toggleTable('teampits')">Toggle Pit Forms</button>
+          <button class="btn btn-secondary btn-sm" onclick="exportTableToCSV('pits.csv', 'teampits')">Export Pit Forms to CSV</button>
         </div>
 
         <br>
-        <div class="overflow-auto" id="pits-container">
-          <table class="table" id="completedpits">
+        <div class="overflow-auto" id="teampits-container">
+          <table class="table" id="teampits">
               <thead>
                 <tr>
                   {% for col in pits[0].keys() %}
@@ -293,6 +293,9 @@
     });
   }
 
+  makeSortable(document.querySelector('#teamquantitative'));
+  makeSortable(document.querySelector('#teamqualitative'));
+  makeSortable(document.querySelector('#teampits'));
   makeSortable(document.querySelector('#completedquantitative'));
   makeSortable(document.querySelector('#completedqualitative'));
   makeSortable(document.querySelector('#completedpits'));
