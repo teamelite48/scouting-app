@@ -22,27 +22,27 @@
       </div>
 
       <div class="modal-body">
-        {{ header("Team Averages", 4) }}
+        {{ header("Team Averages", 5) }}
+
+        {% set filtered_forms = forms | selectattr("team", "equalto", "48") | rejectattr("match_number", "equalto", "Practice") | list %}
+        {% set form_count = filtered_forms | length %}
 
         <div>Average Coral Per Match: 
-          {% set form_count = forms | selectattr("team", "equalto", "48") | list | length %}
-          {% set total_coral_score = forms | selectattr("team", "equalto", "48") | map(attribute="total_coral_score") | sum %}
+          {% set total_coral_score = filtered_forms | map(attribute="total_coral_score") | sum %}
           {{ (total_coral_score / form_count) if form_count > 0 else "N/A" }}
         </div>
 
         <div>Average Algae Per Match:
-          {% set form_count = forms | selectattr("team", "equalto", "48") | list | length %}
-          {% set total_algae_score = forms | selectattr("team", "equalto", "48") | map(attribute="total_algae_score") | sum %}
+          {% set total_algae_score = filtered_forms | map(attribute="total_algae_score") | sum %}
           {{ (total_algae_score / form_count) if form_count > 0 else "N/A" }}
         </div>
 
         <div>Average Processed Per Match:
-          {% set form_count = forms | selectattr("team", "equalto", "48") | list | length %}
-          {% set total_processed = forms | selectattr("team", "equalto", "48") | map(attribute="total_processed") | sum %}
+          {% set total_processed = filtered_forms | map(attribute="total_processed") | sum %}
           {{ (total_processed / form_count) if form_count > 0 else "N/A" }}
         </div>
 
-          {{ header("Quantitative Data", 4, True) }}
+          {{ header("Quantitative Data", 5, True) }}
 
           <div>
             <button class="btn btn-secondary btn-sm" onclick="toggleTable('teamquantitative')">Toggle Quantitative Data</button>
@@ -53,6 +53,7 @@
           <div class="overflow-auto" id="teamquantitative-container">
             {% if forms | selectattr("team", "equalto", "48") | list | length > 0 %}
               <table class="table" id="teamquantitative">
+
                 <thead>
                   <tr>
                     {% for col in forms[0].keys() %}
@@ -60,6 +61,7 @@
                     {% endfor %}
                   </tr>
                 </thead>
+
                 <tbody>
                   {% for form in forms if form.get("team") == "48" %}
                     <tr>
@@ -73,13 +75,14 @@
                     </tr>
                   {% endfor %}
                 </tbody>
+
               </table>
             {% else %}
               <h5>There is no data to pull from yet.</h5>
             {% endif %}
           </div>
 
-        {{ header("Qualitative Data", 4, True) }}
+        {{ header("Qualitative Data", 5, True) }}
 
         <div>
           <button class="btn btn-secondary btn-sm" onclick="toggleTable('teamqualitative')">Toggle Qualitative Data</button>
@@ -117,7 +120,7 @@
           {% endif %}
         </div>
 
-        {{ header("Pit Forms", 4, True) }}
+        {{ header("Pit Forms", 5, True) }}
 
         <div>
           <button class="btn btn-secondary btn-sm" onclick="toggleTable('teampits')">Toggle Pit Forms</button>

@@ -1,6 +1,6 @@
 import bcrypt
 import flask
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, jsonify
 from flask_login import LoginManager, current_user, login_required, login_user, logout_user
 from flask_socketio import SocketIO
 from config import CONFIG
