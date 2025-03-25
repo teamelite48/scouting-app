@@ -15,7 +15,7 @@
   <form method="POST">
     {{ text_input("scouter_name", "Name of Scouter", vm.scouter_name, true ) }}
 
-    {{ select("team", "Team Scouting", vm.options.team, vm.team ) }}
+    {{ select("team", "Team", vm.options.team, vm.team ) }}
 
     {{ text_input("base", "What is their drive base type?", vm.base, true ) }}
 
