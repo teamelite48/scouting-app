@@ -19,17 +19,7 @@ from operator import itemgetter
 login_manager = LoginManager()
 
 app = Flask(__name__)
-# Existing imports and code
 
-# Add a custom filter to check if a value is numeric
-# def is_number(value):
-#     try:
-#         float(value)
-#         return True
-#     except ValueError:
-#         return False
-
-# app.jinja_env.filters['is_number'] = is_number
 app.debug = CONFIG.DEBUG
 app.secret_key = CONFIG.SECRET_KEY
 
@@ -191,9 +181,8 @@ def login_page():
     return render_template("login.html")
 
 def get_teams():
-    return {
-        "team": list(map(lambda team: team["name"], teams.getAll())),
-    }
+    return list(map(lambda team: team["name"], teams.getAll()))
+    
 
 @app.route("/data", methods=["GET"])
 def match_data():
@@ -211,14 +200,36 @@ def match_data():
 
     return render_template("match_data.html", vm=vm, pits=sorted_pits, quals=sorted_quals, forms=sorted_forms, bag=get_bag() )
 
-@app.route("/data/team/<int:team>", methods=["POST"])
-def team_lookup(team):
 
-    form = request.form
+@app.route("/team/lookup", methods=["GET"])
+def team_lookup():
 
-    return render_template
+    return render_template("team_lookup.html", bag=get_bag(), teams=get_teams())
 
+@app.route("/team/data", methods=["GET"])
+def get_team_data():
     
+    team = request.args.get("team")
+
+    sorted_forms = sorted(forms.find_by_team(team), key=itemgetter("created_on"), reverse=True)
+
+    if sorted_forms == []:
+        return "No data found for team " + team
+
+    sorted_quals = sorted(quals.getAll(), key=itemgetter("created_on"), reverse=True)
+
+    sorted_pits = sorted(pits.getAll(), key=itemgetter("created_on"), reverse=True)
+
+    vm = {
+        "team": team,
+        "teams": get_teams(),
+        "summary": {
+            "average_coral_score": sum(form.get('total_coral_score', 0) for form in sorted_forms) / len(sorted_forms),
+            "average_algae_score": sum(form.get('total_algae_score', 0) for form in sorted_forms) / len(sorted_forms)
+        }
+    }
+
+    return render_template("team_data.html", vm=vm, bag=get_bag(), pits=sorted_pits, quals=sorted_quals, forms=sorted_forms)
 
 
 
@@ -318,7 +329,7 @@ def save_2025_form():
   total_coral_score = totalautocoralscore + total_teleop_coral_score
   total_algae_score = int(form.get("auto_algae_score") or 0) + int(form.get("teleop_algae_score") or 0)
   total_processed = int(form.get("auto_processed") or 0) + int(form.get("teleop_processed") or 0)
-  created_on = str(datetime.datetime.now())
+  created_on = str(datetime.now())
   forms.add({
     "team": form.get("team"),
     "match_number": form.get("match_number"),
@@ -416,7 +427,7 @@ def update_2025_form(id):
   total_coral_score = totalautocoralscore + total_teleop_coral_score
   total_algae_score = int(form.get("auto_algae_score") or 0) + int(form.get("teleop_algae_score") or 0)
   total_processed = int(form.get("auto_processed") or 0) + int(form.get("teleop_processed") or 0)
-  created_on = str(datetime.datetime.now())
+  created_on = str(datetime.now())
   forms.update(id, {
     "team": form.get("team"),
     "match_number": form.get("match_number"),
@@ -583,7 +594,7 @@ def new_super_scouting_form():
 @login_required
 def save_super_scouting_form():
   form = request.form
-  created_on = str(datetime.datetime.now())
+  created_on = str(datetime.now())
   quals.add({
     "team": form.get("team"),
     "match_number": form.get("match_number"),
@@ -618,7 +629,7 @@ def load_super_scouting_form(id):
 def update_super_scouting_form(id):
 
   form = request.form
-  created_on = str(datetime.datetime.now())
+  created_on = str(datetime.now())
   quals.update(id, {
     "team": form.get("team"),
     "match_number": form.get("match_number"),
@@ -672,7 +683,7 @@ def new_pit_form():
 @login_required
 def save_pit_form():
   form = request.form
-  created_on = str(datetime.datetime.now())
+  created_on = str(datetime.now())
   pits.add({
     # "photos": form.get("photos"),
     "scouter_name": form.get("scouter_name"),
@@ -734,7 +745,7 @@ def load_pit_form(id):
 @login_required
 def update_pit_form():
   form = request.form
-  created_on = str(datetime.datetime.now())
+  created_on = str(datetime.now())
   pits.add({
     # "photos": form.get("photos"),
     "scouter_name": form.get("scouter_name"),
