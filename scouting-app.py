@@ -398,34 +398,34 @@ def load_2025_form(id):
     form = forms.get(id)
 
     vm = {
-    "team": form.get("team"),
-    "match_number": form.get("match_number"),
-    "scouter_name": form.get("scouter_name"),
-    "starting_position": form.get("starting_position"),
-    "algae_intake": form.get("algae_intake"),
-    "coral_intake": form.get("coral_intake"),
-    "auto_algae_score": form.get("auto_algae_score"),
-    "auto_algae_misses": form.get("auto_algae_misses"),
-    "auto_processed": form.get("auto_processed"),
-    "auto_processor_misses" :form.get("auto_processor_misses"),
-    "auto_L1_score": form.get("auto_L1_score"),
-    "auto_L2_score": form.get("auto_L2_score"),
-    "auto_L3_score": form.get("auto_L3_score"),
-    "auto_L4_score": form.get("auto_L4_score"),
-    "auto_coral_misses": form.get("auto_coral_misses"),
-    "teleop_algae_score": form.get("teleop_algae_score"),
-    "teleop_algae_misses": form.get("teleop_algae_misses"),
-    "teleop_processed": form.get("teleop_processed"),
-    "teleop_processor_misses" :form.get("teleop_processor_misses"),
-    "teleop_L1_score": form.get("teleop_L1_score"),
-    "teleop_L2_score": form.get("teleop_L2_score"),
-    "teleop_L3_score": form.get("teleop_L3_score"),
-    "teleop_L4_score": form.get("teleop_L4_score"),
-    "teleop_coral_misses": form.get("teleop_coral_misses"),
-    "end_status": form.get("end_status"),
-    "defended": form.get("defended"),
-    "comments": form.get("comments"),
-    "options": get_form_options()
+        "team": form.get("team"),
+        "match_number": form.get("match_number"),
+        "scouter_name": form.get("scouter_name"),
+        "starting_position": form.get("starting_position"),
+        "algae_intake": form.get("algae_intake"),
+        "coral_intake": form.get("coral_intake"),
+        "auto_algae_score": form.get("auto_algae_score"),
+        "auto_algae_misses": form.get("auto_algae_misses"),
+        "auto_processed": form.get("auto_processed"),
+        "auto_processor_misses" :form.get("auto_processor_misses"),
+        "auto_L1_score": form.get("auto_L1_score"),
+        "auto_L2_score": form.get("auto_L2_score"),
+        "auto_L3_score": form.get("auto_L3_score"),
+        "auto_L4_score": form.get("auto_L4_score"),
+        "auto_coral_misses": form.get("auto_coral_misses"),
+        "teleop_algae_score": form.get("teleop_algae_score"),
+        "teleop_algae_misses": form.get("teleop_algae_misses"),
+        "teleop_processed": form.get("teleop_processed"),
+        "teleop_processor_misses" :form.get("teleop_processor_misses"),
+        "teleop_L1_score": form.get("teleop_L1_score"),
+        "teleop_L2_score": form.get("teleop_L2_score"),
+        "teleop_L3_score": form.get("teleop_L3_score"),
+        "teleop_L4_score": form.get("teleop_L4_score"),
+        "teleop_coral_misses": form.get("teleop_coral_misses"),
+        "end_status": form.get("end_status"),
+        "defended": form.get("defended"),
+        "comments": form.get("comments"),
+        "options": get_form_options()
     }
 
     return render_template("2025_form.html", vm=vm, bag=get_bag())
@@ -642,11 +642,11 @@ def load_super_scouting_form(id):
     form = quals.get(id)
 
     vm = {
-    "team": form.get("team"),
-    "match_number": form.get("match_number"),
-    "scouter_name": form.get("scouter_name"),
-    "comments": form.get("comments"),
-    "options": get_qual_options()
+        "team": form.get("team"),
+        "match_number": form.get("match_number"),
+        "scouter_name": form.get("scouter_name"),
+        "comments": form.get("comments"),
+        "options": get_qual_options()
     }
 
     return render_template("super_scouting_form.html", vm=vm, bag=get_bag())
@@ -745,25 +745,25 @@ def load_pit_form(id):
     form = pits.get(id)
 
     vm = {
-    # "photos": form.get("photos"),
-    "scouter_name": form.get("scouter_name"),
-    "team": form.get("team"),
-    "base": form.get("base"),
-    "dimensions": form.get("dimensions"),
-    "weight": form.get("weight"),
-    "algae_intake": form.get("algae_intake"),
-    "coral_intake": form.get("coral_intake"),
-    "L4": form.get("L4"),
-    "L3": form.get("L3"),
-    "L2": form.get("L2"),
-    "L1": form.get("L1"),
-    "auto_move": form.get("auto_move"),
-    "auto_score": form.get("auto_score"),
-    "auto_best_score": form.get("auto_best_score"),
-    "shallow": form.get("shallow"),
-    "deep": form.get("deep"),
-    "comments": form.get("comments"),
-    "options": get_pit_options()
+        # "photos": form.get("photos"),
+        "scouter_name": form.get("scouter_name"),
+        "team": form.get("team"),
+        "base": form.get("base"),
+        "dimensions": form.get("dimensions"),
+        "weight": form.get("weight"),
+        "algae_intake": form.get("algae_intake"),
+        "coral_intake": form.get("coral_intake"),
+        "L4": form.get("L4"),
+        "L3": form.get("L3"),
+        "L2": form.get("L2"),
+        "L1": form.get("L1"),
+        "auto_move": form.get("auto_move"),
+        "auto_score": form.get("auto_score"),
+        "auto_best_score": form.get("auto_best_score"),
+        "shallow": form.get("shallow"),
+        "deep": form.get("deep"),
+        "comments": form.get("comments"),
+        "options": get_pit_options()
     }
 
     return render_template("pit_form.html", vm=vm, bag=get_bag())
