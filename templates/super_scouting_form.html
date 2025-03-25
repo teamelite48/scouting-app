@@ -9,7 +9,7 @@
   <h1>Super Scouting Form</h1>
   
   <form method="POST">
-    {{ text_input("match_number", "Match Number", vm.match_number, true)}}
+    {{ select("match_number", "Match Number", vm.options.match_number, vm.match_number ) }}
 
     {{ select("team", "Team Scouting", vm.options.team, vm.team ) }}
 
