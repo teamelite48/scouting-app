@@ -6,223 +6,25 @@
 
 {% block content %}
 
-    {% set filtered_forms = forms | selectattr("team", "equalto", "48") | rejectattr("match_number", "equalto", "Practice") | list %}
-    {% set form_count = filtered_forms | length %}
-
-    <div>Total Matches Scouted in Qualifications:
-        {{ form_count }}
+    <div class="mb-3">
+        <label for="team" class="form-label">Team</label>
+        <select
+            id="team"
+            name="team"
+            class="form-select"
+            hx-get="/team/data"
+            hx-target="#team-data"
+            hx-trigger="change"
+        >
+          <option>
+          {% for team in teams %}
+            <option value="{{team}}">
+              {{team}}
+            </option>
+          {% endfor %}
+        </select>
     </div>
 
-    <div>Average Coral Per Match: 
-        {% set total_coral_score = filtered_forms | map(attribute="total_coral_score") | sum %}
-        {{ (total_coral_score / form_count)|round(2) if form_count > 0 else "N/A" }}
-    </div>
-
-    <div>Average Algae Per Match:
-        {% set total_algae_score = filtered_forms | map(attribute="total_algae_score") | sum %}
-        {{ (total_algae_score / form_count)|round(2) if form_count > 0 else "N/A" }}
-    </div>
-
-    <div>Average Processed Per Match:
-        {% set total_processed = filtered_forms | map(attribute="total_processed") | sum %}
-        {{ (total_processed / form_count)|round(2) if form_count > 0 else "N/A" }}
-    </div>
-
-    <div>Average Coral Accuracy:
-        {% set teleop_coral_accuracy = filtered_forms | map(attribute="teleop_coral_accuracy") | map("string") | map("replace", "%", "") | map("int") | sum %}
-        {{ ((teleop_coral_accuracy / form_count)|round(2) ~ '%') if form_count > 0 else "N/A" }}
-    </div>
-
-    <div>Average Algae Accuracy:
-        {% set teleop_algae_accuracy = filtered_forms | map(attribute="teleop_algae_accuracy") | map("string") | map("replace", "%", "") | map("int") | sum %}
-        {{ ((teleop_algae_accuracy / form_count)|round(2) ~ '%') if form_count > 0 else "N/A" }}
-    </div>
-
-    <div>Average Processor Accuracy:
-        {% set teleop_processor_accuracy = filtered_forms | map(attribute="teleop_processor_accuracy") | map("string") | map("replace", "%", "") | map("int") | sum %}
-        {{ ((teleop_processor_accuracy / form_count)|round(2) ~ '%') if form_count > 0 else "N/A" }}
-    </div>
-
-        {{ header("Quantitative Data", 5, True) }}
-
-        <div>
-        <button class="btn btn-secondary btn-sm" onclick="toggleTable('teamquantitative')">Toggle Quantitative Data</button>
-        <button class="btn btn-secondary btn-sm" onclick="exportTableToCSV('quantitative.csv', 'teamquantitative')">Export Quantitative Data to CSV</button>
-        </div>
-
-        <br>
-        <div class="overflow-auto" id="teamquantitative-container">
-        {% if forms | selectattr("team", "equalto", "48") | list | length > 0 %}
-            <table class="table" id="teamquantitative">
-
-            <thead>
-                <tr>
-                {% for col in forms[0].keys() %}
-                    <th scope="col">{{col}}</th>
-                {% endfor %}
-                </tr>
-            </thead>
-
-            <tbody>
-                {% for form in forms if form.get("team") == "48" %}
-                <tr>
-                    <td><a href="/form/2025/{{ form.get('_id') }}">{{ form.get("_id") }}</a></td>
-
-                    {% for data in form %}
-                    {% if not loop.first %}
-                        <td>{{form.get(data)}}</td>
-                    {% endif %}
-                    {% endfor %}
-                </tr>
-                {% endfor %}
-            </tbody>
-
-            </table>
-        {% else %}
-            <h5>There is no data to pull from yet.</h5>
-        {% endif %}
-        </div>
-
-    {{ header("Qualitative Data", 5, True) }}
-
-    <div>
-        <button class="btn btn-secondary btn-sm" onclick="toggleTable('teamqualitative')">Toggle Qualitative Data</button>
-        <button class="btn btn-secondary btn-sm" onclick="exportTableToCSV('qualitative.csv', 'teamqualitative')">Export Qualitative Data to CSV</button>
-    </div>
-
-    <br>
-    <div class="overflow-auto" id="teamqualitative-container">
-        {% if quals | selectattr("team", "equalto", "48") | list | length > 0 %}
-        <table class="table" id="teamqualitative">
-            <thead>
-                <tr>
-                {% for col in quals[0].keys() %}
-                    <th scope="col">{{col}}</th>
-                {% endfor %}
-                </tr>
-            </thead>
-            <tbody>
-                {% for qual in quals if qual.get("team") == "48" %}
-                <tr>
-                    <td><a href="/form/qual/{{ qual.get('_id') }}">{{ qual.get("_id") }}</a></td>
-
-                    {% for data in qual %}
-                        {% if not loop.first %}
-                        <td>{{qual.get(data)}}</td>
-                        {% endif %}
-                    {% endfor %}
-                    
-                </tr>
-                {% endfor %}
-            </tbody>
-            </table>
-    {% else %}
-        <h5>There is no data to pull from yet.</h5>
-    {% endif %}
-    </div>
-
-    {{ header("Pit Forms", 5, True) }}
-
-    <div>
-        <button class="btn btn-secondary btn-sm" onclick="toggleTable('teampits')">Toggle Pit Forms</button>
-        <button class="btn btn-secondary btn-sm" onclick="exportTableToCSV('pits.csv', 'teampits')">Export Pit Forms to CSV</button>
-    </div>
-
-    <br>
-    <div class="overflow-auto" id="teampits-container">
-        {% if pits | selectattr("team", "equalto", "48") | list | length > 0 %}
-        <table class="table" id="teampits">
-            <thead>
-                <tr>
-                {% for col in pits[0].keys() %}
-                    <th scope="col">{{col}}</th>
-                {% endfor %}
-                </tr>
-            </thead>
-            <tbody>
-                {% for pit in pits if pit.get("team") == "48" %}
-                <tr>
-                    <td><a href="/form/pit/{{ pit.get('_id') }}">{{ pit.get("_id") }}</a></td>
-
-                    {% for data in pit %}
-                        {% if not loop.first %}
-                        <td>{{pit.get(data)}}</td>
-                        {% endif %}
-                    {% endfor %}
-                </tr>
-            {% endfor %}
-            </tbody>
-            </table>
-    {% else %}
-        <h5>There is no data to pull from yet.</h5>
-    {% endif %}
-    </div>
-    </div>
-
-    <script>
-        function exportTableToCSV(filename, tableId) {
-          var csv = [];
-          var rows = document.querySelectorAll(`#${tableId} tr`);
-          
-          for (var i = 0; i < rows.length; i++) {
-            var row = [], cols = rows[i].querySelectorAll("td, th");
-            
-            for (var j = 0; j < cols.length; j++) {
-              row.push(cols[j].innerText);
-            }
-            
-            csv.push(row.join(","));
-          }
-      
-          var csvFile = new Blob([csv.join("\n")], { type: "text/csv" });
-          var downloadLink = document.createElement("a");
-          downloadLink.download = filename;
-          downloadLink.href = window.URL.createObjectURL(csvFile);
-          downloadLink.style.display = "none";
-          document.body.appendChild(downloadLink);
-          downloadLink.click();
-          document.body.removeChild(downloadLink);
-        }
-      </script>
-      
-      <script>
-        function toggleTable(tableId) {
-          const tableContainer = document.getElementById(tableId).parentElement;
-          tableContainer.style.display = tableContainer.style.display === 'none' ? 'block' : 'none';
-        }
-      </script>
-      
-      <script>
-        function makeSortable(table) {
-          table.querySelectorAll('th').forEach((header, index) => {
-            let ascending = true;
-            header.addEventListener('click', () => {
-              var rows = Array.from(table.querySelectorAll('tbody tr'));
-              const isNumeric = !isNaN(rows[0].cells[index].textContent);
-      
-              rows = rows.sort((rowA, rowB) => {
-                const cellA = rowA.cells[index].textContent;
-                const cellB = rowB.cells[index].textContent;
-      
-                if (isNumeric) {
-                  return ascending
-                    ? parseFloat(cellA) - parseFloat(cellB)
-                    : parseFloat(cellB) - parseFloat(cellA);
-                } else {
-                  return ascending
-                    ? cellA.localeCompare(cellB)
-                    : cellB.localeCompare(cellA);
-                }
-              });
-      
-              table.querySelector('tbody').append(...rows);
-              ascending = !ascending;
-            });
-          });
-        }
-      
-        makeSortable(document.querySelector('#teamquantitative'));
-        makeSortable(document.querySelector('#teamqualitative'));
-        makeSortable(document.querySelector('#teampits'));
+    <div id="team-data"></div>
 
 {% endblock %}
