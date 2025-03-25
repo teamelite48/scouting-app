@@ -1,5 +1,4 @@
 import bcrypt
-import flask
 from flask import Flask, render_template, request, redirect, jsonify
 from flask_login import LoginManager, current_user, login_required, login_user, logout_user
 from flask_socketio import SocketIO
@@ -182,7 +181,7 @@ def login_page():
 
 def get_teams():
     return list(map(lambda team: team["name"], teams.getAll()))
-    
+
 
 @app.route("/data", methods=["GET"])
 def match_data():
@@ -208,7 +207,7 @@ def team_lookup():
 
 @app.route("/team/data", methods=["GET"])
 def get_team_data():
-    
+
     team = request.args.get("team")
 
     sorted_forms = sorted(forms.find_by_team(team), key=itemgetter("created_on"), reverse=True)
@@ -344,7 +343,7 @@ def save_2025_form():
   total_L3 = int(form.get("teleop_L3_score") or 0) + int(form.get("auto_L3_score") or 0)
   total_L2 = int(form.get("teleop_L2_score") or 0) + int(form.get("auto_L2_score") or 0)
   total_L1 = int(form.get("teleop_L1_score") or 0) + int(form.get("auto_L1_score") or 0)
-  
+
   created_on = str(datetime.now())
   forms.add({
     "team": form.get("team"),
@@ -812,6 +811,19 @@ def htmx():
 @app.route("/team-data", methods=["POST"])
 def team_data():
     return str(datetime.now())
+
+@app.route("/petite_vue", methods=["GET"])
+def petite():
+    return render_template("petite_vue.html")
+
+@app.route("/test_data", methods=["POST"])
+def forms_data():
+    return [
+        { 'id': 1, 'name': 'Read' },
+        { 'id': 2, 'name': 'Walk' },
+        { 'id': 3, 'name': 'Yoga' }
+    ]
+
 
 if CONFIG.PROD == False:
 
