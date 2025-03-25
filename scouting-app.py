@@ -140,9 +140,9 @@ def get_form_options():
         ],
         "starting_position": [
             "Not There",
-            "Left Coral Side",
+            "Left",
             "Middle of Reef",
-            "Processor Side"
+            "Right"
         ],
         "coral_intake": [
             "Does not pick up Coral",
