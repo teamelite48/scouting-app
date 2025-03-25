@@ -198,7 +198,7 @@ def match_data():
 
     sorted_pits = sorted(pits.getAll(), key=itemgetter("created_on"), reverse=True)
 
-    return render_template("match_data.html", vm=vm, pits=sorted_pits, quals=sorted_quals, forms=sorted_forms, bag=get_bag() )
+    return render_template("match_data.html", vm=vm, pits=sorted_pits, quals=sorted_quals, forms=sorted_forms, teams=get_teams(), bag=get_bag() )
 
 
 @app.route("/team/lookup", methods=["GET"])
@@ -213,19 +213,28 @@ def get_team_data():
 
     sorted_forms = sorted(forms.find_by_team(team), key=itemgetter("created_on"), reverse=True)
 
-    if sorted_forms == []:
+    sorted_quals = sorted(quals.find_by_team(team), key=itemgetter("created_on"), reverse=True)
+
+    sorted_pits = sorted(pits.find_by_team(team), key=itemgetter("created_on"), reverse=True)
+
+    if not sorted_forms and not sorted_quals and not sorted_pits:
         return "No data found for team " + team
-
-    sorted_quals = sorted(quals.getAll(), key=itemgetter("created_on"), reverse=True)
-
-    sorted_pits = sorted(pits.getAll(), key=itemgetter("created_on"), reverse=True)
 
     vm = {
         "team": team,
         "teams": get_teams(),
         "summary": {
-            "average_coral_score": sum(form.get('total_coral_score', 0) for form in sorted_forms) / len(sorted_forms),
-            "average_algae_score": sum(form.get('total_algae_score', 0) for form in sorted_forms) / len(sorted_forms)
+            "total_forms": len([form for form in sorted_forms if form.get('match_number') != "Practice"]),
+            "average_coral_score": sum(form.get('total_coral_score', 0) for form in sorted_forms if form.get('match_number') != "Practice") / len([form for form in sorted_forms if form.get('match_number') != "Practice"]) if len([form for form in sorted_forms if form.get('match_number') != "Practice"]) != 0 else 0,
+            "average_algae_score": sum(form.get('total_algae_score', 0) for form in sorted_forms if form.get('match_number') != "Practice") / len([form for form in sorted_forms if form.get('match_number') != "Practice"]) if len([form for form in sorted_forms if form.get('match_number') != "Practice"]) != 0 else 0,
+            "average_processor_score": sum(form.get('total_processed', 0) for form in sorted_forms if form.get('match_number') != "Practice") / len([form for form in sorted_forms if form.get('match_number') != "Practice"]) if len([form for form in sorted_forms if form.get('match_number') != "Practice"]) != 0 else 0,
+            "average_coral_accuracy": f"{sum(float(form.get('teleop_coral_accuracy', '0').replace('%', '')) for form in sorted_forms if form.get('match_number') != 'Practice' and not (float(form.get('teleop_coral_accuracy', '0').replace('%', '')) == 0 and form.get('defended'))) / len([form for form in sorted_forms if form.get('match_number') != 'Practice' and not (float(form.get('teleop_coral_accuracy', '0').replace('%', '')) == 0 and form.get('defended'))]) if len([form for form in sorted_forms if form.get('match_number') != 'Practice' and not (float(form.get('teleop_coral_accuracy', '0').replace('%', '')) == 0 and form.get('defended'))]) != 0 else 0:.1f}%",
+            "average_algae_accuracy": f"{sum(float(form.get('teleop_algae_accuracy', '0').replace('%', '')) for form in sorted_forms if form.get('match_number') != 'Practice' and not (float(form.get('teleop_algae_accuracy', '0').replace('%', '')) == 0 and form.get('defended'))) / len([form for form in sorted_forms if form.get('match_number') != 'Practice' and not (float(form.get('teleop_algae_accuracy', '0').replace('%', '')) == 0 and form.get('defended'))]) if len([form for form in sorted_forms if form.get('match_number') != 'Practice' and not (float(form.get('teleop_algae_accuracy', '0').replace('%', '')) == 0 and form.get('defended'))]) != 0 else 0:.1f}%",
+            "average_processor_accuracy": f"{sum(float(form.get('teleop_processor_accuracy', '0').replace('%', '')) for form in sorted_forms if form.get('match_number') != 'Practice' and not (float(form.get('teleop_processor_accuracy', '0').replace('%', '')) == 0 and form.get('defended'))) / len([form for form in sorted_forms if form.get('match_number') != 'Practice' and not (float(form.get('teleop_processor_accuracy', '0').replace('%', '')) == 0 and form.get('defended'))]) if len([form for form in sorted_forms if form.get('match_number') != 'Practice' and not (float(form.get('teleop_processor_accuracy', '0').replace('%', '')) == 0 and form.get('defended'))]) != 0 else 0:.1f}%",
+            "total_L4": sum(int(form.get('total_L4', 0)) for form in sorted_pits if form.get('match_number') != "Practice"),
+            "total_L3": sum(int(form.get('total_L3', 0)) for form in sorted_pits if form.get('match_number') != "Practice"),
+            "total_L2": sum(int(form.get('total_L2', 0)) for form in sorted_pits if form.get('match_number') != "Practice"),
+            "total_L1": sum(int(form.get('total_L1', 0)) for form in sorted_pits if form.get('match_number') != "Practice"),
         }
     }
 
@@ -329,6 +338,11 @@ def save_2025_form():
   total_coral_score = totalautocoralscore + total_teleop_coral_score
   total_algae_score = int(form.get("auto_algae_score") or 0) + int(form.get("teleop_algae_score") or 0)
   total_processed = int(form.get("auto_processed") or 0) + int(form.get("teleop_processed") or 0)
+  total_L4 = int(form.get("teleop_L4_score") or 0) + int(form.get("auto_L4_score") or 0)
+  total_L3 = int(form.get("teleop_L3_score") or 0) + int(form.get("auto_L3_score") or 0)
+  total_L2 = int(form.get("teleop_L2_score") or 0) + int(form.get("auto_L2_score") or 0)
+  total_L1 = int(form.get("teleop_L1_score") or 0) + int(form.get("auto_L1_score") or 0)
+  
   created_on = str(datetime.now())
   forms.add({
     "team": form.get("team"),

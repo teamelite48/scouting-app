@@ -7,8 +7,10 @@
 {% set filtered_forms = forms | selectattr("team", "equalto", "{{vm.get('team')}}" ) | rejectattr("match_number", "equalto", "Practice") | list %}
 {% set form_count = filtered_forms | length %}
 
+{{ header("Team Summary", 5, True) }}
+
 <div>Total Matches Scouted in Qualifications:
-    {{ form_count }}
+    {{ vm['summary']['total_forms'] }}
 </div>
 
 <div>Average Coral Per Match: 
@@ -20,60 +22,72 @@
 </div>
 
 <div>Average Processed Per Match:
-    {% set total_processed = filtered_forms | map(attribute="total_processed") | sum %}
-    {{ (total_processed / form_count)|round(2) if form_count > 0 else "N/A" }}
+    {{ vm['summary']['average_processor_score'] }}
 </div>
 
 <div>Average Coral Accuracy:
-    {% set teleop_coral_accuracy = filtered_forms | map(attribute="teleop_coral_accuracy") | map("string") | map("replace", "%", "") | map("int") | sum %}
-    {{ ((teleop_coral_accuracy / form_count)|round(2) ~ '%') if form_count > 0 else "N/A" }}
+    {{ vm['summary']['average_coral_accuracy'] }}
 </div>
 
 <div>Average Algae Accuracy:
-    {% set teleop_algae_accuracy = filtered_forms | map(attribute="teleop_algae_accuracy") | map("string") | map("replace", "%", "") | map("int") | sum %}
-    {{ ((teleop_algae_accuracy / form_count)|round(2) ~ '%') if form_count > 0 else "N/A" }}
+    {{ vm['summary']['average_algae_accuracy'] }}
 </div>
 
 <div>Average Processor Accuracy:
-    {% set teleop_processor_accuracy = filtered_forms | map(attribute="teleop_processor_accuracy") | map("string") | map("replace", "%", "") | map("int") | sum %}
-    {{ ((teleop_processor_accuracy / form_count)|round(2) ~ '%') if form_count > 0 else "N/A" }}
+    {{ vm['summary']['average_processor_accuracy'] }}
 </div>
 
-    {{ header("Quantitative Data", 5, True) }}
+<div>Total L4 Scored:
+    {{ vm['summary']['total_L4'] }}
+</div>
 
-    <div>
+<div>Total L3 Scored:
+    {{ vm['summary']['total_L3'] }}
+</div>
+
+<div>Total L2 Scored:
+    {{ vm['summary']['total_L2'] }}
+</div>
+
+<div>Total L1 Scored:
+    {{ vm['summary']['total_L1'] }}
+</div>
+
+{{ header("Quantitative Data", 5, True) }}
+
+<div>
     <button class="btn btn-secondary btn-sm" onclick="toggleTable('teamquantitative')">Toggle Quantitative Data</button>
     <button class="btn btn-secondary btn-sm" onclick="exportTableToCSV('quantitative.csv', 'teamquantitative')">Export Quantitative Data to CSV</button>
-    </div>
+</div>
 
-    <br>
-    <div class="overflow-auto" id="teamquantitative-container">
-        <table class="table" id="teamquantitative">
-
+<br>
+<div class="overflow-auto" id="teamquantitative-container">
+{% if forms | length > 0 %}
+    <table class="table" id="teamquantitative">
         <thead>
             <tr>
-            {% for col in forms[0].keys() %}
-                <th scope="col">{{col}}</th>
-            {% endfor %}
-            </tr>
-        </thead>
-
-        <tbody>
-            {% for form in forms %}
-            <tr>
-                <td><a href="/form/2025/{{ form.get('_id') }}">{{ form.get("_id") }}</a></td>
-
-                {% for data in form %}
-                {% if not loop.first %}
-                    <td>{{form.get(data)}}</td>
-                {% endif %}
+                {% for col in forms[0].keys() %}
+                    <th scope="col">{{col}}</th>
                 {% endfor %}
             </tr>
+        </thead>
+        <tbody>
+            {% for form in forms %}
+                <tr>
+                    <td><a href="/form/2025/{{ form.get('_id') }}">{{ form.get("_id") }}</a></td>
+                    {% for data in form %}
+                        {% if not loop.first %}
+                            <td>{{form.get(data)}}</td>
+                        {% endif %}
+                    {% endfor %}
+                </tr>
             {% endfor %}
         </tbody>
-
-        </table>
-    </div>
+    </table>
+{% else %}
+    <h5>There is no data to pull from yet.</h5>
+{% endif %}
+</div>
 
 {{ header("Qualitative Data", 5, True) }}
 
@@ -84,30 +98,28 @@
 
 <br>
 <div class="overflow-auto" id="teamqualitative-container">
-    {% if quals | selectattr("team", "equalto", "{{vm.get('team')}}") | list | length > 0 %}
+{% if quals | length > 0 %}
     <table class="table" id="teamqualitative">
         <thead>
             <tr>
-            {% for col in quals[0].keys() %}
-                <th scope="col">{{col}}</th>
-            {% endfor %}
+                {% for col in quals[0].keys() %}
+                    <th scope="col">{{col}}</th>
+                {% endfor %}
             </tr>
         </thead>
         <tbody>
-            {% for qual in quals if qual.get("team") == "{{vm.get('team')}}" %}
-            <tr>
-                <td><a href="/form/qual/{{ qual.get('_id') }}">{{ qual.get("_id") }}</a></td>
-
-                {% for data in qual %}
-                    {% if not loop.first %}
-                    <td>{{qual.get(data)}}</td>
-                    {% endif %}
-                {% endfor %}
-                
-            </tr>
+            {% for qual in quals %}
+                <tr>
+                    <td><a href="/form/qual/{{ qual.get('_id') }}">{{ qual.get("_id") }}</a></td>
+                    {% for data in qual %}
+                        {% if not loop.first %}
+                            <td>{{qual.get(data)}}</td>
+                        {% endif %}
+                    {% endfor %}
+                </tr>
             {% endfor %}
         </tbody>
-        </table>
+    </table>
 {% else %}
     <h5>There is no data to pull from yet.</h5>
 {% endif %}
@@ -122,33 +134,31 @@
 
 <br>
 <div class="overflow-auto" id="teampits-container">
-    {% if pits | selectattr("team", "equalto", "{{vm.get('team')}}") | list | length > 0 %}
+{% if pits | length > 0 %}
     <table class="table" id="teampits">
         <thead>
             <tr>
-            {% for col in pits[0].keys() %}
-                <th scope="col">{{col}}</th>
-            {% endfor %}
+                {% for col in pits[0].keys() %}
+                    <th scope="col">{{col}}</th>
+                {% endfor %}
             </tr>
         </thead>
         <tbody>
-            {% for pit in pits if pit.get("team") == "{{vm.get('team')}}" %}
-            <tr>
-                <td><a href="/form/pit/{{ pit.get('_id') }}">{{ pit.get("_id") }}</a></td>
-
-                {% for data in pit %}
-                    {% if not loop.first %}
-                    <td>{{pit.get(data)}}</td>
-                    {% endif %}
-                {% endfor %}
-            </tr>
-        {% endfor %}
+            {% for pit in pits %}
+                <tr>
+                    <td><a href="/form/pit/{{ pit.get('_id') }}">{{ pit.get("_id") }}</a></td>
+                    {% for data in pit %}
+                        {% if not loop.first %}
+                            <td>{{pit.get(data)}}</td>
+                        {% endif %}
+                    {% endfor %}
+                </tr>
+            {% endfor %}
         </tbody>
-        </table>
+    </table>
 {% else %}
     <h5>There is no data to pull from yet.</h5>
 {% endif %}
-</div>
 </div>
 
     <script>

@@ -14,3 +14,6 @@ def get(id):
 
 def update(id, form):
   return db.update_one(collection, id, form)
+
+def find_by_team(team):
+  return db.find(collection, {"team": team})
