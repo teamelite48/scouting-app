@@ -216,6 +216,9 @@ def get_team_data():
 
     sorted_pits = sorted(pits.find_by_team(team), key=itemgetter("created_on"), reverse=True)
 
+    if team == "":
+        return ""
+
     if not sorted_forms and not sorted_quals and not sorted_pits:
         return "No data found for team " + team
 
