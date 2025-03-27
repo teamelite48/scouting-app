@@ -21,7 +21,7 @@
 
     {{ select("team", "Team Scouting", vm.options.team, vm.team ) }}
 
-    {{ select("starting_position", "Starting Position (Relative to Robot)", vm.options.starting_position, vm.starting_position ) }}
+    {{ select("starting_position", "Starting Position (Relative to Team)", vm.options.starting_position, vm.starting_position ) }}
 
     {{ header("Autonomous", 4, True) }}
 
@@ -46,10 +46,6 @@
     {{ counter("auto_coral_misses", "Coral MISSED", 0, 1000, vm.auto_coral_misses ) }}
 
     {{ header("Teleop", 4, True) }}
-
-    {{ select("coral_intake", "How can they pick up coral?", vm.options.coral_intake, vm.coral_intake ) }}
-
-    {{ select("algae_intake", "How can they pick up algae?", vm.options.algae_intake, vm.algae_intake ) }}
 
     {{ header("Teleop Notes", 6, False) }}
 
@@ -77,7 +73,11 @@
 
     {{ header("General Notes", 4, True) }}
 
-    {{ checkbox("defended", "Did they play defense?" ) }}
+    {{ select("coral_intake", "How can they pick up coral?", vm.options.coral_intake, vm.coral_intake ) }}
+
+    {{ select("algae_intake", "How can they pick up algae?", vm.options.algae_intake, vm.algae_intake ) }}
+
+    {{ checkbox("defended", "Did they play defense?", vm.defended ) }}
 
     {{ text_area("comments", "Other Comments or Notes", 4, vm.comments) }}
     <hr>

@@ -37,9 +37,9 @@ def get_form_options():
         "match_number": ["Practice"] + [f"Qualification {i}" for i in range(1, 101)],
         "starting_position": [
             "Not There",
-            "Left",
-            "Middle of Reef",
-            "Right"
+            "Barge side",
+            "Middle",
+            "Processor"
         ],
         "coral_intake": [
             "Does not pick up Coral",
@@ -244,7 +244,7 @@ def save_2025_form():
   total_L3 = int(form.get("teleop_L3_score") or 0) + int(form.get("auto_L3_score") or 0)
   total_L2 = int(form.get("teleop_L2_score") or 0) + int(form.get("auto_L2_score") or 0)
   total_L1 = int(form.get("teleop_L1_score") or 0) + int(form.get("auto_L1_score") or 0)
-
+  
   created_on = str(datetime.now())
   forms.add({
     "team": form.get("team"),
@@ -356,9 +356,9 @@ def update_2025_form(id):
     "team": form.get("team"),
     "match_number": form.get("match_number"),
     "scouter_name": form.get("scouter_name"),
-    "teleop_coral_accuracy": f"{teleop_coral_accuracy:.1%}",
-    "teleop_algae_accuracy": f"{teleop_algae_accuracy:.1%}",
-    "teleop_processor_accuracy": f"{teleop_processor_accuracy:.1%}",
+    "teleop_coral_accuracy": f"{teleop_coral_accuracy:.2%}",
+    "teleop_algae_accuracy": f"{teleop_algae_accuracy:.2%}",
+    "teleop_processor_accuracy": f"{teleop_processor_accuracy:.2%}",
     "total_coral_score": total_coral_score,
     "total_algae_score": total_algae_score,
     "total_processed": total_processed,
