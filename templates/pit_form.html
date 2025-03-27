@@ -27,23 +27,23 @@
 
     {{ select("coral_intake", "How can they pick up coral?", vm.options.coral_intake, vm.coral_intake ) }}
 
-    {{ checkbox("L4", "Can they score in L4?" ) }}
+    {{ checkbox("L4", "Can they score in L4?", vm.L4 ) }}
 
-    {{ checkbox("L3", "Can they score in L3?" ) }}
+    {{ checkbox("L3", "Can they score in L3?", vm.L3 ) }}
 
-    {{ checkbox("L2", "Can they score in L2?" ) }}
+    {{ checkbox("L2", "Can they score in L2?", vm.L2 ) }}
 
-    {{ checkbox("L1", "Can they score in L1?" ) }}
+    {{ checkbox("L1", "Can they score in L1?", vm.L1 ) }}
 
-    {{ checkbox("auto_move", "Can they move in auto?" ) }}
+    {{ checkbox("auto_move", "Can they move in auto?", vm.auto_move ) }}
 
-    {{ checkbox("auto_score", "Can they score in auto?" ) }}
+    {{ checkbox("auto_score", "Can they score in auto?", vm.auto_score ) }}
 
     {{ counter("auto_best_score", "What is their best score in auto?", 0, 1000, vm.auto_best_score ) }}
 
-    {{ checkbox("shallow", "Can Hang on Shallow Cage" ) }}
+    {{ checkbox("shallow", "Can Hang on Shallow Cage", vm.shallow ) }}
 
-    {{ checkbox("deep", "Can Hang on Deep Cage" ) }}
+    {{ checkbox("deep", "Can Hang on Deep Cage", vm.deep ) }}
 
     {{ text_area("comments", "Other Comments or Notes", 4, vm.comments) }}
 
