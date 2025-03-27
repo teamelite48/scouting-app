@@ -569,30 +569,31 @@ def load_pit_form(id):
 
 @app.route("/form/pit/<id>", methods=["POST"])
 @login_required
-def update_pit_form():
+def update_pit_form(id):
   form = request.form
   created_on = str(datetime.now())
-  pits.add({
-    # "photos": form.get("photos"),
-    "team": form.get("team"),
-    "scouter_name": form.get("scouter_name"),
-    "base": form.get("base"),
-    "dimensions": form.get("dimensions"),
-    "weight": form.get("weight"),
-    "algae_intake": form.get("algae_intake"),
-    "coral_intake": form.get("coral_intake"),
-    "L4": form.get("L4"),
-    "L3": form.get("L3"),
-    "L2": form.get("L2"),
-    "L1": form.get("L1"),
-    "auto_move": form.get("auto_move"),
-    "auto_score": form.get("auto_score"),
-    "auto_best_score": form.get("auto_best_score"),
-    "shallow": form.get("shallow"),
-    "deep": form.get("deep"),
-    "comments": form.get("comments"),
-    "updated_by": current_user.username,
-    "updated_on": created_on,
+  pits.update(id, 
+    {
+        # "photos": form.get("photos"),
+        "team": form.get("team"),
+        "scouter_name": form.get("scouter_name"),
+        "base": form.get("base"),
+        "dimensions": form.get("dimensions"),
+        "weight": form.get("weight"),
+        "algae_intake": form.get("algae_intake"),
+        "coral_intake": form.get("coral_intake"),
+        "L4": form.get("L4"),
+        "L3": form.get("L3"),
+        "L2": form.get("L2"),
+        "L1": form.get("L1"),
+        "auto_move": form.get("auto_move"),
+        "auto_score": form.get("auto_score"),
+        "auto_best_score": form.get("auto_best_score"),
+        "shallow": form.get("shallow"),
+        "deep": form.get("deep"),
+        "comments": form.get("comments"),
+        "updated_by": current_user.username,
+        "updated_on": created_on,
     })
 
   return redirect("/scouting_dashboard")
