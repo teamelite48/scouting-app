@@ -25,6 +25,8 @@
 
     {{ header("Autonomous", 4, True) }}
 
+    {{ checkbox("no_auto", "Did they have no auto?", vm.no_auto ) }}
+
     {{ header("Auto Notes", 6, False) }}
 
     {{ counter("auto_algae_score", "Algae SCORED in the net", 0, 18, vm.auto_algae_score ) }}
