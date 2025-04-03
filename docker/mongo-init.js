@@ -26,7 +26,6 @@ users.insertOne({
   "authenticated": false
 });
 
-
 users.insertOne({
   "username": "C",
   "password": "$2b$12$Lao7omDmMROC8wewoi9LmOrKsEJI/2Z75D802ILccBbhJmwIT3oxu", // team0048
@@ -51,46 +50,61 @@ users.insertOne({
 teams= app.getCollection("teams")
 
 teams.insertOne({ "name": "48" });
-teams.insertOne({ "name": "111" });
-teams.insertOne({ "name": "112" });
-teams.insertOne({ "name": "323" });
-teams.insertOne({ "name": "1739" });
-teams.insertOne({ "name": "1781" });
-teams.insertOne({ "name": "2022" });
-teams.insertOne({ "name": "2151" });
-teams.insertOne({ "name": "2338" });
-teams.insertOne({ "name": "2638" });
-teams.insertOne({ "name": "3023" });
-teams.insertOne({ "name": "3061" });
-teams.insertOne({ "name": "3067" });
-teams.insertOne({ "name": "3695" });
-teams.insertOne({ "name": "4096" });
-teams.insertOne({ "name": "4143" });
-teams.insertOne({ "name": "4296" });
-teams.insertOne({ "name": "4645" });
-teams.insertOne({ "name": "4702" });
-teams.insertOne({ "name": "4787" });
-teams.insertOne({ "name": "4863" });
-teams.insertOne({ "name": "5125" });
-teams.insertOne({ "name": "5822" });
-teams.insertOne({ "name": "7201" });
-teams.insertOne({ "name": "7560" });
-teams.insertOne({ "name": "8029" });
-teams.insertOne({ "name": "8096" });
-teams.insertOne({ "name": "8122" });
-teams.insertOne({ "name": "8863" });
-teams.insertOne({ "name": "8880" });
-teams.insertOne({ "name": "9280" });
-teams.insertOne({ "name": "9494" });
-teams.insertOne({ "name": "9654" });
-teams.insertOne({ "name": "9669" });
-teams.insertOne({ "name": "9692" });
-teams.insertOne({ "name": "10214" });
-teams.insertOne({ "name": "10226" });
-teams.insertOne({ "name": "10288" });
-teams.insertOne({ "name": "10435" });
-teams.insertOne({ "name": "10438" });
-teams.insertOne({ "name": "10458" });
+teams.insertOne({ "name": "120" });
+teams.insertOne({ "name": "128" });
+teams.insertOne({ "name": "291" });
+teams.insertOne({ "name": "677" });
+teams.insertOne({ "name": "695" });
+teams.insertOne({ "name": "1308" });
+teams.insertOne({ "name": "1405" });
+teams.insertOne({ "name": "1511" });
+teams.insertOne({ "name": "1559" });
+teams.insertOne({ "name": "1787" });
+teams.insertOne({ "name": "2172" });
+teams.insertOne({ "name": "2228" });
+teams.insertOne({ "name": "2252" });
+teams.insertOne({ "name": "2399" });
+teams.insertOne({ "name": "2603" });
+teams.insertOne({ "name": "3015" });
+teams.insertOne({ "name": "3173" });
+teams.insertOne({ "name": "3193" });
+teams.insertOne({ "name": "3260" });
+teams.insertOne({ "name": "3484" });
+teams.insertOne({ "name": "3777" });
+teams.insertOne({ "name": "3954" });
+teams.insertOne({ "name": "4050" });
+teams.insertOne({ "name": "4085" });
+teams.insertOne({ "name": "4121" });
+teams.insertOne({ "name": "4145" });
+teams.insertOne({ "name": "4269" });
+teams.insertOne({ "name": "4601" });
+teams.insertOne({ "name": "4611" });
+teams.insertOne({ "name": "4991" });
+teams.insertOne({ "name": "5413" });
+teams.insertOne({ "name": "5740" });
+teams.insertOne({ "name": "6181" });
+teams.insertOne({ "name": "6964" });
+teams.insertOne({ "name": "7165" });
+teams.insertOne({ "name": "7717" });
+teams.insertOne({ "name": "7885" });
+teams.insertOne({ "name": "8140" });
+teams.insertOne({ "name": "8145" });
+teams.insertOne({ "name": "8222" });
+teams.insertOne({ "name": "8243" });
+teams.insertOne({ "name": "8393" });
+teams.insertOne({ "name": "8713" });
+teams.insertOne({ "name": "8718" });
+teams.insertOne({ "name": "9139" });
+teams.insertOne({ "name": "9194" });
+teams.insertOne({ "name": "9545" });
+teams.insertOne({ "name": "9622" });
+teams.insertOne({ "name": "9643" });
+teams.insertOne({ "name": "9653" });
+teams.insertOne({ "name": "9767" });
+teams.insertOne({ "name": "10207" });
+teams.insertOne({ "name": "10208" });
+teams.insertOne({ "name": "10303" });
+teams.insertOne({ "name": "10582" });
 
 
 print('🏁 Finished seeding MongoDB');
