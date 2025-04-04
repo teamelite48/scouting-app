@@ -66,7 +66,7 @@
 
 {% macro button(label, type, value) %}
   <div class="d-grid gap-2 col-6 mx-auto">
-    <button class="btn btn-secondary btn-lg" type="{{type}}" {% if type == "submit" %}onclick="this.disabled=true; this.form.submit();"{% endif %}>{{label}}</button>
+    <button class="btn btn-secondary btn-lg" type="{{type}}" {% if type == "submit" %}onclick="this.disabled=true; setTimeout(() => this.disabled=false, 3000); this.form.submit();"{% endif %}>{{label}}</button>
   </div>
 {% endmacro %}
 
