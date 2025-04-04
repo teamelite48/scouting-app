@@ -33,7 +33,7 @@ def require_login():
 
 def get_form_options():
     return {
-        "team": list(map(lambda team: team["name"], teams.getAll())),
+        "team": sorted(list(map(lambda team: int(team["name"]), teams.getAll())) ),
         "match_number": ["Practice"] + [f"Qualification {i}" for i in range(1, 101)],
         "starting_position": [
             "Not There",
@@ -78,7 +78,7 @@ def login_page():
     return render_template("login.html")
 
 def get_teams():
-    return list(map(lambda team: team["name"], teams.getAll()))
+    return sorted(list(map(lambda team: int(team["name"]), teams.getAll())) )
 
 
 @app.route("/data", methods=["GET"])
@@ -106,7 +106,7 @@ def team_lookup():
 @app.route("/team/data", methods=["GET"])
 def get_team_data():
 
-    team = request.args.get("team")
+    team = sorted(request.args.get("team") )
 
     sorted_forms = sorted(forms.find_by_team(team), key=itemgetter("created_on"), reverse=True)
 
@@ -402,7 +402,7 @@ def update_2025_form(id):
 def get_qual_options():
     return {
         "match_number": ["Practice"] + [f"Qualification {i}" for i in range(1, 101)],
-        "team": list(map(lambda team: team["name"], teams.getAll()))
+        "team": sorted(list(map(lambda team: int(team["name"]), teams.getAll())) )
     }
 
 @app.route("/form/qual/new", methods=['GET'])
@@ -472,7 +472,7 @@ def update_super_scouting_form(id):
 
 def get_pit_options():
     return {
-        "team": list(map(lambda team: team["name"], teams.getAll())),
+        "team": sorted(list(map(lambda team: int(team["name"]), teams.getAll())) ),
         "coral_intake": [
             "Does not pick up Coral",
             "From the Ground",

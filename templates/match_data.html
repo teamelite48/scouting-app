@@ -58,36 +58,38 @@
 
 {{ header("Quantitative Data", 4, True) }}
 
-<button class="btn btn-secondary btn-sm" onclick="toggleTable('completedquantitative')">Toggle Quantitative Data</button>
-<button class="btn btn-secondary btn-sm" onclick="exportTableToCSV('quantitative.csv', 'completedquantitative')">Export Quantitative Data to CSV</button>
-<br>
-<div class="overflow-auto" id="quantitative-container">
-  {% if forms | length > 0 %}
-    <table class="table" id="completedquantitative">
-        <thead>
+<div>
+  <button class="btn btn-secondary btn-sm" onclick="toggleTable('completedquantitative')">Toggle Quantitative Data</button>
+  <button class="btn btn-secondary btn-sm" onclick="exportTableToCSV('quantitative.csv', 'completedquantitative')">Export Quantitative Data to CSV</button>
+  <br>
+  <div class="overflow-auto" id="quantitative-container">
+    {% if forms | length > 0 %}
+      <table class="table" id="completedquantitative">
+          <thead>
+            <tr>
+              {% for col in forms[0].keys() %}
+                  <th scope="col">{{col}}</th>
+              {% endfor %}
+            </tr>
+          </thead>
+          <tbody>
+          {% for form in forms %}
           <tr>
-            {% for col in forms[0].keys() %}
-                <th scope="col">{{col}}</th>
-            {% endfor %}
-          </tr>
-        </thead>
-        <tbody>
-        {% for form in forms %}
-        <tr>
-            <td><a href="/form/2025/{{ form.get('_id') }}">{{ form.get("_id") }}</a></td>
+              <td><a href="/form/2025/{{ form.get('_id') }}">{{ form.get("_id") }}</a></td>
 
-            {% for data in form %}
-              {% if not loop.first %}
-                <td>{{form.get(data)}}</td>
-              {% endif %}
-            {% endfor %}
-        </tr>
-        {% endfor %}
-        </tbody>
-      </table>
-  {% else %}
-    <h5>There is no data to pull from yet.</h5>
-  {% endif %}
+              {% for data in form %}
+                {% if not loop.first %}
+                  <td>{{form.get(data)}}</td>
+                {% endif %}
+              {% endfor %}
+          </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+    {% else %}
+      <h5>There is no data to pull from yet.</h5>
+    {% endif %}
+    </div>
 </div>
 
 {{ header("Qualitative Data", 4, True) }}
