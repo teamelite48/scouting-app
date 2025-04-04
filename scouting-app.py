@@ -103,7 +103,7 @@ def team_lookup():
 @app.route("/team/data", methods=["GET"])
 def get_team_data():
 
-    team = sorted(request.args.get("team") )
+    team = request.args.get("team")
 
     sorted_forms = sorted(forms.find_by_team(team), key=itemgetter("created_on"), reverse=True)
 
