@@ -77,16 +77,13 @@ def load_user(username):
 def login_page():
     return render_template("login.html")
 
-def get_teams():
-    return sorted(list(map(lambda team: int(team["name"]), teams.getAll())) )
-
 
 @app.route("/data", methods=["GET"])
 def match_data():
 
     vm = {
         "team": "",
-        "options": get_teams()
+        "options": teams.get_all_sorted()
     }
 
     sorted_forms = sorted(forms.getAll(), key=itemgetter("created_on"), reverse=True)
@@ -95,13 +92,13 @@ def match_data():
 
     sorted_pits = sorted(pits.getAll(), key=itemgetter("created_on"), reverse=True)
 
-    return render_template("match_data.html", vm=vm, pits=sorted_pits, quals=sorted_quals, forms=sorted_forms, teams=get_teams(), bag=get_bag() )
+    return render_template("match_data.html", vm=vm, pits=sorted_pits, quals=sorted_quals, forms=sorted_forms, teams=teams.get_all_sorted(), bag=get_bag() )
 
 
 @app.route("/team/lookup", methods=["GET"])
 def team_lookup():
 
-    return render_template("team_lookup.html", bag=get_bag(), teams=get_teams())
+    return render_template("team_lookup.html", bag=get_bag(), teams=teams.get_all_sorted())
 
 @app.route("/team/data", methods=["GET"])
 def get_team_data():
@@ -122,7 +119,7 @@ def get_team_data():
 
     vm = {
         "team": team,
-        "teams": get_teams(),
+        "teams": teams.get_all_sorted(),
         "summary": {
             "total_forms": len([form for form in sorted_forms if form.get('match_number') != "Practice"]),
             "average_coral_score": round(sum(form.get('total_coral_score', 0) for form in sorted_forms if form.get('match_number') != "Practice") / len([form for form in sorted_forms if form.get('match_number') != "Practice"]) if len([form for form in sorted_forms if form.get('match_number') != "Practice"]) != 0 else 0, 2),
@@ -402,7 +399,7 @@ def update_2025_form(id):
 def get_qual_options():
     return {
         "match_number": ["Practice"] + [f"Qualification {i}" for i in range(1, 101)],
-        "team": sorted(list(map(lambda team: int(team["name"]), teams.getAll())) )
+        "team": teams.get_all_sorted()
     }
 
 @app.route("/form/qual/new", methods=['GET'])
@@ -472,7 +469,7 @@ def update_super_scouting_form(id):
 
 def get_pit_options():
     return {
-        "team": sorted(list(map(lambda team: int(team["name"]), teams.getAll())) ),
+        "team": teams.get_all_sorted(),
         "coral_intake": [
             "Does not pick up Coral",
             "From the Ground",
