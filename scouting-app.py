@@ -28,7 +28,8 @@ login_manager.login_view = "login"
 @app.before_request
 def require_login():
     if not current_user.is_authenticated and request.endpoint not in ['login', 'login_page', 'static']:
-        return redirect('/login')
+        next_page = request.path
+        return redirect(f'/login?next={next_page}')
 
 
 def get_form_options():
@@ -141,7 +142,6 @@ def get_team_data():
     return render_template("team_data.html", vm=vm, bag=get_bag(), pits=sorted_pits, quals=sorted_quals, forms=sorted_forms)
 
 
-
 @app.route("/login", methods=["POST"])
 def login():
 
@@ -154,12 +154,10 @@ def login():
         user.authenticated = True
         users.save(user)
         login_user(user)
-        # next = flask.request.args.get("next")
-        # return flask.redirect(next or '/scouting-dashboard')
-        return redirect('/scouting_dashboard')
+        next_page = request.args.get("next")
+        return redirect(next_page or '/scouting_dashboard')
 
     return render_template("/login.html")
-
 
 @app.route("/logout", methods=["POST"])
 @login_required
