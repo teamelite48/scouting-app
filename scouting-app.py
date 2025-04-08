@@ -144,7 +144,8 @@ def get_team_data():
 @app.route("/login", methods=["POST"])
 def login():
 
-    user = users.find(request.form.get("username"))
+    username = request.form.get("username").lower()
+    user = users.find(username)
 
     formBytes = request.form.get("password").encode("UTF-8")
     userBytes = user.password.encode("UTF-8")
@@ -157,6 +158,7 @@ def login():
         return redirect(next_page or '/scouting_dashboard')
 
     return render_template("/login.html")
+
 
 @app.route("/logout", methods=["POST"])
 @login_required

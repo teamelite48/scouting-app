@@ -13,29 +13,15 @@ forms = app.getCollection("2025_forms");
 users = app.getCollection("users");
 
 users.insertOne({
-  "username": "A",
+  "username": "scouter",
   "password": "$2b$12$Lao7omDmMROC8wewoi9LmOrKsEJI/2Z75D802ILccBbhJmwIT3oxu", // team0048
   "admin": false,
   "authenticated": false
 });
 
 users.insertOne({
-  "username": "B",
-  "password": "$2b$12$Lao7omDmMROC8wewoi9LmOrKsEJI/2Z75D802ILccBbhJmwIT3oxu", // team0048
-  "admin": false,
-  "authenticated": false
-});
-
-users.insertOne({
-  "username": "C",
-  "password": "$2b$12$Lao7omDmMROC8wewoi9LmOrKsEJI/2Z75D802ILccBbhJmwIT3oxu", // team0048
-  "admin": false,
-  "authenticated": false
-});
-
-users.insertOne({
-  "username": "D",
-  "password": "$2b$12$Lao7omDmMROC8wewoi9LmOrKsEJI/2Z75D802ILccBbhJmwIT3oxu", // team0048
+  "username": "drive",
+  "password": "$2b$12$DnUR.0x3ZI3gaOTnI3aOfetkSNc2BKhlOhUiEq1fjx5ouFufIF3c6", // drive
   "admin": false,
   "authenticated": false
 });
