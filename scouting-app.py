@@ -58,7 +58,8 @@ def get_form_options():
             "Parked",
             "Cage Attempted",
             "Shallow Cage",
-            "Deep Cage"
+            "Deep Cage",
+            "BC Dot"
         ]
     }
 
